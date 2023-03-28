@@ -1,0 +1,213 @@
+.navbar {
+  box-shadow: none !important;
+  background: none !important;
+  border-bottom: 1px solid var(--border_color) !important;
+}
+
+.link-route {
+  text-decoration: none;
+  margin-right: 30px;
+  margin-left: 30px;
+  color: var(--body_color) !important;
+  font-weight: 600;
+  padding: 5px;
+}
+.custom-link-nav {
+  height: 40px !important;
+  align-items: center !important;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 10px;
+}
+.text-margin {
+  margin-left: 50px !important;
+  font-weight: 500 !important;
+}
+.button-margin {
+  margin-right: 70px !important;
+  font-weight: 500 !important;
+}
+.custom-link-nav:hover {
+  background: rgba(90, 90, 90, 0.171);
+}
+.box-100 {
+  width: 100% !important;
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+}
+.button-click {
+  color: var(--body_color) !important;
+  width: 100% !important;
+}
+.button-click:hover {
+  background: rgba(90, 90, 90, 0.171) !important;
+}
+
+.link-hover {
+  text-decoration: none;
+  height: 35px;
+  color: var(--body_color) !important;
+  font-weight: 600;
+}
+.navHoverBox {
+  position: relative;
+}
+
+.hoverSubmit {
+  height: 50px !important;
+  padding-bottom: 16px;
+}
+.navFocusBox {
+  position: absolute;
+  background: var(--body_background) !important;
+  color: var(--body_color) !important;
+  box-shadow: var(--box_shadow) 0px 1px 4px;
+  border: 1px solid var(--nav_border) !important;
+  background: var(--hover_background) !important;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 200px !important;
+  display: none !important;
+
+  z-index: 500;
+  transition: 0.3s !important;
+}
+.navHoverBox:hover .navFocusBox {
+  margin-top: 15px;
+  display: block !important;
+}
+
+.hoverBg {
+  display: flex;
+  align-items: center;
+  padding-left: 25px !important;
+}
+
+.hoverBg:hover {
+  background: rgba(187, 224, 226, 0.281);
+}
+
+.icon-box-custom {
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  justify-content: center;
+  margin-right: 5px;
+}
+
+.link-nav-icon {
+}
+
+.link-nav-icon:hover {
+  background: rgba(86, 119, 131, 0.281);
+}
+
+.MuiBox-root.css-1skoexv {
+  align-items: center !important;
+}
+.avatar {
+  font-size: 15px !important;
+}
+
+.avatarButton {
+  font-size: 10px !important;
+}
+
+.avatarButton {
+  font-size: 10px !important;
+}
+.DarkMode {
+  margin-right: 20px;
+}
+
+.toggle {
+  padding: 0 !important;
+  display: flex;
+}
+.text25 {
+  font-size: 22px !important;
+}
+
+.buttonClose {
+  width: 10px !important;
+  display: flex;
+  justify-content: flex-end !important;
+}
+
+.link-route-dower {
+  text-decoration: none;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  color: var(--body_color) !important;
+  font-weight: 600;
+  width: 100% !important;
+  border-bottom: 1px solid var(--nav_border) !important;
+}
+
+.link-route-dower:hover {
+  background: rgba(187, 224, 226, 0.281) !important;
+}
+
+.SubmitTextDower {
+  color: var(--body_color) !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  margin-top: 20px !important;
+  padding-left: 40px;
+}
+
+.backgroundDower {
+  height: 100%;
+  position: relative;
+}
+
+.box-bottom {
+  position: absolute;
+  bottom: 0px;
+  background: rgba(2, 30, 36, 0.212) !important;
+  width: 100% !important;
+  padding-bottom: 15px;
+  padding-top: 5px;
+}
+.icon-box-custom {
+  margin-right: 20px !important;
+}
+@media only screen and (max-width: 620px) {
+  .MuiBox-root.css-1skoexv {
+    margin-right: 0px !important;
+  }
+  .DarkMode {
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+  }
+
+  .dark_mode_label {
+    width: 60px;
+    height: 25px;
+  }
+  .dark_mode_label svg.moon {
+    width: 15px;
+  }
+
+  .dark_mode_label svg.sun {
+    width: 15px !important;
+  }
+  .dark_mode_label:after {
+    width: 20px;
+    height: 20px !important;
+  }
+
+  .dark_mode_input:checked + .dark_mode_label:after {
+    left: 57px;
+  }
+
+  .MuiAvatar-root.MuiAvatar-circular.MuiAvatar-colorDefault.avatar.css-2s90m6-MuiAvatar-root {
+    width: 30px;
+    height: 30px;
+  }
+}

@@ -1,0 +1,103 @@
+.SearchBar {
+  width: 90% !important;
+  /* height: ; */
+}
+.searchIconRef {
+  box-shadow: rgba(146, 146, 146, 0.02) 0 1px 3px 0;
+  border: 1px solid var(--border_color) !important;
+  width: 100% !important;
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 5px !important;
+}
+.w-100 {
+  width: 100% !important;
+  padding: 10px;
+}
+.fontIcon {
+  font-size: 30px !important;
+  width: 60px !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+input#custom-input-demo {
+  width: 80%;
+  box-shadow: rgba(146, 146, 146, 0.02) 0 1px 3px 0;
+  border: 0px;
+  border-left: 1px solid var(--border_color);
+  padding-left: 20px;
+  background: none;
+  color: var(--border_color);
+}
+
+label#outlined-select-currency-label {
+  color: var(--body_color) !important;
+}
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.selectGrid.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+  width: 150px !important;
+  height: 50px;
+  border: 1px solid var(--border_color) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.buttonText {
+  text-transform: none !important;
+  width: 100% !important;
+  color: var(--body_color) !important;
+  justify-content: flex-start;
+  padding-left: 15px !important;
+}
+.buttonIcon {
+  color: #0ea5e9 !important;
+}
+.MenuItemButton {
+  padding: 0px !important;
+  color: #0ea5e9 !important;
+}
+.buttonFilters {
+  text-transform: none !important;
+  width: 200px;
+  height: 50px !important;
+  border: 1px solid var(--border_color) !important;
+  color: var(--body_color) !important;
+}
+
+.linkTag {
+  text-decoration: none;
+  border: 1px solid var(--border_color) !important;
+  color: var(--body_color) !important;
+  padding: 3px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  border-radius: 15px;
+  margin-right: 5px;
+}
+
+.withTag {
+  width: fit-content;
+  height: 40px !important;
+  display: inline-block;
+}
+.boxTag {
+  margin-top: 30px;
+  text-align: left;
+}
+.w-100_cus {
+  width: 100% !important;
+}
+.d_flex_end {
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+.d_flex_start {
+  display: flex;
+  justify-content: flex-start;
+}
+@media only screen and (max-width: 991px) {
+  .buttonFilters {
+    width: 150px;
+  }
+}

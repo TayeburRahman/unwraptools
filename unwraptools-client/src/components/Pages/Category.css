@@ -1,0 +1,16 @@
+.spanCategory {
+  font-size: 12px;
+  margin-left: 5px;
+}
+.revert-medium {
+  font-family: revert !important;
+  font-weight: 800 !important;
+  font-size: 20px;
+}
+.colorLink {
+  color: var(--colorLink) !important;
+}
+
+.colorLinkIcon {
+  font-size: 17px !important;
+}

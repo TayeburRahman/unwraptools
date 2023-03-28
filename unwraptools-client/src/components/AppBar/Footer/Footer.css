@@ -1,0 +1,31 @@
+.link-footer-box {
+  display: grid;
+
+  justify-content: start !important;
+}
+
+.link-footer {
+  text-decoration: none !important;
+  color: var(--body_color) !important;
+  margin-bottom: 10px;
+}
+.padding-50 {
+  padding-bottom: 50px;
+}
+.icon-box {
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  border: 1px solid var(--border_color) !important;
+  justify-content: center;
+  margin-right: 5px;
+}
+.linkedIn {
+  color: rgb(0, 119, 181) !important;
+}
+.YouTub {
+  color: rgb(255, 0, 0) !important;
+}
+.Twitter {
+  color: rgb(0, 119, 181) !important;
+}

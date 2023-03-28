@@ -1,0 +1,113 @@
+/* common css  */
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.dp-grid {
+  display: grid;
+}
+
+.justifyContent {
+  justify-content: space-around !important;
+}
+.fontSize-40 {
+  font-size: 40px !important;
+}
+.dp-flex {
+  display: flex;
+  align-items: center;
+}
+
+/* ------------------------ */
+.dashboard-stat {
+  width: 100%;
+  height: 100% !important;
+  padding: 10px;
+  border-radius: 3px;
+}
+.dashboard_main_regd {
+  background: rgb(30, 154, 255);
+  text-decoration: none;
+  color: white;
+}
+
+.dashboard_main_subjects {
+  background: rgb(227, 66, 55);
+  text-decoration: none;
+  color: white;
+}
+
+.dashboard_main_classes {
+  background: rgb(231, 156, 52);
+  text-decoration: none;
+  color: white;
+}
+
+.dashboard_main_results {
+  background: rgb(31, 170, 103);
+  text-decoration: none;
+  color: white;
+}
+/* ---------------Header--------------------- */
+.borderredusnone {
+  border-radius: none !important;
+}
+
+.logOutButtonBoxHeader {
+  padding: 10px;
+  padding-top: 20px;
+  background: rgba(0, 156, 229, 0.151) !important;
+  border-radius: none !important;
+}
+/* -----------------button------------------- */
+
+.button-25 {
+  background-color: #3da5d4;
+  border: 1px solid #2a8387;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 1px;
+  color: #ffffff;
+  cursor: pointer;
+  display: block;
+  font-family: -apple-system, ".SFNSDisplay-Regular", "Helvetica Neue",
+    Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 100%;
+  margin: 0;
+  outline: 0;
+  padding: 10px 13px 10px;
+  text-align: center;
+  transition: box-shadow 0.05s ease-in-out, opacity 0.05s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+
+.button-25:hover {
+  box-shadow: rgba(255, 255, 255, 0.3) 0 0 2px inset,
+    rgba(0, 0, 0, 0.4) 0 1px 2px;
+  text-decoration: none;
+  transition-duration: 0.15s, 0.15s;
+}
+
+.button-25:active {
+  box-shadow: rgba(0, 0, 0, 0.15) 0 2px 4px inset, rgba(0, 0, 0, 0.4) 0 1px 1px;
+}
+
+.button-25:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button-25:disabled:active {
+  pointer-events: none;
+}
+
+.button-25:disabled:hover {
+  box-shadow: none;
+}

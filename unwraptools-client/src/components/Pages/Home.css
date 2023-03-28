@@ -1,0 +1,263 @@
+.background {
+  background: var(--body_background) !important;
+  color: var(--body_color) !important;
+}
+
+/* CSS */
+.button-6_1custom {
+  align-items: center;
+  background-color: #eef7f4;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.button-6_1custom:hover {
+  transform: translateY(-1px);
+  background-color: #0ea5e9;
+  color: white;
+}
+.BookmarkAddIcon {
+  width: 40%;
+  border-radius: 5px;
+  border: 1px solid #0ea5e9 !important;
+  height: 40px;
+  background: none !important;
+  color: #0ea5e9 !important;
+}
+
+.OpenInNewIcon {
+  width: 40%;
+  border-radius: 5px;
+  border: 1px solid #0ea5e9 !important;
+  height: 40px;
+  background: none !important;
+  background-color: #0ea5e9 !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.OpenInNewIcon:hover {
+  background-color: #0c88c2 !important;
+}
+.margin-r {
+  margin-right: 15px !important;
+}
+#OpenInNewIcon_Custom {
+  width: 100px !important;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.card {
+  background: none !important;
+  color: var(--body_color) !important;
+  border: 1px solid var(--border_color) !important;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0 !important;
+}
+
+.tagCard1 {
+  background-color: var(--tag-background);
+  width: fit-content;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 15px;
+  color: var(--body_color) !important;
+  border: 1px solid var(--border_color) !important;
+  font-size: 15px !important;
+  height: 25px;
+  margin-top: 10px;
+}
+
+.cardTagIcon {
+  font-size: 16px !important;
+}
+.custom-icon-size {
+  margin-right: 5px !important;
+}
+
+.icon_box_home {
+  justify-content: flex-end;
+}
+
+.revert {
+  font-family: revert !important;
+  font-weight: 800 !important;
+}
+.textBeg {
+  background: linear-gradient(270deg, #00e7e7 -42%, #006cab 98%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none !important;
+}
+
+.LogoNav {
+  font-size: 25px;
+  text-decoration: none;
+}
+
+.textTagNav {
+  text-align: left;
+  color: var(--body_color) !important;
+  font-size: 15px;
+  font-weight: 500;
+}
+.RouteLinkIcon {
+  font-size: 16px !important;
+}
+.routeLink {
+  text-decoration: none;
+  color: var(--body_color);
+}
+
+.routeLink:hover {
+  text-decoration: underline;
+  color: var(--body_color) !important;
+}
+.textDeg {
+  color: var(--delegable-color) !important;
+}
+.padding5 {
+  padding: 10px !important;
+}
+.textDes {
+  font-weight: 700 !important;
+  font-family: revert !important;
+  color: var(--body_color) !important;
+  font-size: 14px !important;
+}
+
+.textDesLarger {
+  font-weight: 700 !important;
+  font-family: revert !important;
+  color: var(--body_color) !important;
+  font-size: 20px !important;
+}
+.DesPText {
+  color: var(--body_color) !important;
+  font-family: revert !important;
+  font-weight: 400 !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.FolderOpenIcon {
+  color: var(--body_color) !important;
+  font-size: 25px !important;
+  margin-right: 10px;
+}
+.added_text {
+  font-size: 17px !important;
+  padding-top: 10px;
+}
+.link_similar_tools {
+  text-decoration: none;
+  width: fit-content;
+  display: inline-block;
+  padding-right: 25px;
+  color: var(--link_color) !important;
+}
+.BrowseAITools {
+  font-weight: 500 !important;
+  color: var(--body_color) !important;
+}
+
+.link_similar_tools:hover {
+  text-decoration: underline;
+}
+/* CSS */
+.button-6 {
+  align-items: center;
+  background-color: rgba(134, 134, 134, 0.021) !important;
+  border: 0.5px solid #0ea5e9;
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #0ea5e9;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.button-6:hover {
+  transform: translateY(-1px);
+}
+.w-100 {
+  padding: 0 !important;
+}
+
+@media only screen and (max-width: 620px) {
+  .box-mobile {
+    font-size: 12px;
+  }
+  .custom-icon-size {
+    font-size: 12px !important;
+    margin: 3px !important;
+  }
+  .icon_box_home {
+    justify-content: center;
+    margin-top: 20px !important;
+  }
+  .icon-box {
+    height: 30px;
+    width: 30px;
+  }
+  .icon-site {
+    font-size: 20px !important;
+  }
+  .icon_box_left {
+    justify-content: center;
+  }
+  .fontSize-35_mt_10 {
+    font-size: 35px !important;
+    margin-top: 10px !important;
+  }
+  .fontSize-14_mt_10 {
+    font-size: 14px !important;
+    margin-top: 10px !important;
+  }
+  .mt-rev {
+    padding-top: 10px !important;
+  }
+  .text-12-sm {
+    font-size: 12px !important;
+  }
+}

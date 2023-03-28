@@ -1,0 +1,79 @@
+.width100 {
+  width: 100% !important;
+}
+
+.paddingRight {
+  padding-right: 10px !important;
+}
+
+.Paper {
+  background: var(--body_background) !important;
+  color: var(--body_color) !important;
+  border: 1px solid var(--border_color) !important;
+  border-radius: 5px;
+}
+
+input#outlined-adornment-weight {
+  background: var(--body_background) !important;
+  color: var(--body_color) !important;
+  border: 1px solid var(--border_color) !important;
+  border-radius: 5px;
+}
+
+.ql-container.ql-snow {
+  border: 1px solid var(--border_color) !important;
+  border-end-start-radius: 5px;
+  border-end-end-radius: 5px;
+}
+.ql-toolbar.ql-snow {
+  border: 1px solid var(--border_color) !important;
+}
+
+span.MuiStepLabel-label.Mui-active.css-1hv8oq8-MuiStepLabel-label {
+  color: var(--body_color) !important;
+  font-weight: 500;
+}
+span.MuiStepLabel-label.Mui-completed.css-1hv8oq8-MuiStepLabel-label {
+  color: var(--border_color) !important;
+  font-weight: 500;
+}
+span.MuiStepLabel-label.Mui-disabled.css-1hv8oq8-MuiStepLabel-label {
+  color: var(--border_color) !important;
+  font-weight: 500;
+}
+
+ul#tags-standard-listbox {
+  background: var(--hover_background) !important;
+  color: var(--body_color) !important;
+}
+.colorTheme {
+  background: var(--hover_background) !important;
+  color: var(--body_color) !important;
+}
+
+.MuiButtonBase-root.MuiChip-root.MuiChip-filled.MuiChip-sizeMedium.MuiChip-colorDefault.MuiChip-deletable.MuiChip-deletableColorDefault.MuiChip-filledDefault.MuiAutocomplete-tag.MuiAutocomplete-tagSizeMedium.css-1q79v3g-MuiButtonBase-root-MuiChip-root {
+  color: var(--link_color) !important;
+  border: 1px solid var(--border_color) !important;
+}
+
+svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiChip-deleteIcon.MuiChip-deleteIconMedium.MuiChip-deleteIconColorDefault.MuiChip-deleteIconFilledColorDefault.css-i4bv87-MuiSvgIcon-root {
+  color: var(--border_color) !important;
+}
+
+input#tags-standard {
+  color: var(--body_color) !important;
+}
+
+label#tags-standard-label {
+  color: var(--body_color) !important;
+}
+
+/* svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root {
+  color: var(--border_color) !important;
+} */
+
+@media only screen and (max-width: 990px) {
+  .paddingRight {
+    padding-right: 0px !important;
+  }
+}
