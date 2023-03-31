@@ -5,9 +5,12 @@ import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import GroupIcon from '@mui/icons-material/Group';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import SellIcon from '@mui/icons-material/Sell';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import { Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -146,10 +149,10 @@ function Homes() {
                             <Card className='card mb-3' sx={{ maxWidth: 345 }}>
                                 <CardMedia
                                     sx={{ height: 140 }}
-                                    image="https://i.ibb.co/YRW7TtM/f2d4185d453b97f131031702e80177a45e238730-1858x915.webp"
+                                    image={tool?.imageURL}
                                     title="green iguana"
                                 />
-                                <CardContent>
+                                <CardContent sx={{paddingBottom: '0'}}>
                                   <Link to={`/tool/${tool?._id}`} className='CardLink'>
                                   <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
                                         <Box>
@@ -166,10 +169,23 @@ function Homes() {
                                          {tool?.short_description}
                                     </Typography>
                                     <Box>
-                                        <Box className="tagCard1">
-                                            <LockOpenIcon className='cardTagIcon' />
-                                            Free Trial
-                                        </Box>
+                                    <Grid container className='mt-2'>
+                                   {
+                                        tool?.price?.map((data, idx) =>(
+                                       <Grid item className='m-2'> 
+                                         <Typography className="tagCard1">
+                                         {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}  
+                                       {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}  
+                                       {data === "Free" && <TaskAltIcon className='cardTagIcon' />}  
+                                       {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}  
+                                       {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}  
+                                       {data === "Deals" && <SellIcon className='cardTagIcon' />}  
+                                       {data} 
+                                         </Typography>
+                                    </Grid>
+                                        ))
+                                    }
+                                   </Grid>
                                     </Box>
                                   </Link>
                                 </CardContent>

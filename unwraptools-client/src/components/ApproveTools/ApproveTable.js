@@ -90,7 +90,7 @@ console.log(allTools)
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                               <span className='d-flex-jc-ac'>  <img src={tool?.websiteURL} width="80px" /> </span>
+                               <span className='d-flex-jc-ac'>  <img src={tool?.imageURL} width="80px" /> </span>
                             </TableCell>
                             <TableCell align="right"> 
                             <span className='d-flex-jc-ac'> {tool?.tool_name} </span>

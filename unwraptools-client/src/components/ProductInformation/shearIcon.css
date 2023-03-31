@@ -1,5 +1,9 @@
 .shearIcon {
   border-radius: 50px;
+  min-width: fit-content !important;
+}
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  min-width: fit-content !important;
 }
 
 /* CSS */

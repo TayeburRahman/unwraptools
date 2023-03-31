@@ -6,10 +6,9 @@ const toolsModels = require("../models/tools.models");
 //  response  
 const createTool = async (req, res ) => {   
     try {  
-      const {tool_name, websiteURL, short_description, user_email, description, categories, features, price, startingPrice, associated} = req?.body     
-
-      console.log(tool_name, websiteURL, short_description, user_email, description, categories, features, price, startingPrice, associated)
-      const tools = await  toolsModels.create({tool_name, user_email ,websiteURL, short_description,  description, categories, features, price, startingPrice, associated})  
+      const {tool_name, websiteURL, short_description, user_email, description, categories, features, price, startingPrice, associated, imageURL} = req?.body     
+ 
+      const tools = await  toolsModels.create({tool_name, user_email ,websiteURL, short_description,  description, categories, features, price, startingPrice, associated, imageURL})  
       
      console.log(tools)
      return res.status(200).json({ 
@@ -130,9 +129,7 @@ const approveTool = async (req, res ) => {
  } catch (error) {
    return res.status(500).json({status: "error", message: error})
  }
- 
 }
-
 
 const deleteTool = async (req, res ) => {   
   try {   
@@ -148,69 +145,16 @@ const deleteTool = async (req, res ) => {
    return res.status(500).json({status: "error", message: error})
  } 
 }
-
-
-
-
-
-
-
+ 
 
 
 const ToolsSearchFilter = async (req, res ) => {   
 
   try {
  
-    const search = req.query.search || "";
-    let price = req.query.pricing || "All";
-    let features = req.query.features || "All";
-    let years = req.query.years 
-
-    const priceOptions = [ 'Free', 'Freemium', 'Free Trial', 'Paid',  'Contact for Pricing',  "Deals",];
-
-    price === "All"
-      ? (price = [...priceOptions])
-      : (price = req.query?.price);
-
-
-      // price === "All"
-      // ? (price = [...priceOptions])
-      // : (price = req.query.price.split(","));
-
-    let product = toolsModels.find({ tool_name: { $regex: search, $options: "i" } })
-
-    if (years == 0) { 
-      product = product
-        .where("price")
-        .in([...price])  
-    } else { 
-        product = product
-        .where("price")
-        .in([...price])  
-        .where({ year: years }); 
-
-    }
-
-    product = await product
-
-    const total = await toolsModels.countDocuments({
-      price: { $in: [...price] },
-      tool_name: { $regex: search, $options: "i" },
-      year: { $eq: years },
-    });
-
-
-console.log(total);
-    const response = {
-      status: "success",
-      total,  
-      price: priceOptions,
-      product,
-    };
-
-    res.status(200).json(response);
+     
   } catch (err) {
-    console.log(err);
+    
     res.status(500).json({ massages: "Internal Server Error" });
   }
 }

@@ -2,12 +2,11 @@ const newsModels = require("../models/news.models");
 
 const createNews = async (req, res ) => {   
     try {  
-      const {news_name, contentLink, user_email, categories, imageURL } = req?.body     
-
+      const {news_name, contentLink, user_email, categories, imageURL } = req?.body   
+ 
       console.log(news_name, contentLink, user_email, categories)
       const news = await  newsModels.create({news_name, contentLink, user_email, categories, imageURL})  
-      
-     console.log(news)
+       
      return res.status(200).json({ 
         news,
       status: "success",
