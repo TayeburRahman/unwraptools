@@ -97,7 +97,7 @@ function NavBar() {
                 <Link to="/submit-tool" className="link-hover hoverBg p-0">
                   Submit Tool
                 </Link>
-                <Link to="/" className="link-hover hoverBg">
+                <Link to="/submit-news" className="link-hover hoverBg">
                   Submit News
                 </Link>
               </Box>

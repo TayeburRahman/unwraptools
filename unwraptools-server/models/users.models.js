@@ -14,7 +14,7 @@ const usersModels = new mongoose.Schema(
                 type: String,
                 trim: true,
                 lowercase: true,
-                unique: true,
+                // unique: true,
                 // validate:[validator.isEmail, "Provided email is not valid."],
                 // required:[true, "Email address is require"]
             }, 

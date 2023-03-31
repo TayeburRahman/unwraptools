@@ -3,6 +3,11 @@
   color: var(--body_color) !important;
 }
 
+.CardLink {
+  text-decoration: none;
+  color: var(--body_color) !important;
+}
+
 /* CSS */
 .button-6_1custom {
   align-items: center;

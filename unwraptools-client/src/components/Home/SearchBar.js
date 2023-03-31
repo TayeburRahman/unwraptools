@@ -7,7 +7,13 @@ import './home.css';
 const options = ['Option 1', 'Option 2'];
  
 
-export default function SearchBar() {
+export default function SearchBar({setSearch}) {
+
+  const HandelOnChangeSearch = (value) => {
+    setSearch(value);
+    
+  };
+
   return (
     <label className='w-100'> 
       <Autocomplete
@@ -27,9 +33,7 @@ export default function SearchBar() {
         renderInput={(params) => (
           <div className='searchIconRef' ref={params.InputProps.ref}>
             <SearchIcon className='fontIcon' />  
-            <input className='SearchBar' placeholder="Search 1384 AI tools and 50 categories" type="text" {...params.inputProps} />
-
-            
+            <input className='SearchBar' onChange={HandelOnChangeSearch(params?.inputProps?.value)} placeholder="Search 1384 AI tools and 50 categories" type="text" {...params.inputProps}  /> 
           </div>
         )}
       />

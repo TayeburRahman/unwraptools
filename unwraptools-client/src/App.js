@@ -12,13 +12,14 @@ import ManageResult from './components/dashboard/ManageResult';
 import ManageTools from './components/dashboard/ManageTools';
 import ManageUsers from './components/dashboard/ManageUsers';
 import Paperbase from './components/dashboard/Paperbase';
-import StudentsAdmission from './components/dashboard/StudentsAdmission';
-import SubmitTool from './components/Home/SubmitTool';
+import ToolInformation from './components/dashboard/ToolInformation';
 import Categories from './components/Pages/Categories';
 import Discover from './components/Pages/Discover';
 import Favorites from './components/Pages/Favourites';
 import Homes from './components/Pages/Home';
 import ProductInformation from './components/Pages/ProductInformation';
+import SubmitNews from './components/Pages/SubmitNews/SubmitNews';
+import SubmitTool from './components/Pages/SubmitTool';
 import useAuthCheck from './hooks/useAuthCheck';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
@@ -38,6 +39,7 @@ function App() {
              <Route path="/categories" element={<PrivateRoute> <Categories/></PrivateRoute>}/>  
              <Route path="/tool/explore" element={<PrivateRoute> <Discover/> </PrivateRoute>}/>  
              <Route path="/submit-tool" element={<PrivateRoute> <SubmitTool/> </PrivateRoute>}/>  
+             <Route path="/submit-news" element={<PrivateRoute> <SubmitNews/> </PrivateRoute>}/>  
              <Route path="/user/favourites" element={<PrivateRoute> <Favorites/> </PrivateRoute>}/> 
              <Route path="dashboard" element={  
                 <PrivateRoute>
@@ -47,16 +49,13 @@ function App() {
                 <PrivateRoute> 
                    <DashboardMain/> 
                 </PrivateRoute> } />  
-               <Route path='authentication' element={<Content/>} />  
-               <Route path='admission' element={
-               <PrivateRoute> 
-                 <StudentsAdmission/> 
-                </PrivateRoute> } /> 
+               <Route path='authentication' element={<Content/>} />   
                <Route path='manage_tools' element={<ManageTools/>} /> 
                <Route path='manage_news' element={<ManageNews/>} /> 
                <Route path='approve_news' element={<ApproveNews/>} /> 
                <Route path='approve_tools' element={<ApproveTools/>} /> 
                <Route path='manage_users' element={<ManageUsers/>} /> 
+               <Route path='tool/:toolId' element={<ToolInformation/>} /> 
                <Route path='admin_profile' element={<AdminProfile/>} /> 
                <Route path='manage_result' element={<ManageResult/>} /> 
                <Route path='database' element={<Database />} />  

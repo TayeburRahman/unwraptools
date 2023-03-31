@@ -18,6 +18,8 @@ connectDB()
 
 /* Use Routes  */
 app.use('/api/v1/user', require("./router/users.router"));
+app.use('/api/v1/tool', require("./router/tools.router"));
+app.use('/api/v1/news', require("./router/news.router"));
 
 
 /* testing api  */

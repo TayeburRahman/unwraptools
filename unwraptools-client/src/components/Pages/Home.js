@@ -8,6 +8,7 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import { Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -15,20 +16,67 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Box, Container } from '@mui/system';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../AppBar/Footer/Footer';
 import NavBar from '../AppBar/NavBar';
-import SearchBar from '../Home/SearchBar';
-import SearchFilters from '../Home/SearchFilters';
 
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import TagHome from '../Home/TagHome';
+import useAuth from '../../Firebase/Hooks/useAuth';
+import SearchSystem from '../Home/SearchSystem';
 import './Home.css';
 
 function Homes() {
+
+    const [tools ,setTools] = useState([])
+    const [status ,setStatus] = useState(0)
+
+    const {user}=useAuth()
+
+    useEffect(()=>{ 
+        axios.get('http://localhost:5000/api/v1/tool/getActiveTool')
+        .then(res => {
+          if (res.status === 200) {
+            // console.log('sssss',res?.data)
+            setTools(res?.data?.tools)
+          }else{
+            console.log(res)
+          }
+        })
+      },[status])
+ 
+
+
+      const HandleBookmark = (id, bookMark)=>{ 
+        const email = user?.email 
+
+        if(bookMark){
+            axios.put(`http://localhost:5000/api/v1/tool/removebookmark/${id}`,{email})
+            .then(res => {
+              if (res.status === 200) {
+                // console.log('sssss',res?.data)
+                setStatus( status === 1? 0:1)
+              }else{
+                console.log(res)
+              }
+            })
+        }else{
+        axios.put(`http://localhost:5000/api/v1/tool/addbookmark/${id}`,{email})
+        .then(res => {
+          if (res.status === 200) {
+            // console.log('sssss',res?.data)
+            setStatus( status === 1? 0:1)
+          }else{
+            console.log(res)
+          }
+        })
+        }
+ 
+      }
+
     return (
         <Box className='theme' >
             <NavBar />
@@ -64,15 +112,10 @@ function Homes() {
                                 </Link>
                                 <Link className="d-flex icon-box">
                                     <YouTubeIcon className='YouTub icon-site' sx={{color: "rgb(255, 0, 0)"}} />
-                                </Link>
-
+                                </Link> 
                             </Grid>
                         </Grid>
-                    </Grid>
-
-
-
-
+                    </Grid> 
                 </Container>
             </Box>
             <Box>
@@ -94,35 +137,33 @@ function Homes() {
                         </Typography>
                     </Grid>
                     <Grid>
-                        <Box>
-                            <TagHome/>
-                        </Box>
-                        <SearchBar />
-                        <SearchFilters />
+                        <SearchSystem/>
                     </Grid>
                     <Grid container mt={5}>
-                        <Grid item>
-                            <Card className='card' sx={{ maxWidth: 345 }}>
+                         {
+                            tools?.map((tool, idx)=>(
+                          <Grid item xs={12} md={6} lg={4}>
+                            <Card className='card mb-3' sx={{ maxWidth: 345 }}>
                                 <CardMedia
                                     sx={{ height: 140 }}
                                     image="https://i.ibb.co/YRW7TtM/f2d4185d453b97f131031702e80177a45e238730-1858x915.webp"
                                     title="green iguana"
                                 />
                                 <CardContent>
-                                    <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
+                                  <Link to={`/tool/${tool?._id}`} className='CardLink'>
+                                  <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
                                         <Box>
                                             <Typography className='revert' gutterBottom variant="h5" component="div">
-                                                Lizard
+                                                {tool?.tool_name}
                                             </Typography>
                                         </Box>
                                         <Box>
-                                            <BookmarkAddedIcon />
-                                            5
+                                            <TurnedInNotIcon />
+                                            {tool?.favourite?.length}
                                         </Box>
                                     </Box>
                                     <Typography className='text-left' variant="body2"  >
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                         {tool?.short_description}
                                     </Typography>
                                     <Box>
                                         <Box className="tagCard1">
@@ -130,13 +171,16 @@ function Homes() {
                                             Free Trial
                                         </Box>
                                     </Box>
+                                  </Link>
                                 </CardContent>
                                 <CardActions sx={{ justifyContent: "space-between" }}>
-                                    <Link to="/tool/1212" size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
-                                    <Button size="small" className='BookmarkAddIcon'><BookmarkAddIcon /></Button>
+                                    <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
+                                    <Button size="small" onClick={e => HandleBookmark(tool?._id, tool?.bookMark)} className='BookmarkAddIcon'>{tool?.bookMark ===true?  <BookmarkAddedIcon />:<BookmarkAddIcon />}</Button>
                                 </CardActions>
                             </Card>
                         </Grid>
+                            ))
+                         }
                     </Grid>
                 </Container>
             </Box>

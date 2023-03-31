@@ -1,0 +1,8 @@
+.d-flex-jc-ac {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.text-bold {
+  font-weight: bold;
+}
