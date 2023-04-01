@@ -39,8 +39,7 @@ function ProductInformation() {
     useEffect(() => { 
         axios.get("http://localhost:5000/api/v1/tool/randomTool")
             .then(res => {
-                if (res.status === 200) {
-                    console.log('sssss', res?.data?.tool)
+                if (res.status === 200) { 
                     setTools(res?.data?.tool)
                 } else {
                     console.log(res)
