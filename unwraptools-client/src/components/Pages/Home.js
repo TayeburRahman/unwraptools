@@ -82,7 +82,6 @@ function Homes() {
             console.log(res)
           }
         })
-<<<<<<< HEAD
       },[status, selectCategory, pricing])
  
 
@@ -113,10 +112,6 @@ function Homes() {
         }
  
       }
-=======
-      },[status])
-  
->>>>>>> f8fbb014ad2f186619c2091d87fc3250078b18cd
 
     return (
         <Box className='theme' >
