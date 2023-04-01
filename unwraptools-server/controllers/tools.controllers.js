@@ -68,12 +68,12 @@ const BookmarkTool = async (req, res) => {
 
       console.log("response", response)
 
-      return res.status(200).json({
+      return res.status(201).json({
         response,
         status: "success",
         message: 'Tools Remove Bookmark Success'
       }); 
-      
+
     } else { 
 
       const response = await toolsModels.findOneAndUpdate(
@@ -99,13 +99,23 @@ const BookmarkTool = async (req, res) => {
   }
 }
 
+ 
 
-const removeBookmarkTool = async (req, res) => {
+ 
 
-  const { email } = req.body;
+const BookmarkExistingUser = async (req, res) => {
   try {
+    const email = req.params.email;
+    const id = req.params.toolId;
 
+    console.log('Bookmark', req.params.toolId, email)
+    const ExistingUser = await toolsModels.findOne({ $and: [{_id: id}, {favourite: email}]}); 
 
+    return res.status(200).json({
+      ExistingUser,
+      status: "success",
+      message: 'ExistingUser Find Success'
+    });
   } catch (error) {
     return res.status(500).json({ status: "error", message: error })
   }
@@ -173,4 +183,4 @@ const ToolsSearchFilter = async (req, res) => {
   }
 }
 
-module.exports = { createTool, findInactiveTool, approveTool, deleteTool, findTool, findActiveTool, BookmarkTool, ToolsSearchFilter, removeBookmarkTool }
+module.exports = { createTool, findInactiveTool, approveTool, deleteTool, findTool, findActiveTool, BookmarkTool, ToolsSearchFilter, BookmarkExistingUser }

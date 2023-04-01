@@ -224,6 +224,7 @@ function StepTwo(props) {
                     {responseMessage}
                 </Alert>
             </Snackbar>
+            
             <Snackbar open={openError} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                     {responseMessage}

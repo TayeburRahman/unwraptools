@@ -47,9 +47,7 @@ function ProductInformation() {
                     console.log(res)
                 }
             })
-    }, [Id, status])
-
-
+    }, [Id, status]) 
 
     const HandleBookmark = (id, bookMark)=>{ 
         const email = user?.email 
@@ -88,7 +86,7 @@ function ProductInformation() {
                             <span>  <EastIcon className='RouteLinkIcon' /> </span>
                             <Link className='routeLink'> Category</Link>
                             <span> <EastIcon className='RouteLinkIcon' /> </span>
-                            <text className='textDeg'>Name</text>
+                            <text className='textDeg'> {tools?.tool_name}</text>
                         </Box>
                         <Grid container>
                             <Grid item xs={7} lg={6} md={6} className="padding5" >

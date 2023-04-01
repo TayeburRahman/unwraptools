@@ -1,7 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
-import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import GroupIcon from '@mui/icons-material/Group';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
@@ -13,7 +11,6 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import { Grid, Typography } from '@mui/material';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -30,14 +27,18 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import useAuth from '../../Firebase/Hooks/useAuth';
 import SearchSystem from '../Home/SearchSystem';
+import BookmarkButton from './BookmarkButton';
 import './Home.css';
 
 function Homes() {
 
     const [tools ,setTools] = useState([])
-    const [status ,setStatus] = useState(0)
+    const [status ,setStatus] = useState(0) 
 
     const {user}=useAuth()
+    const email = user?.email
+
+    
 
     useEffect(()=>{ 
         axios.get('http://localhost:5000/api/v1/tool/getActiveTool')
@@ -50,35 +51,7 @@ function Homes() {
           }
         })
       },[status])
- 
-
-
-      const HandleBookmark = (id, bookMark)=>{ 
-        const email = user?.email 
-
-        if(bookMark){
-            axios.put(`http://localhost:5000/api/v1/tool/removebookmark/${id}`,{email})
-            .then(res => {
-              if (res.status === 200) {
-                // console.log('sssss',res?.data)
-                setStatus( status === 1? 0:1)
-              }else{
-                console.log(res)
-              }
-            })
-        }else{
-        axios.put(`http://localhost:5000/api/v1/tool/addbookmark/${id}`,{email})
-        .then(res => {
-          if (res.status === 200) {
-            // console.log('sssss',res?.data)
-            setStatus( status === 1? 0:1)
-          }else{
-            console.log(res)
-          }
-        })
-        }
- 
-      }
+  
 
     return (
         <Box className='theme' >
@@ -166,7 +139,7 @@ function Homes() {
                                         </Box>
                                     </Box>
                                     <Typography className='text-left' variant="body2"  >
-                                         {tool?.short_description}
+                                         {tool?.short_description?.slice(0, 100)}
                                     </Typography>
                                     <Box>
                                     <Grid container className='mt-2'>
@@ -189,15 +162,17 @@ function Homes() {
                                     </Box>
                                   </Link>
                                 </CardContent>
+
                                 <CardActions sx={{ justifyContent: "space-between" }}>
-                                    <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
-                                    <Button size="small" onClick={e => HandleBookmark(tool?._id, tool?.bookMark)} className='BookmarkAddIcon'>{tool?.bookMark ===true?  <BookmarkAddedIcon />:<BookmarkAddIcon />}</Button>
+                                    <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link> 
+                                     <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email}/>
                                 </CardActions>
                             </Card>
                         </Grid>
                             ))
                          }
                     </Grid>
+                    
                 </Container>
             </Box>
             <Footer />
