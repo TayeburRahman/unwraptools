@@ -35,7 +35,7 @@ function Homes() {
     const [tools ,setTools] = useState([])
     const [status ,setStatus] = useState(0) 
 
-    const [selectCategory, setSelectCategory] = useState(["art"]);
+    const [selectCategory, setSelectCategory] = useState(['art']);
     const [sort, setSortBy] = useState(null);
     const [pricing, setPricing] = useState([]);
     const [features, setFeatures] = useState([]);
@@ -59,26 +59,27 @@ function Homes() {
 
         if(selectCategory?.length > 0){
 
-            if(pricing?.length > 0 || features?.length > 0 || sort ){
-                url = `${url}&${selectCategory?.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+            if(pricing?.length > 0 || features?.length > 0 || sort){
+                url = `${url}${selectCategory?.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
             }
-                url = `${url}?${selectCategory?.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+             else{
+                 url = `${url}?${selectCategory?.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+             }  
 
         }
 
-        if(pricing?.length > 0){
-            if(pricing?.length > 0 || features?.length > 0 || sort ){
-
-                url = `${url}&${pricing.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+        if(pricing?.length > 0 ){
+            if(features?.length > 0 || sort || selectCategory?.length > 0 ){
+                url = `${url}${pricing.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
             }else{
-
                 url = `${url}?${pricing.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
             }
         }
+
         if(features?.length > 0){
-            if(pricing?.length > 0 || features?.length > 0 || sort ){
+            if(pricing?.length > 0 || sort || selectCategory?.length > 0 ){
             
-                url = `${url}&${features.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+                url = `${url}${features.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
             }else{
 
                 url = `${url}?${features.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
@@ -87,13 +88,15 @@ function Homes() {
 
         if(sort){
             if(pricing?.length > 0 || features?.length > 0 || selectCategory?.length > 0 ){
-                url = `${url}&sort=${sort}`
+                url = `${url}sort=${sort}`
             }else{
                 url = `${url}?sort=${sort}`
             }
         }
          
       console.log("url", url)
+
+      
         axios.get(url) 
         .then(res => {
           if (res.status === 200) {
@@ -103,7 +106,7 @@ function Homes() {
             console.log(res)
           }
         })
-      },[status, selectCategory, pricing])
+      },[status, selectCategory,features, pricing, sort])
  
 
 

@@ -220,13 +220,20 @@ const deleteTool = async (req, res) => {
 };
 
 
+const searchTools = async (req, res) => {
+    const query = req.query.q; // the search query passed in the request URL
+    try {
+      const results = await MyModel.find({ $text: { $search: query } }); // search for documents that match the query
+      res.json(results);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  };
 
 const ToolsSearchFilter = async (req, res) => {
   // Waitlist,Mobile App,API,Browser Extension,Open Source,Discord Community,No Signup Required
-
   //--------------------------------------------------------------
   //CATEGORY ID
-
 //   const params = req?.params?.id;
 
   let categories = [];
@@ -387,4 +394,5 @@ module.exports = {
   BookmarkExistingUser,
   randomGetTool,
   BookmarkUserData,
+  searchTools
 };
