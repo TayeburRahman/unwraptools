@@ -5,11 +5,13 @@ import SearchBar from './SearchBar'
 import SearchFilters from './SearchFilters'
 import TagHome from './TagHome'
 
-function SearchSystem() {
+function SearchSystem(props) {
+    const {pricing, setPricing} = props;
+
     const [ status, setStatus] =  useState(1);
     const [search, setSearch] = useState("");
     const [sort, setSortBy] = useState("");
-    const [pricing, setPricing] = useState([]);
+    // const [pricing, setPricing] = useState([]);
     const [features, setFeatures] = useState([]);
 
 

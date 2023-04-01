@@ -1,59 +1,80 @@
 const { generateToken } = require("../utils/token");
 const toolsModels = require("../models/tools.models");
 
-
-
-//  response  
+//  response
 const createTool = async (req, res) => {
   try {
-    const { tool_name, websiteURL, short_description, user_email, description, categories, features, price, startingPrice, associated, imageURL } = req?.body
+    const {
+      tool_name,
+      websiteURL,
+      short_description,
+      user_email,
+      description,
+      categories,
+      features,
+      price,
+      startingPrice,
+      associated,
+      imageURL,
+    } = req?.body;
 
-    const tools = await toolsModels.create({ tool_name, user_email, websiteURL, short_description, description, categories, features, price, startingPrice, associated, imageURL })
+    const tools = await toolsModels.create({
+      tool_name,
+      user_email,
+      websiteURL,
+      short_description,
+      description,
+      categories,
+      features,
+      price,
+      startingPrice,
+      associated,
+      imageURL,
+    });
 
-    console.log(tools)
+    console.log(tools);
     return res.status(200).json({
       tools,
       status: "success",
-      message: 'Tools Add Success'
+      message: "Tools Add Success",
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error })
+    return res.status(500).json({ status: "error", message: error });
   }
-
-
-}
+};
 
 const findInactiveTool = async (req, res) => {
   try {
-    const tools = await toolsModels.find({ status: "inactive" })
+    const tools = await toolsModels.find({ status: "inactive" });
     return res.status(200).json({
       tools,
       status: "success",
-      message: 'Inactive Tools Find Success'
+      message: "Inactive Tools Find Success",
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error })
+    return res.status(500).json({ status: "error", message: error });
   }
-}
+};
 
 const findActiveTool = async (req, res) => {
   try {
-    const tools = await toolsModels.find({ status: "active" })
+    const tools = await toolsModels.find({ status: "active" });
     return res.status(200).json({
       tools,
       status: "success",
-      message: 'Inactive Tools Find Success'
+      message: "Inactive Tools Find Success",
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error })
+    return res.status(500).json({ status: "error", message: error });
   }
-}
+};
 
-
-const BookmarkTool = async (req, res) => { 
+const BookmarkTool = async (req, res) => {
   const { email } = req.body;
-  try { 
-    const ExistingUser = await toolsModels.findOne({ $and: [{_id:req.params.toolId}, {favourite: email}]}); 
+  try {
+    const ExistingUser = await toolsModels.findOne({
+      $and: [{ _id: req.params.toolId }, { favourite: email }],
+    });
 
     if (ExistingUser) {
       const response = await toolsModels.findOneAndUpdate(
@@ -66,16 +87,14 @@ const BookmarkTool = async (req, res) => {
         { returnOriginal: false }
       );
 
-      console.log("response", response)
+      console.log("response", response);
 
       return res.status(201).json({
         response,
         status: "success",
-        message: 'Tools Remove Bookmark Success'
-      }); 
-
-    } else { 
-
+        message: "Tools Remove Bookmark Success",
+      });
+    } else {
       const response = await toolsModels.findOneAndUpdate(
         { _id: req.params.toolId },
         {
@@ -89,134 +108,289 @@ const BookmarkTool = async (req, res) => {
       return res.status(200).json({
         response,
         status: "success",
-        message: 'Tools Add Bookmark Success'
+        message: "Tools Add Bookmark Success",
       });
-
     }
-
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error })
+    return res.status(500).json({ status: "error", message: error });
   }
-}
-
- 
-
- 
+};
 
 const BookmarkExistingUser = async (req, res) => {
   try {
     const email = req.params.email;
-    const id = req.params.toolId; 
+    const id = req.params.toolId;
 
-    const ExistingUser = await toolsModels.findOne({ $and: [{_id: id}, {favourite: email}]}); 
+    const ExistingUser = await toolsModels.findOne({
+      $and: [{ _id: id }, { favourite: email }],
+    });
 
     return res.status(200).json({
       ExistingUser,
       status: "success",
-      message: 'ExistingUser Find Success'
+      message: "ExistingUser Find Success",
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error })
+    return res.status(500).json({ status: "error", message: error });
   }
-}
-
+};
 
 const BookmarkUserData = async (req, res) => {
-
   try {
-    const email = req.params.email; 
- 
-    const tools = await toolsModels.find({favourite: email}); 
+    const email = req.params.email;
+
+    const tools = await toolsModels.find({ favourite: email });
 
     return res.status(200).json({
       tools,
       status: "success",
-      message: 'Bookmark User Data Find Success'
+      message: "Bookmark User Data Find Success",
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error })
+    return res.status(500).json({ status: "error", message: error });
   }
-}
+};
 
 const randomGetTool = async (req, res) => {
-
   try {
-     
-    const tools = await toolsModels.find({}); 
-    var randNum =  Math.floor(Math.random() * tools?.length) + 1;
+    const tools = await toolsModels.find({});
+    var randNum = Math.floor(Math.random() * tools?.length) + 1;
 
-    const tool = await tools?.filter((data, idx) => idx === randNum -1) 
- 
+    const tool = await tools?.filter((data, idx) => idx === randNum - 1);
+
     return res.status(200).json({
       tool,
       status: "success",
-      message: 'Random Num Of Data Find Success'
+      message: "Random Num Of Data Find Success",
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error })
+    return res.status(500).json({ status: "error", message: error });
   }
-}
-
+};
 
 const findTool = async (req, res) => {
   try {
-    const { getId } = req.params
+    const { getId } = req.params;
 
-    console.log('dddd', getId)
-    const tools = await toolsModels.findOne({ _id: getId })
+    console.log("dddd", getId);
+    const tools = await toolsModels.findOne({ _id: getId });
     return res.status(200).json({
       tools,
       status: "success",
-      message: 'Inactive Tools Find Success'
+      message: "Inactive Tools Find Success",
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error })
+    return res.status(500).json({ status: "error", message: error });
   }
-}
+};
 
 const approveTool = async (req, res) => {
   try {
-    const { approveId } = req.params
-    const tool = await toolsModels.updateOne({ _id: approveId }, { $set: { status: "active" } })
+    const { approveId } = req.params;
+    const tool = await toolsModels.updateOne(
+      { _id: approveId },
+      { $set: { status: "active" } }
+    );
 
-    console.log(approveId)
+    console.log(approveId);
     return res.status(200).json({
       tool,
       status: "success",
-      message: 'Tools Active Successfully'
+      message: "Tools Active Successfully",
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error })
+    return res.status(500).json({ status: "error", message: error });
   }
-}
+};
 
 const deleteTool = async (req, res) => {
   try {
-    const { deleteId } = req.params
+    const { deleteId } = req.params;
 
-    console.log(deleteId)
-    const tool = await toolsModels.deleteOne({ _id: deleteId })
+    console.log(deleteId);
+    const tool = await toolsModels.deleteOne({ _id: deleteId });
     return res.status(200).json({
       tool,
       status: "success",
-      message: 'Tools Delete Successfully'
+      message: "Tools Delete Successfully",
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error })
+    return res.status(500).json({ status: "error", message: error });
   }
-}
-
-
+};
 
 const ToolsSearchFilter = async (req, res) => {
+  // Waitlist,Mobile App,API,Browser Extension,Open Source,Discord Community,No Signup Required
+
+  //--------------------------------------------------------------
+  //CATEGORY ID
+
+  const params = req?.params?.id;
+
+  let paramsId = [];
+
+  if (params) {
+    if (params === "free") {
+      paramsId.push("Free");
+    }
+    if (params === "art") {
+      paramsId.push("Art");
+    }
+    if (params === "audio_editing") {
+      paramsId.push("Audio Edting");
+    }
+    if (params === "paid") {
+      paramsId.push("Paid");
+    }
+    if (params === "contact_for_pricing") {
+      paramsId.push("Contact for Pricing");
+    }
+    if (params === "deals") {
+      paramsId.push("Deals");
+    }
+  }
+
+  //--------------------------------------------------------------
+  //FEATURES FILTER
+
+  let featuresFilter = [];
+
+  if (req.query.mobile_app) {
+    featuresFilter.push("Mobile App");
+  }
+  if (req.query.waitlist) {
+    featuresFilter.push("Waitlist");
+  }
+  if (req.query.api) {
+    featuresFilter.push("API");
+  }
+  if (req.query.browser_extension) {
+    featuresFilter.push("Browser Extension");
+  }
+  if (req.query.open_source) {
+    featuresFilter.push("Open Source");
+  }
+  if (req.query.discord_community) {
+    featuresFilter.push("Discord Community");
+  }
+  if (req.query.no_signup) {
+    featuresFilter.push("No Signup Required");
+  }
+
+  //--------------------------------------------------------------
+  // PRICING FILTER
+
+  let pricingFilter = [];
+
+  if (req.query.free) {
+    pricingFilter.push("Free");
+  }
+  if (req.query.free_trial) {
+    pricingFilter.push("Free Trial");
+  }
+  if (req.query.contact_for_pricing) {
+    pricingFilter.push("Contact for Pricing");
+  }
+  if (req.query.freemium) {
+    pricingFilter.push("Freemium");
+  }
+  if (req.query.paid) {
+    pricingFilter.push("Paid");
+  }
+  if (req.query.deals) {
+    pricingFilter.push("Deals");
+  }
+  //--------------------------------------------------------------
+
+  const getQuery = () => {
+    if (pricingFilter?.length > 0 && featuresFilter?.length > 0) {
+      return {
+        features: { $in: featuresFilter },
+        price: { $in: pricingFilter },
+      };
+    } else if (featuresFilter?.length > 0) {
+      return {
+        features: { $in: featuresFilter },
+      };
+    } else if (pricingFilter?.length > 0) {
+      return {
+        price: { $in: pricingFilter },
+      };
+    } else {
+      return;
+    }
+  };
+
+  const getParams = () => {
+    return {
+      categories: { $in: paramsId },
+    };
+  };
 
   try {
+    let tools = [];
+    if (paramsId.length > 0) {
+      // console.log("params id is : ", paramsId);
+      tools = await toolsModels
+        .find({ $and: [{ status: "active" }, { ...getParams() }] })
+        .find(getQuery());
+    } else {
+      tools = await toolsModels.find({
+        $and: [{ status: "active" }, { ...getQuery() }],
+      });
+    }
 
+    if (req?.query?.sort) {
+      console.log("sort is : ", req?.query?.sort);
 
+      if (req?.query?.sort === "popular") {
+        const sortData = await [...tools].sort((a, b) => {
+          // console.log("a is : ", a);
+          return Number(a.favourite.length) - Number(b.favourite.length);
+        });
+        tools = sortData?.slice(0)?.reverse();
+      } else if (req?.query?.sort === "verified") {
+        const sortData = await [...tools].sort((a, b) => {
+          return Number(a.favourite.length) - Number(b.favourite.length);
+        });
+        tools = sortData?.slice(0)?.reverse();
+      } else if (req?.query?.sort === "new") {
+        const newTools = await tools.filter((d) => {
+          // console.log("map date is : ", new Date(d?.createdAt));
+          const currentDate = new Date();
+          const sevenDaysAgo = new Date(
+            Number(currentDate.getTime()) - 7 * 24 * 60 * 60 * 1000
+          );
+          // console.log("seven day ago is : ", sevenDaysAgo);
+          return new Date(d?.createdAt) >= sevenDaysAgo;
+        });
+
+        tools = newTools;
+      }
+    }
+
+    return res.status(200).json({
+      tools,
+      status: "success",
+      message: "Inactive Tools Find Success",
+    });
+
+    // res.send({ status: "success", result: tools });
   } catch (err) {
-
     res.status(500).json({ massages: "Internal Server Error" });
   }
-}
+};
 
-module.exports = { createTool, findInactiveTool, approveTool, deleteTool, findTool, findActiveTool, BookmarkTool, ToolsSearchFilter, BookmarkExistingUser,randomGetTool, BookmarkUserData}
+module.exports = {
+  createTool,
+  findInactiveTool,
+  approveTool,
+  deleteTool,
+  findTool,
+  findActiveTool,
+  BookmarkTool,
+  ToolsSearchFilter,
+  BookmarkExistingUser,
+  randomGetTool,
+  BookmarkUserData,
+};

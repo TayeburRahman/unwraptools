@@ -73,6 +73,8 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
 
     const currentIndex = pricing.indexOf(value);
     const newChecked = [...pricing];
+    
+    console.log("new checked is : ", newChecked)
 
     if (currentIndex === -1) {
       newChecked.push(value);

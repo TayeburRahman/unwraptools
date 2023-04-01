@@ -35,12 +35,45 @@ function Homes() {
     const [tools ,setTools] = useState([])
     const [status ,setStatus] = useState(0) 
 
+    const [selectCategory, setSelectCategory] = useState(null);
+    const [sort, setSort] = useState(null);
+    const [pricing, setPricing] = useState([]);
+    const [features, setFeatures] = useState([]);
+
+    console.log("pricing is : ", pricing)
+
     const {user}=useAuth()
     const email = user?.email
  
 
     useEffect(()=>{ 
-        axios.get('http://localhost:5000/api/v1/tool/getActiveTool')
+        let url;
+
+        if(selectCategory){
+             url = `http://localhost:5000/api/v1/tool/get/filter${selectCategory && `/${selectCategory}`}`
+            }else{
+            url = `http://localhost:5000/api/v1/tool/get/filter`
+        }
+
+        if(pricing?.length > 0){
+            url = `${url}?${pricing.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+        }
+        if(features?.length > 0){
+            url = `${url}?${features.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+        }
+
+        if(sort){
+            if(pricing?.length > 0 || features?.length > 0 ){
+                url = `${url}&sort=${sort}`
+            }else{
+                url = `${url}?sort=${sort}`
+            }
+        }
+        
+        // const url = `http://localhost:5000/api/v1/tool/get/filter${selectCategory && `/${selectCategory}`}`
+        console.log("url is : ", url)
+        axios.get(url)
+        // axios.get('http://localhost:5000/api/v1/tool/getActiveTool')
         .then(res => {
           if (res.status === 200) {
             // console.log('sssss',res?.data)
@@ -49,8 +82,36 @@ function Homes() {
             console.log(res)
           }
         })
-      },[status])
-  
+      },[status, selectCategory, pricing])
+ 
+
+
+      const HandleBookmark = (id, bookMark)=>{ 
+        const email = user?.email 
+
+        if(bookMark){
+            axios.put(`http://localhost:5000/api/v1/tool/removebookmark/${id}`,{email})
+            .then(res => {
+              if (res.status === 200) {
+                // console.log('sssss',res?.data)
+                setStatus( status === 1? 0:1)
+              }else{
+                console.log(res)
+              }
+            })
+        }else{
+        axios.put(`http://localhost:5000/api/v1/tool/addbookmark/${id}`,{email})
+        .then(res => {
+          if (res.status === 200) {
+            // console.log('sssss',res?.data)
+            setStatus( status === 1? 0:1)
+          }else{
+            console.log(res)
+          }
+        })
+        }
+ 
+      }
 
     return (
         <Box className='theme' >
@@ -112,7 +173,7 @@ function Homes() {
                         </Typography>
                     </Grid>
                     <Grid>
-                        <SearchSystem/>
+                        <SearchSystem pricing={pricing} setPricing={setPricing}/>
                     </Grid>
                     <Grid container mt={5}>
                          {
