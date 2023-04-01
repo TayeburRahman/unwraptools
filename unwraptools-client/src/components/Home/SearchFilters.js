@@ -38,16 +38,21 @@ function SearchFilters({ setSortBy, setPricing, pricing ,setFeatures ,features, 
                             displayEmpty
                             className="selectGrid"
                         >
-                            <MenuItem className='MenuItemButton' value="">
+                            {
+                             sort === null && (
+                                     <MenuItem className='MenuItemButton' value="null">
                                 <Button className='buttonText'>Sort by</Button>
                             </MenuItem>
-                            <MenuItem className='MenuItemButton text-left' value="Verified">
+                                )
+                            }
+                             
+                            <MenuItem className='MenuItemButton text-left' value="verified">
                                 <Button className='buttonText text-left'><VerifiedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> Verified</Button>
                             </MenuItem>
-                            <MenuItem className='MenuItemButton' value="New">
+                            <MenuItem className='MenuItemButton' value="new">
                                 <Button className='buttonText'> <StrollerIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> New</Button>
                             </MenuItem>
-                            <MenuItem className='MenuItemButton' value="Popular">
+                            <MenuItem className='MenuItemButton' value="popular">
                                 <Button className='buttonText'><BookmarkAddedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> Popular</Button>
                             </MenuItem>
                         </Select>

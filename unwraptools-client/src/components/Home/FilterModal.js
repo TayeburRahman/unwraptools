@@ -124,7 +124,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
               <Typography p={0} m={0} >
               {" "}
               <Checkbox
-                value="Free"
+                value="free"
                 onChange={handelOnChangePricing}
                 {...label}
               />{" "}
@@ -133,7 +133,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="Free Trial"
+                value="free_trial"
                 onChange={handelOnChangePricing}
                 {...label}
               />{" "}
@@ -142,7 +142,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="Contact For Pricing"
+                value="contact_for_pricing"
                 onChange={handelOnChangePricing}
                 {...label}
               />{" "}
@@ -155,7 +155,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="Freemium"
+                value="freemium"
                 onChange={handelOnChangePricing}
                 {...label}
               />{" "}
@@ -164,7 +164,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="Paid"
+                value="paid"
                 onChange={handelOnChangePricing}
                 {...label}
               />{" "}
@@ -173,7 +173,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="Deals"
+                value="deals"
                 onChange={handelOnChangePricing}
                 {...label}
               />{" "}
@@ -199,7 +199,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="Mobile App"
+                value="mobile_app"
                 onChange={handelOnChangeFeatures}
                 {...label}
               />{" "}
@@ -208,7 +208,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="API"
+                value="api"
                 onChange={handelOnChangeFeatures}
                 {...label}
               />{" "}
@@ -221,7 +221,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="Browser Extension"
+                value="browser_extension"
                 onChange={handelOnChangeFeatures}
                 {...label}
               />{" "}
@@ -230,7 +230,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="Open Source"
+                value="open_source"
                 onChange={handelOnChangeFeatures}
                 {...label}
               />{" "}
@@ -239,7 +239,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="Discord Community"
+                value="discord_community"
                 onChange={handelOnChangeFeatures}
                 {...label}
               />{" "}
@@ -248,7 +248,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
             <Typography>
               {" "}
               <Checkbox
-                value="No Signup Required"
+                value="no_signup_required"
                 onChange={handelOnChangeFeatures}
                 {...label}
               />{" "}
