@@ -17,6 +17,7 @@ import Categories from './components/Pages/Categories';
 import Discover from './components/Pages/Discover';
 import Favorites from './components/Pages/Favourites';
 import Homes from './components/Pages/Home';
+import LatestNews from './components/Pages/LatestNews';
 import ProductInformation from './components/Pages/ProductInformation';
 import SubmitNews from './components/Pages/SubmitNews/SubmitNews';
 import SubmitTool from './components/Pages/SubmitTool';
@@ -37,6 +38,7 @@ function App() {
              <Route path="/" element={<Homes/>}/>  
              <Route path="/tool/:Id" element={<PrivateRoute> <ProductInformation/> </PrivateRoute>}/>  
              <Route path="/categories" element={<PrivateRoute> <Categories/></PrivateRoute>}/>  
+             <Route path="/news" element={<PrivateRoute> <LatestNews/></PrivateRoute>}/>  
              <Route path="/tool/explore" element={<PrivateRoute> <Discover/> </PrivateRoute>}/>  
              <Route path="/submit-tool" element={<PrivateRoute> <SubmitTool/> </PrivateRoute>}/>  
              <Route path="/submit-news" element={<PrivateRoute> <SubmitNews/> </PrivateRoute>}/>  

@@ -82,9 +82,7 @@ function NavBar() {
               <Link to="/user/favourites" className="link-route">
                 Favourites
               </Link>
-            </Box>
-
-            
+            </Box> 
             <Box>
               {" "}
               <Link to="/tool/explore" className="link-route">
@@ -111,7 +109,7 @@ function NavBar() {
                 <Link to="/" className="link-hover hoverBg p-0">
                   Newsletter Issues
                 </Link>
-                <Link to="/" className="link-hover hoverBg">
+                <Link to="/news" className="link-hover hoverBg">
                   Latest AI News
                 </Link>
                 <Link to="/" className="link-hover hoverBg">
