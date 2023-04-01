@@ -1,6 +1,5 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Button } from '@mui/material';
-import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -71,7 +70,7 @@ console.log(allTools)
 
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer >
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
@@ -87,7 +86,7 @@ console.log(allTools)
                     {allTools?.map((tool, idx) => (
                         <TableRow
                             key={idx}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 }, borderBottom:"1px solid #bfbfbf"}} 
                         >
                             <TableCell component="th" scope="row">
                                <span className='d-flex-jc-ac'>  <img src={tool?.imageURL} width="80px" /> </span>

@@ -14,7 +14,6 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 import { Link, useParams } from 'react-router-dom';
 import NavBar from '../AppBar/NavBar';
-import ShearerIcon from '../ProductInformation/SheareIcon';
 
 
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
@@ -25,6 +24,7 @@ import CardMedia from '@mui/material/CardMedia';
 import axios from 'axios';
 import useAuth from '../../Firebase/Hooks/useAuth';
 import Footer from '../AppBar/Footer/Footer';
+import BookmarkButton from '../ProductInformation/BookmarkButtonPD';
 
 
 
@@ -32,9 +32,10 @@ function ProductInformation() {
 
     const [tools, setTools] = useState([]);
     const { Id } = useParams();
-    const [status ,setStatus] = useState(0)
-
+    const [status ,setStatus] = useState(0) 
     const {user}=useAuth()
+ 
+    const email = user?.email
 
     useEffect(() => {
         console.log(Id)
@@ -47,35 +48,8 @@ function ProductInformation() {
                     console.log(res)
                 }
             })
-    }, [Id, status])
+    }, [Id, status]) 
 
-
-
-    const HandleBookmark = (id, bookMark)=>{ 
-        const email = user?.email 
-        if(bookMark){
-            axios.put(`http://localhost:5000/api/v1/tool/removebookmark/${id}`,{email})
-            .then(res => {
-              if (res.status === 200) {
-                // console.log('sssss',res?.data)
-                setStatus( status === 1? 0:1)
-              }else{
-                console.log(res)
-              }
-            })
-        }else{
-        axios.put(`http://localhost:5000/api/v1/tool/addbookmark/${id}`,{email})
-        .then(res => {
-          if (res.status === 200) {
-            // console.log('sssss',res?.data)
-            setStatus( status === 1? 0:1)
-          }else{
-            console.log(res)
-          }
-        })
-        }
- 
-      }
  
     return (
         <div className='background'>
@@ -88,7 +62,7 @@ function ProductInformation() {
                             <span>  <EastIcon className='RouteLinkIcon' /> </span>
                             <Link className='routeLink'> Category</Link>
                             <span> <EastIcon className='RouteLinkIcon' /> </span>
-                            <text className='textDeg'>Name</text>
+                            <text className='textDeg'> {tools?.tool_name}</text>
                         </Box>
                         <Grid container>
                             <Grid item xs={7} lg={6} md={6} className="padding5" >
@@ -100,8 +74,7 @@ function ProductInformation() {
                             </Grid>
                             <Grid item lg={6} md={6} xs={5} className="d-flex padding5" sx={{ justifyContent: "flex-end" }}>
                                 <Box className='d-flex'>
-                                    <Button  onClick={e => HandleBookmark(tools?._id, tools?.bookMark)} size="small" className='BookmarkAddIcon margin-r'>{tools?.bookMark ===true?  <BookmarkAddedIcon />:<BookmarkAddIcon />} {tools?.favourite?.length}</Button>
-                                    <ShearerIcon />
+                                    <BookmarkButton tools={tools} setStatus={setStatus} status={status} email={email}/>
                                 </Box> 
                             </Grid> 
                         </Grid>
@@ -111,16 +84,22 @@ function ProductInformation() {
                                 <Grid item sx={12} md={12} lg={6} className='padding5' >
                                     <img
                                         className='w-100'
-                                        src="https://i.ibb.co/YRW7TtM/f2d4185d453b97f131031702e80177a45e238730-1858x915.webp"
-                                        title="green iguana"
+                                        src={tools?.imageURL} 
                                     />
                                 </Grid>
                                 <Grid item sx={12} md={12} lg={6} className='padding5'>
                                     <Box className='text-left'>
                                         <Typography className='textDes'>DESCRIPTION:</Typography>
                                         <p className='text-left DesPText'    >
-                                            Europe’s leading digital staffing platform. The name Freeday comes from the idea that everyone should be free on Friday. It's an explanation with a wink, but we take it seriously. Here you can outsource boring repetitive tasks to our digital employees. Freeday helps teams build their own digital workforce to fully unlock their creative and productive capacities, leading to improved experiences and revenues
+                                            {tools?.short_description } 
                                         </p>
+
+                                        <div
+                                            className='text-left mt-3'
+                                            dangerouslySetInnerHTML={{
+                                                __html: tools?.description
+                                            }}>
+                                        </div> 
                                     </Box>
                                     <Box className='added_text d-flex text-12-sm'>
                                         <VerifiedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} />
@@ -128,7 +107,7 @@ function ProductInformation() {
                                     </Box>
                                     <Box className='text-left d-flex added_text'>
                                         <BackupIcon className='FolderOpenIcon' />
-                                        Added on November 30
+                                        Added on  {tools?.createdAt?.slice(0, 10)}
                                     </Box>
 
                                     <Grid container>

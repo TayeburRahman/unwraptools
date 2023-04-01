@@ -1,7 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
-import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import GroupIcon from '@mui/icons-material/Group';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
@@ -13,7 +11,6 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import { Grid, Typography } from '@mui/material';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -30,12 +27,13 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import useAuth from '../../Firebase/Hooks/useAuth';
 import SearchSystem from '../Home/SearchSystem';
+import BookmarkButton from './BookmarkButton';
 import './Home.css';
 
 function Homes() {
 
     const [tools ,setTools] = useState([])
-    const [status ,setStatus] = useState(0)
+    const [status ,setStatus] = useState(0) 
 
     const [selectCategory, setSelectCategory] = useState(null);
     const [sort, setSort] = useState(null);
@@ -45,6 +43,8 @@ function Homes() {
     console.log("pricing is : ", pricing)
 
     const {user}=useAuth()
+    const email = user?.email
+ 
 
     useEffect(()=>{ 
         let url;
@@ -82,6 +82,7 @@ function Homes() {
             console.log(res)
           }
         })
+<<<<<<< HEAD
       },[status, selectCategory, pricing])
  
 
@@ -112,6 +113,10 @@ function Homes() {
         }
  
       }
+=======
+      },[status])
+  
+>>>>>>> f8fbb014ad2f186619c2091d87fc3250078b18cd
 
     return (
         <Box className='theme' >
@@ -199,7 +204,7 @@ function Homes() {
                                         </Box>
                                     </Box>
                                     <Typography className='text-left' variant="body2"  >
-                                         {tool?.short_description}
+                                         {tool?.short_description?.slice(0, 100)}
                                     </Typography>
                                     <Box>
                                     <Grid container className='mt-2'>
@@ -222,15 +227,17 @@ function Homes() {
                                     </Box>
                                   </Link>
                                 </CardContent>
+
                                 <CardActions sx={{ justifyContent: "space-between" }}>
-                                    <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
-                                    <Button size="small" onClick={e => HandleBookmark(tool?._id, tool?.bookMark)} className='BookmarkAddIcon'>{tool?.bookMark ===true?  <BookmarkAddedIcon />:<BookmarkAddIcon />}</Button>
+                                    <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link> 
+                                     <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email}/>
                                 </CardActions>
                             </Card>
                         </Grid>
                             ))
                          }
                     </Grid>
+                    
                 </Container>
             </Box>
             <Footer />
