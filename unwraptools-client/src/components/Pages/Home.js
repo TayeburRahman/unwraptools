@@ -37,10 +37,43 @@ function Homes() {
     const [tools ,setTools] = useState([])
     const [status ,setStatus] = useState(0)
 
+    const [selectCategory, setSelectCategory] = useState(null);
+    const [sort, setSort] = useState("popular");
+    const [pricing, setPricing] = useState([]);
+    const [features, setFeatures] = useState([]);
+
+    console.log("pricing is : ", pricing)
+
     const {user}=useAuth()
 
     useEffect(()=>{ 
-        axios.get('http://localhost:5000/api/v1/tool/getActiveTool')
+        let url;
+
+        if(selectCategory){
+             url = `http://localhost:5000/api/v1/tool/get/filter${selectCategory && `/${selectCategory}`}`
+            }else{
+            url = `http://localhost:5000/api/v1/tool/get/filter`
+        }
+
+        if(pricing?.length > 0){
+            url = `${url}?${pricing.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+        }
+        if(features?.length > 0){
+            url = `${url}?${features.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+        }
+
+        if(sort){
+            if(pricing?.length > 0 || features?.length > 0 ){
+                url = `${url}&sort=${sort}`
+            }else{
+                url = `${url}?sort=${sort}`
+            }
+        }
+        
+        // const url = `http://localhost:5000/api/v1/tool/get/filter${selectCategory && `/${selectCategory}`}`
+        console.log("url is : ", url)
+        axios.get(url)
+        // axios.get('http://localhost:5000/api/v1/tool/getActiveTool')
         .then(res => {
           if (res.status === 200) {
             // console.log('sssss',res?.data)
@@ -49,7 +82,7 @@ function Homes() {
             console.log(res)
           }
         })
-      },[status])
+      },[status, selectCategory, pricing])
  
 
 
@@ -140,7 +173,7 @@ function Homes() {
                         </Typography>
                     </Grid>
                     <Grid>
-                        <SearchSystem/>
+                        <SearchSystem pricing={pricing} setPricing={setPricing}/>
                     </Grid>
                     <Grid container mt={5}>
                          {

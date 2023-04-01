@@ -181,6 +181,9 @@ const deleteTool = async (req, res) => {
 const ToolsSearchFilter = async (req, res) => {
   // Waitlist,Mobile App,API,Browser Extension,Open Source,Discord Community,No Signup Required
 
+  //--------------------------------------------------------------
+  //CATEGORY ID
+
   const params = req?.params?.id;
 
   let paramsId = [];
@@ -206,8 +209,8 @@ const ToolsSearchFilter = async (req, res) => {
     }
   }
 
-  console.log("params is : ", params);
-  console.log("paramId is : ", paramsId);
+  //--------------------------------------------------------------
+  //FEATURES FILTER
 
   let featuresFilter = [];
 
@@ -234,7 +237,7 @@ const ToolsSearchFilter = async (req, res) => {
   }
 
   //--------------------------------------------------------------
-  // pricing filter
+  // PRICING FILTER
 
   let pricingFilter = [];
 
@@ -256,9 +259,7 @@ const ToolsSearchFilter = async (req, res) => {
   if (req.query.deals) {
     pricingFilter.push("Deals");
   }
-
-  console.log("features filter is : ", featuresFilter);
-  console.log("pricing filter is : ", pricingFilter);
+  //--------------------------------------------------------------
 
   const getQuery = () => {
     if (pricingFilter?.length > 0 && featuresFilter?.length > 0) {
@@ -279,21 +280,23 @@ const ToolsSearchFilter = async (req, res) => {
     }
   };
 
-  try {
-    const query = {
-      features: { $in: featuresFilter },
-      price: { $in: pricingFilter },
+  const getParams = () => {
+    return {
+      categories: { $in: paramsId },
     };
+  };
 
-    // const fFilter = featuresFilter.length > 0 &&  {features: { $in: featuresFilter }}
-
+  try {
     let tools = [];
     if (paramsId.length > 0) {
+      // console.log("params id is : ", paramsId);
       tools = await toolsModels
-        .find({ categories: { $in: paramsId } })
+        .find({ $and: [{ status: "active" }, { ...getParams() }] })
         .find(getQuery());
     } else {
-      tools = await toolsModels.find(getQuery());
+      tools = await toolsModels.find({
+        $and: [{ status: "active" }, { ...getQuery() }],
+      });
     }
 
     if (req?.query?.sort) {
@@ -301,59 +304,37 @@ const ToolsSearchFilter = async (req, res) => {
 
       if (req?.query?.sort === "popular") {
         const sortData = await [...tools].sort((a, b) => {
-          console.log("a is : ", a);
+          // console.log("a is : ", a);
           return Number(a.favourite.length) - Number(b.favourite.length);
         });
-        tools = sortData;
+        tools = sortData?.slice(0)?.reverse();
       } else if (req?.query?.sort === "verified") {
         const sortData = await [...tools].sort((a, b) => {
-          console.log("a is : ", a);
           return Number(a.favourite.length) - Number(b.favourite.length);
         });
-        tools = sortData;
+        tools = sortData?.slice(0)?.reverse();
       } else if (req?.query?.sort === "new") {
-        //  return
+        const newTools = await tools.filter((d) => {
+          // console.log("map date is : ", new Date(d?.createdAt));
+          const currentDate = new Date();
+          const sevenDaysAgo = new Date(
+            Number(currentDate.getTime()) - 7 * 24 * 60 * 60 * 1000
+          );
+          // console.log("seven day ago is : ", sevenDaysAgo);
+          return new Date(d?.createdAt) >= sevenDaysAgo;
+        });
+
+        tools = newTools;
       }
     }
 
-    res.send({ status: "success", result: tools?.slice(0)?.reverse() });
-
-    //   if (pricingFilter?.length > 0) {
-    //   const tools = await toolsModels.find({ price: { $in: pricingFilter } });
-    //   res.send({ status: "success", result: tools });
-    // } else if (featuresFilter?.length > 0) {
-    //   const tools = await toolsModels
-    //     .find({
-    //       categories: { $in: [params] },
-    //     })
-    //     .find({
-    //       features: { $in: featuresFilter },
-    //     });
-
-    //   const sortedArray = await [...tools].sort((a, b) => {
-    //     console.log("a is : ", a);
-    //     return Number(a.favourite.length) - Number(b.favourite.length);
-    //   });
-
-    //   // var sortedArray = array.sort(function(a, b) { return a - b; });
-
-    //   res.send({ status: "success", result: sortedArray });
-    // } else {
-    //   const tools = await toolsModels.find();
-    //   const sortedArray = await [...tools].sort((a, b) => {
-    //     console.log("a is : ", a);
-    //     return Number(a.favourite.length) - Number(b.favourite.length);
-    //   });
-    //   res.send({ status: "success", result: sortedArray?.slice(0)?.reverse() });
-    // }
-
-    // if (pricingFilter?.length > 0 || featuresFilter?.length > 0) {
-    //   console("I'm called from query ");
-    // } else {
-    //   console("I'm called from no query ");
-    //   const tools = await toolsModels.find();
-    //   res.send({ status: "success", result: tools });
-    // }
+    return res.status(200).json({
+      tools,
+      status: "success",
+      message: "Inactive Tools Find Success",
+    });
+    
+    // res.send({ status: "success", result: tools });
   } catch (err) {
     res.status(500).json({ massages: "Internal Server Error" });
   }
@@ -370,3 +351,6 @@ module.exports = {
   ToolsSearchFilter,
   removeBookmarkTool,
 };
+
+
+
