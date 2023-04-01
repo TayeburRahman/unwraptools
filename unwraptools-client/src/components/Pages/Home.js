@@ -35,7 +35,7 @@ function Homes() {
     const [tools ,setTools] = useState([])
     const [status ,setStatus] = useState(0) 
 
-    const [selectCategory, setSelectCategory] = useState(null);
+    const [selectCategory, setSelectCategory] = useState(["art"]);
     const [sort, setSort] = useState(null);
     const [pricing, setPricing] = useState([]);
     const [features, setFeatures] = useState([]);
@@ -47,23 +47,44 @@ function Homes() {
  
 
     useEffect(()=>{ 
-        let url;
+        let url= `http://localhost:5000/api/v1/tool/get/filter` ;
 
-        if(selectCategory){
-             url = `http://localhost:5000/api/v1/tool/get/filter${selectCategory && `/${selectCategory}`}`
-            }else{
-            url = `http://localhost:5000/api/v1/tool/get/filter`
+        // if(selectCategory){
+        //      url = `http://localhost:5000/api/v1/tool/get/filter${selectCategory && `/${selectCategory}`}`
+        //     }else{
+        //     url = `http://localhost:5000/api/v1/tool/get/filter`
+        // }
+
+        if(selectCategory?.length > 0){
+
+            if(pricing?.length > 0 || features?.length > 0 || sort ){
+                url = `${url}&${selectCategory?.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+            }
+                url = `${url}?${selectCategory?.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+
         }
 
         if(pricing?.length > 0){
-            url = `${url}?${pricing.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+            if(pricing?.length > 0 || features?.length > 0 || sort ){
+
+                url = `${url}&${pricing.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+            }else{
+
+                url = `${url}?${pricing.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+            }
         }
         if(features?.length > 0){
-            url = `${url}?${features.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+            if(pricing?.length > 0 || features?.length > 0 || sort ){
+            
+                url = `${url}&${features.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+            }else{
+
+                url = `${url}?${features.map((f,index)=> `${f.toLowerCase()}=true&`).join('')}`
+            }
         }
 
         if(sort){
-            if(pricing?.length > 0 || features?.length > 0 ){
+            if(pricing?.length > 0 || features?.length > 0 || selectCategory?.length > 0 ){
                 url = `${url}&sort=${sort}`
             }else{
                 url = `${url}?sort=${sort}`

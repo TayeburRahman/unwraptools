@@ -225,29 +225,21 @@ const ToolsSearchFilter = async (req, res) => {
   //--------------------------------------------------------------
   //CATEGORY ID
 
-  const params = req?.params?.id;
+//   const params = req?.params?.id;
 
-  let paramsId = [];
+  let categories = [];
 
-  if (params) {
-    if (params === "free") {
-      paramsId.push("Free");
-    }
-    if (params === "art") {
-      paramsId.push("Art");
-    }
-    if (params === "audio_editing") {
-      paramsId.push("Audio Edting");
-    }
-    if (params === "paid") {
-      paramsId.push("Paid");
-    }
-    if (params === "contact_for_pricing") {
-      paramsId.push("Contact for Pricing");
-    }
-    if (params === "deals") {
-      paramsId.push("Deals");
-    }
+  if (req.query.art) {
+    categories.push("Art");
+  }
+  if (req.query.audio_editing) {
+    categories.push("Audio Edting");
+  }
+  if (req.query.paid) {
+    categories.push("Paid");
+  }
+  if (req.query.contact_for_pricing) {
+    categories.push("Contact for Pricing");
   }
 
   //--------------------------------------------------------------
@@ -323,13 +315,13 @@ const ToolsSearchFilter = async (req, res) => {
 
   const getParams = () => {
     return {
-      categories: { $in: paramsId },
+      categories: { $in: categories },
     };
   };
 
   try {
     let tools = [];
-    if (paramsId.length > 0) {
+    if (categories.length > 0) {
       // console.log("params id is : ", paramsId);
       tools = await toolsModels
         .find({ $and: [{ status: "active" }, { ...getParams() }] })
