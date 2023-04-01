@@ -190,7 +190,7 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
               <Typography p={0} m={0}>
               {" "}
               <Checkbox
-                value="Waitlist"
+                value="waitlist"
                 onChange={handelOnChangeFeatures}
                 {...label}
               />{" "}

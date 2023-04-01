@@ -36,11 +36,11 @@ function Homes() {
     const [status ,setStatus] = useState(0) 
 
     const [selectCategory, setSelectCategory] = useState(null);
-    const [sort, setSort] = useState(null);
+    const [sort, setSortBy] = useState(null);
     const [pricing, setPricing] = useState([]);
     const [features, setFeatures] = useState([]);
 
-    console.log("pricing is : ", pricing)
+    console.log("features is : ", features)
 
     const {user}=useAuth()
     const email = user?.email
@@ -69,11 +69,8 @@ function Homes() {
                 url = `${url}?sort=${sort}`
             }
         }
-        
-        // const url = `http://localhost:5000/api/v1/tool/get/filter${selectCategory && `/${selectCategory}`}`
-        console.log("url is : ", url)
-        axios.get(url)
-        // axios.get('http://localhost:5000/api/v1/tool/getActiveTool')
+         
+        axios.get(url) 
         .then(res => {
           if (res.status === 200) {
             // console.log('sssss',res?.data)
@@ -86,32 +83,7 @@ function Homes() {
  
 
 
-      const HandleBookmark = (id, bookMark)=>{ 
-        const email = user?.email 
-
-        if(bookMark){
-            axios.put(`http://localhost:5000/api/v1/tool/removebookmark/${id}`,{email})
-            .then(res => {
-              if (res.status === 200) {
-                // console.log('sssss',res?.data)
-                setStatus( status === 1? 0:1)
-              }else{
-                console.log(res)
-              }
-            })
-        }else{
-        axios.put(`http://localhost:5000/api/v1/tool/addbookmark/${id}`,{email})
-        .then(res => {
-          if (res.status === 200) {
-            // console.log('sssss',res?.data)
-            setStatus( status === 1? 0:1)
-          }else{
-            console.log(res)
-          }
-        })
-        }
  
-      }
 
     return (
         <Box className='theme' >
@@ -173,7 +145,7 @@ function Homes() {
                         </Typography>
                     </Grid>
                     <Grid>
-                        <SearchSystem pricing={pricing} setPricing={setPricing}/>
+                        <SearchSystem pricing={pricing} setPricing={setPricing} features={features} setFeatures={setFeatures} setSortBy={setSortBy} sort={sort}/>
                     </Grid>
                     <Grid container mt={5}>
                          {
