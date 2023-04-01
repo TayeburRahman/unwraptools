@@ -16,6 +16,8 @@ function ToolInformation() {
     const [tools, setTools] = useState([]);
     const { toolId } = useParams();
 
+ 
+
     useEffect(() => {
         console.log(toolId)
         axios.get(`http://localhost:5000/api/v1/tool/getTools/${toolId}`)
@@ -83,7 +85,7 @@ function ToolInformation() {
                                     </Box>
                                     <Box className='text-left d-flex added_text' sx={{width: "fit-content"}}>
                                         <BackupIcon className='FolderOpenIcon' />
-                                        Added on {tools?.createdAt?.split(0, 5)}
+                                        Added on {tools?.createdAt?.slice(0, 5)}
                                     </Box>
                                    <Grid container>
                                    {

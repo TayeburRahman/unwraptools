@@ -106,15 +106,51 @@ const BookmarkTool = async (req, res) => {
 const BookmarkExistingUser = async (req, res) => {
   try {
     const email = req.params.email;
-    const id = req.params.toolId;
+    const id = req.params.toolId; 
 
-    console.log('Bookmark', req.params.toolId, email)
     const ExistingUser = await toolsModels.findOne({ $and: [{_id: id}, {favourite: email}]}); 
 
     return res.status(200).json({
       ExistingUser,
       status: "success",
       message: 'ExistingUser Find Success'
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error })
+  }
+}
+
+
+const BookmarkUserData = async (req, res) => {
+
+  try {
+    const email = req.params.email; 
+ 
+    const tools = await toolsModels.find({favourite: email}); 
+
+    return res.status(200).json({
+      tools,
+      status: "success",
+      message: 'Bookmark User Data Find Success'
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error })
+  }
+}
+
+const randomGetTool = async (req, res) => {
+
+  try {
+     
+    const tools = await toolsModels.find({}); 
+    var randNum =  Math.floor(Math.random() * tools?.length) + 1;
+
+    const tool = await tools?.filter((data, idx) => idx === randNum -1) 
+ 
+    return res.status(200).json({
+      tool,
+      status: "success",
+      message: 'Random Num Of Data Find Success'
     });
   } catch (error) {
     return res.status(500).json({ status: "error", message: error })
@@ -183,4 +219,4 @@ const ToolsSearchFilter = async (req, res) => {
   }
 }
 
-module.exports = { createTool, findInactiveTool, approveTool, deleteTool, findTool, findActiveTool, BookmarkTool, ToolsSearchFilter, BookmarkExistingUser }
+module.exports = { createTool, findInactiveTool, approveTool, deleteTool, findTool, findActiveTool, BookmarkTool, ToolsSearchFilter, BookmarkExistingUser,randomGetTool, BookmarkUserData}

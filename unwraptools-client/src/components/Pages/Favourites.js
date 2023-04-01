@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import Footer from '../AppBar/Footer/Footer';
 import NavBar from '../AppBar/NavBar';
 import FavoritesTabs from '../Favourites/FavouritesTabs';
+
+
+
  
 function Favorites() {
     return (

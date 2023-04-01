@@ -37,8 +37,7 @@ function Homes() {
 
     const {user}=useAuth()
     const email = user?.email
-
-    
+ 
 
     useEffect(()=>{ 
         axios.get('http://localhost:5000/api/v1/tool/getActiveTool')

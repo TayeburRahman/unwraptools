@@ -49,7 +49,7 @@ const SignIn = () => {
                                 <div className="card-body">
                                     <div className="text-center w-75 m-auto">
                                         <Typography className='revert' gutterBottom variant="h4" component="div">
-                                            Sing In
+                                           Sign In
                                         </Typography>
                                         <p className="" >
                                             Please sign up or login to view your unwraptools AI tools and posts.
