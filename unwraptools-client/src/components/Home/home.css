@@ -35,7 +35,7 @@ label#outlined-select-currency-label {
   color: var(--body_color) !important;
 }
 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.selectGrid.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
-  width: 150px !important;
+  width: 180px !important;
   height: 50px;
   border: 1px solid var(--border_color) !important;
   display: flex !important;

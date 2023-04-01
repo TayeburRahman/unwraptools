@@ -229,6 +229,10 @@
   padding: 0 !important;
 }
 
+.custom-flexAndGrid {
+  display: flex !important;
+}
+
 @media only screen and (max-width: 620px) {
   .box-mobile {
     font-size: 12px;
@@ -267,5 +271,8 @@
   }
   #text-20 {
     font-size: 20px;
+  }
+  .custom-flexAndGrid {
+    display: grid !important;
   }
 }

@@ -34,7 +34,7 @@ function BookmarkButton({ setStatus, status, tool, email }) {
           console.log(res)
         }
       })
-  }, [tool, status])
+  }, [tool, status, email])
 
   const HandleBookmark = (id) => {
 
@@ -42,6 +42,7 @@ function BookmarkButton({ setStatus, status, tool, email }) {
       navigate('/login')
       return;
     }
+    
     handleClose()
 
     axios.put(`http://localhost:5000/api/v1/tool/bookmark/${id}`, { email })
