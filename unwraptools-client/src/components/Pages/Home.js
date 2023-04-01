@@ -36,7 +36,7 @@ function Homes() {
     const [status ,setStatus] = useState(0) 
 
     const [selectCategory, setSelectCategory] = useState([]);
-    const [sort, setSort] = useState(null);
+    const [sort, setSort] = useState("popular");
     const [pricing, setPricing] = useState([]);
     const [features, setFeatures] = useState([]);
 
@@ -104,7 +104,7 @@ function Homes() {
             console.log(res)
           }
         })
-      },[status, selectCategory,features, pricing])
+      },[status, selectCategory,features, pricing, sort])
  
 
 
