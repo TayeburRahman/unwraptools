@@ -16,6 +16,7 @@ router.route('/removebookmark/:toolId').put(removeBookmarkTool);
 
  
 
+router.route('/get/filter/:id').get(ToolsSearchFilter);
 router.route('/get/filter').get(ToolsSearchFilter);
  
  
