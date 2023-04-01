@@ -36,13 +36,13 @@ function Homes() {
     const [status ,setStatus] = useState(0) 
 
     const [selectCategory, setSelectCategory] = useState([]);
-    const [sort, setSortBy] = useState("popular");
+    const [sort, setSortBy] = useState(null);
     const [pricing, setPricing] = useState([]);
     const [features, setFeatures] = useState([]);
 
-    console.log("features is : ", features)
-    console.log("pricing is : ", pricing)
-    console.log("pricing is : ", sort)
+    console.log("features is :", features)
+    console.log("pricing is :", pricing)
+    console.log("pricing is :", sort)
 
     const {user}=useAuth()
     const email = user?.email
@@ -106,7 +106,7 @@ function Homes() {
             console.log(res)
           }
         })
-      },[status, selectCategory,features, pricing, sort])
+      },[status, selectCategory, features, pricing, sort])
  
 
 
