@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { animated, useSpring } from '@react-spring/web';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import React, { useState } from 'react';
 
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -63,31 +63,91 @@ const style = {
   p: 4,
 };
 
-export default function FilterModal({open, setOpen, pricing, setPricing, setFeatures, features}) {
- 
+export default function FilterModal({ open, setOpen, pricing, setPricing, setFeatures, features }) {
+
+  const [checkedFree, setCheckedFree] =  useState(false)
+  const [checkedFreeTrial, setCheckedFreeTrial] =  useState(false)
+  const [checkedContent, setCheckedContact] =  useState(false)
+  const [checkedFreemium, setCheckedFreemium] =  useState(false)
+  const [checkedPaid, setCheckedPaid] =  useState(false)
+  const [checkedDeals, setCheckedDeals] =  useState(false)
+
+  const [waitlist, setCheckedWaitlist] =  useState(false)
+  const [app, setCheckedApp] =  useState(false)
+  const [api, setCheckedApi] =  useState(false)
+  const [browser, setCheckedBrowser] =  useState(false)
+  const [source, setCheckedOpen] =  useState(false)
+  const [discord, setCheckedDiscord] =  useState(false)
+  const [signup, setCheckedSignup] =  useState(false)
+
+
+
+
   const handleClose = () => setOpen(false);
 
 
-  const handelOnChangePricing = (event) => {
-    const value = event.target.value;
+  const handelOnChangePricing = (event) => { 
+    if(event?.target?.value === "free"){ 
+      setCheckedFree(checkedFree === true? false: true)
+    }
+    if(event.target.value === "free_trial"){
+      setCheckedFreeTrial(checkedFreeTrial=== true? false: true)
+    }
+    if(event.target.value === "contact_for_pricing"){
+      setCheckedContact(checkedContent===true? false: true)
+    }
+    if(event.target.value === "freemium"){
+      setCheckedFreemium(checkedFreemium===true? false: true)
+    }
+    if(event.target.value === "paid"){
+      setCheckedPaid(checkedPaid===true? false: true)
+    }
+    if(event.target.value === "deals"){
+      setCheckedDeals(checkedDeals===true? false: true)
+    }
 
+
+    const value = event.target.value; 
     const currentIndex = pricing.indexOf(value);
     const newChecked = [...pricing];
-    
+
     console.log("new checked is : ", newChecked)
 
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
-    } 
+    }
     setPricing(newChecked);
   };
 
 
   const handelOnChangeFeatures = (event) => {
-    const value = event.target.value;
 
+    if(event?.target?.value === "waitlist"){ 
+      setCheckedWaitlist(waitlist === true? false: true)
+    }
+    if(event.target.value === "mobile_app"){
+      setCheckedApp(app === true? false: true)
+    }
+    if(event.target.value === "api"){
+      setCheckedApi(api === true? false: true)
+    }
+    if(event.target.value === "browser_extension"){
+      setCheckedBrowser(browser===true? false: true)
+    }
+    if(event.target.value === "open_source"){
+      setCheckedOpen(source ===true? false: true)
+    }
+    if(event.target.value === "discord_community"){
+      setCheckedDiscord(discord===true? false: true)
+    }
+    if(event.target.value === "no_signup_required"){
+      setCheckedSignup(signup===true? false: true)
+    }
+     
+ 
+    const value = event.target.value; 
     const currentIndex = features.indexOf(value);
     const newChecked = [...features];
 
@@ -95,12 +155,12 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
-    } 
+    }
     setFeatures(newChecked);
   };
 
   return (
-    <div> 
+    <div>
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
@@ -116,148 +176,161 @@ export default function FilterModal({open, setOpen, pricing, setPricing, setFeat
       >
         <Fade in={open}>
           <Box sx={style}>
-          <Box>
-          <Typography p={0} m={0}>Pricing</Typography>
-             <Grid container>
- 
-              <Grid item  xs={12} md={6} lg={6}>
-              <Typography p={0} m={0} >
-              {" "}
-              <Checkbox
-                value="free"
-                onChange={handelOnChangePricing}
-                {...label}
-              />{" "}
-              Free{" "}
-            </Typography>
-            <Typography>
-              {" "}
-              <Checkbox
-                value="free_trial"
-                onChange={handelOnChangePricing}
-                {...label}
-              />{" "}
-              Free Trial{" "}
-            </Typography>
-            <Typography>
-              {" "}
-              <Checkbox
-                value="contact_for_pricing"
-                onChange={handelOnChangePricing}
-                {...label}
-              />{" "}
-              Contact for Pricing{" "}
-            </Typography>
+            <Box>
+              <Typography p={0} m={0}>Pricing</Typography>
+              <Grid container>
+
+                <Grid item xs={12} md={6} lg={6}>
+                  <Typography p={0} m={0} >
+                    {" "}
+                    <Checkbox
+                      value="free"
+                      checked={checkedFree}
+                      onChange={handelOnChangePricing }
+                      {...label}
+                    />{" "}
+                    Free{" "}
+                  </Typography>
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="free_trial"
+                      checked={checkedFreeTrial}
+                      onChange={handelOnChangePricing}
+                      {...label}
+                    />{" "}
+                    Free Trial{" "}
+                  </Typography>
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="contact_for_pricing"
+                      checked={checkedContent}
+                      onChange={handelOnChangePricing}
+                      {...label}
+                    />{" "}
+                    Contact for Pricing{" "}
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={6}>
+
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="freemium"
+                      checked={checkedFreemium}
+                      onChange={handelOnChangePricing}
+                      {...label}
+                    />{" "}
+                    Freemium{" "}
+                  </Typography>
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="paid"
+                      checked={checkedPaid}
+                      onChange={handelOnChangePricing}
+                      {...label}
+                    />{" "}
+                    Paid{" "}
+                  </Typography>
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="deals"
+                      checked={checkedDeals}
+                      onChange={handelOnChangePricing}
+                      {...label}
+                    />{" "}
+                    Deals{" "}
+                  </Typography>
+                </Grid>
+
               </Grid>
 
-              <Grid item  xs={12} md={6} lg={6}>
-              
-            <Typography>
-              {" "}
-              <Checkbox
-                value="freemium"
-                onChange={handelOnChangePricing}
-                {...label}
-              />{" "}
-              Freemium{" "}
-            </Typography>
-            <Typography>
-              {" "}
-              <Checkbox
-                value="paid"
-                onChange={handelOnChangePricing}
-                {...label}
-              />{" "}
-              Paid{" "}
-            </Typography>
-            <Typography>
-              {" "}
-              <Checkbox
-                value="deals"
-                onChange={handelOnChangePricing}
-                {...label}
-              />{" "}
-             Deals{" "}
-            </Typography>
+              <Typography p={0} m={0}>Features</Typography>
+              <Grid container>
+
+                <Grid item xs={12} md={6} lg={6}>
+                  <Typography p={0} m={0}>
+                    {" "}
+                    <Checkbox
+                      value="waitlist"
+                      checked={waitlist}
+                      onChange={handelOnChangeFeatures}
+                      {...label}
+                    />{" "}
+                    Waitlist{" "}
+                  </Typography>
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="mobile_app"
+                      checked={app}
+                      onChange={handelOnChangeFeatures}
+                      {...label}
+                    />{" "}
+                    Mobile App{" "}
+                  </Typography>
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="api"
+                      checked={api}
+                      onChange={handelOnChangeFeatures}
+                      {...label}
+                    />{" "}
+                    API{" "}
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={6}>
+
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="browser_extension"
+                      checked={browser}
+                      onChange={handelOnChangeFeatures}
+                      {...label}
+                    />{" "}
+                    Browser Extension{" "}
+                  </Typography>
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="open_source"
+                      checked={source}
+                      onChange={handelOnChangeFeatures}
+                      {...label}
+                    />{" "}
+                    Open Source{" "}
+                  </Typography>
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="discord_community"
+                      checked={discord}
+                      onChange={handelOnChangeFeatures}
+                      {...label}
+                    />{" "}
+                    Discord Community{" "}
+                  </Typography>
+                  <Typography>
+                    {" "}
+                    <Checkbox
+                      value="no_signup_required"
+                      checked={signup}
+                      onChange={handelOnChangeFeatures}
+                      {...label}
+                    />{" "}
+                    No Signup Required{" "}
+                  </Typography>
+                </Grid>
+
               </Grid>
-
-             </Grid>
-
-             <Typography p={0} m={0}>Features</Typography>
-             <Grid container>
-               
-              <Grid item xs={12} md={6} lg={6}>
-              <Typography p={0} m={0}>
-              {" "}
-              <Checkbox
-                value="waitlist"
-                onChange={handelOnChangeFeatures}
-                {...label}
-              />{" "}
-             Waitlist{" "}
-            </Typography>
-            <Typography>
-              {" "}
-              <Checkbox
-                value="mobile_app"
-                onChange={handelOnChangeFeatures}
-                {...label}
-              />{" "}
-              Mobile App{" "}
-            </Typography>
-            <Typography>
-              {" "}
-              <Checkbox
-                value="api"
-                onChange={handelOnChangeFeatures}
-                {...label}
-              />{" "}
-              API{" "}
-            </Typography>
-              </Grid>
-
-              <Grid item xs={12} md={6} lg={6}>
-              
-            <Typography>
-              {" "}
-              <Checkbox
-                value="browser_extension"
-                onChange={handelOnChangeFeatures}
-                {...label}
-              />{" "}
-              Browser Extension{" "}
-            </Typography>
-            <Typography>
-              {" "}
-              <Checkbox
-                value="open_source"
-                onChange={handelOnChangeFeatures}
-                {...label}
-              />{" "}
-              Open Source{" "}
-            </Typography>
-            <Typography>
-              {" "}
-              <Checkbox
-                value="discord_community"
-                onChange={handelOnChangeFeatures}
-                {...label}
-              />{" "}
-             Discord Community{" "}
-            </Typography>
-            <Typography>
-              {" "}
-              <Checkbox
-                value="no_signup_required"
-                onChange={handelOnChangeFeatures}
-                {...label}
-              />{" "}
-            No Signup Required{" "}
-            </Typography>
-              </Grid>
-
-             </Grid>
-          </Box>
+            </Box>
           </Box>
         </Fade>
       </Modal>

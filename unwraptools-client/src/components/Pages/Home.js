@@ -42,73 +42,47 @@ function Homes() {
 
     console.log("features is :", features)
     console.log("pricing is :", pricing)
-    console.log("pricing is :", sort)
+    console.log("sort is :", sort)
 
     const {user}=useAuth()
     const email = user?.email
  
 
-    let url= `http://localhost:5000/api/v1/tool/get/filter` ;
+    let url = `http://localhost:5000/api/v1/tool/get/filter`;
 
-
-    useEffect(()=>{
-        if(pricing?.length > 0 ){
-            if(features?.length > 0 || sort || selectCategory?.length > 0 ){
-                url = `${url}&${pricing.map((f,index)=> `${f.toLowerCase()}=true`).join('')}`
-            }else{
-                url = `${url}?${pricing.map((f,index)=> `${f.toLowerCase()}=true`).join('')}`
-            }
+    useEffect(() => {
+      url = `${url}${selectCategory
+        ?.map((f, index) => `${index === 0 ? "?" : "&"}${f.toLowerCase()}=true`)
+        .join("")}${pricing
+        .map(
+          (f, index) =>
+            `${selectCategory.length > 0 || index > 0  ? "&" : "?"}${f.toLowerCase()}=true`
+        )
+        .join("")}${features
+        .map(
+          (f, index) =>
+            `${
+              pricing.length > 0 || selectCategory.length > 0 || features.length > 0 || index > 0 ? "&" : "?"
+            }${f.toLowerCase()}=true`
+        )
+        .join("")}${`${
+        pricing.length > 0 || selectCategory.length > 0 || features.length > 0
+          ? "&"
+          : "?"
+      }sort=${sort}`}`;
+  
+      console.log("url", url);
+  
+      axios.get(url).then((res) => {
+        if (res.status === 200) {
+          // console.log('sssss',res?.data)
+          setTools(res?.data?.tools);
+        } else {
+          console.log(res);
         }
-    },[pricing])
-    useEffect(()=>{
-        if(features?.length > 0){
-            if(pricing?.length > 0 || sort || selectCategory?.length > 0 ){
-            
-                url = `${url}&${features.map((f,index)=> `${f.toLowerCase()}=true`).join('')}`
-            }else{
-
-                url = `${url}?${features.map((f,index)=> `${f.toLowerCase()}=true`).join('')}`
-            }
-        }
-    },[features])
-    useEffect(()=>{
-        if(selectCategory?.length > 0){
-
-            if(pricing?.length > 0 || features?.length > 0 || sort){
-                url = `${url}&${selectCategory?.map((f,index)=> `${f.toLowerCase()}=true`).join('')}`
-            }
-             else{
-                 url = `${url}?${selectCategory?.map((f,index)=> `${f.toLowerCase()}=true`).join('')}`
-             }  
-
-        }
-
-    },[selectCategory])
-    useEffect(()=>{
-        if(sort){
-            if(pricing?.length > 0 || features?.length > 0 || selectCategory?.length > 0 ){
-                url = `${url}&sort=${sort}`
-            }else{
-                url = `${url}?sort=${sort}`
-            }
-        }
-
-    },[sort])
-
-    useEffect(()=>{ 
-
-      console.log("url", url)
-
-        axios.get(url) 
-        .then(res => {
-          if (res.status === 200) {
-            // console.log('sssss',res?.data)
-            setTools(res?.data?.tools)
-          }else{
-            console.log(res)
-          }
-        })
-      },[status, selectCategory, features, pricing, sort])
+      });
+    }, [status, selectCategory, features, pricing, sort]);
+  
  
 
 

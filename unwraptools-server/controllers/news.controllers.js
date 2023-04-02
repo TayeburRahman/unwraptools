@@ -78,4 +78,17 @@ const deleteNews = async (req, res ) => {
 }
 
 
-module.exports={ createNews, findInactiveNews,approveNews, deleteNews, findNews }
+const findActiveNews = async (req, res ) => {   
+  try {   
+    const news = await  newsModels.find({status: "active"})   
+   return res.status(200).json({ 
+    news,
+    status: "success",
+    message:'Active news Find Success'});
+ } catch (error) {
+   return res.status(500).json({status: "error", message: error})
+ }
+}
+
+
+module.exports={ createNews, findInactiveNews,approveNews, deleteNews, findNews, findActiveNews }

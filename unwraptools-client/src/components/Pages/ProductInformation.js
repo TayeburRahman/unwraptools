@@ -31,6 +31,7 @@ import BookmarkButton from '../ProductInformation/BookmarkButtonPD';
 function ProductInformation() {
 
     const [tools, setTools] = useState([]);
+    const [categoryTools, setCategoryTools] = useState([]);
     const { Id } = useParams();
     const [status ,setStatus] = useState(0) 
     const {user}=useAuth()
@@ -50,6 +51,19 @@ function ProductInformation() {
             })
     }, [Id, status]) 
 
+    useEffect(() => {
+        console.log(Id)
+        axios.get(`http://localhost:5000/api/v1/tool/getTools/${Id}`)
+            .then(res => {
+                if (res.status === 200) {
+                    console.log('sssss', res?.data)
+                    setTools(res?.data?.tools)
+                } else {
+                    console.log(res)
+                }
+            })
+    }, [Id, status])  
+     
  
     return (
         <div className='background'>

@@ -80,20 +80,12 @@ function SubmitNews() {
 
     }
 
-
-
-
-
-
-
-
-
+ 
         
         const handleClick = () => {
             setOpenWarning(true);
             setMessage('You can select only 3 tags')
-        };
-    
+        }; 
         const handleClose = (event, reason) => {
             if (reason === 'clickaway') {
                 return;
@@ -140,8 +132,7 @@ function SubmitNews() {
                             }}
                         />
                     </FormControl>
-                </Grid>
-               
+                </Grid> 
                 <Grid className='mt-4' item xs={12} md={12} lg={6}>
                 <Typography className='text-left'>Link to the content</Typography>
                  <FormControl className='width100' xs={{ width:"100%" }} variant="outlined">
