@@ -232,27 +232,28 @@ const deleteTool = async (req, res) => {
 };
  
 const searchTools = async (req, res) => {
-    const query = req.query.q; // the search query passed in the request URL
-    try {
-      const tools = await toolsModels.find({ tool_name: { $regex: query, $options: "i" } }); // search for documents that match the query
+  const query = req.query.q; // the search query passed in the request URL
+  try {
+    const tools = await toolsModels.find({
+      tool_name: { $regex: query, $options: "i" },
+    }); // search for documents that match the query
     //   res.json(results);
-      
-      return res.status(200).json({
-        tools,
-        status: "success",
-        message: "Inactive Tools Find Success",
-      });
-    
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
-  };
+
+    return res.status(200).json({
+      tools,
+      status: "success",
+      message: "Inactive Tools Find Success",
+    });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 const ToolsSearchFilter = async (req, res) => {
   // Waitlist,Mobile App,API,Browser Extension,Open Source,Discord Community,No Signup Required
   //--------------------------------------------------------------
   //CATEGORY ID
-//   const params = req?.params?.id;
+  //   const params = req?.params?.id;
 
   let categories = [];
 
@@ -262,9 +263,9 @@ const ToolsSearchFilter = async (req, res) => {
   if (req.query.audio_editing) {
     categories.push("Audio Edting");
   }
-  if (req.query.paid) {
-    categories.push("Paid");
-  }
+  // if (req.query.paid) {
+  //   categories.push("Paid");
+  // }
   if (req.query.contact_for_pricing) {
     categories.push("Contact for Pricing");
   }
@@ -319,17 +320,22 @@ const ToolsSearchFilter = async (req, res) => {
   if (req.query.deals) {
     pricingFilter.push("Deals");
   }
+
   //--------------------------------------------------------------
 
   const getQuery = () => {
     if (pricingFilter?.length > 0 && featuresFilter?.length > 0) {
+      console.log("called from both")
       return {
-        features: { $in: featuresFilter },
-        price: { $in: pricingFilter },
+        $or: [
+          { price:{$in: pricingFilter}},
+          { features:{ $in: featuresFilter}}
+        ]
       };
     } else if (featuresFilter?.length > 0) {
       return {
         features: { $in: featuresFilter },
+        // features: { $in: featuresFilter },
       };
     } else if (pricingFilter?.length > 0) {
       return {
@@ -339,6 +345,8 @@ const ToolsSearchFilter = async (req, res) => {
       return;
     }
   };
+
+  // console.log("filters is : ", pricingFilter, featuresFilter);
 
   const getParams = () => {
     return {
@@ -351,13 +359,15 @@ const ToolsSearchFilter = async (req, res) => {
     if (categories.length > 0) {
       // console.log("params id is : ", paramsId);
       tools = await toolsModels
-        .find({ $and: [{ status: "active" }, { ...getParams() }] })
+        .find({ status: "active" })
+        .find(getParams())
         .find(getQuery());
     } else {
-      tools = await toolsModels.find({
-        $and: [{ status: "active" }, { ...getQuery() }],
-      });
+      // tools = await toolsModels.find(getQuery());
+      tools = await toolsModels.find({ status: "active" }).find(getQuery());
     }
+
+    // console.log("tools is : ", tools)
 
     if (req?.query?.sort) {
       console.log("sort is : ", req?.query?.sort);
@@ -399,6 +409,164 @@ const ToolsSearchFilter = async (req, res) => {
     res.status(500).json({ massages: "Internal Server Error" });
   }
 };
+// const ToolsSearchFilter = async (req, res) => {
+//   // Waitlist,Mobile App,API,Browser Extension,Open Source,Discord Community,No Signup Required
+//   //--------------------------------------------------------------
+//   //CATEGORY ID
+//   //   const params = req?.params?.id;
+
+//   let categories = [];
+
+//   if (req.query.art) {
+//     categories.push("Art");
+//   }
+//   if (req.query.audio_editing) {
+//     categories.push("Audio Edting");
+//   }
+//   if (req.query.paid) {
+//     categories.push("Paid");
+//   }
+//   if (req.query.contact_for_pricing) {
+//     categories.push("Contact for Pricing");
+//   }
+
+//   //--------------------------------------------------------------
+//   //FEATURES FILTER
+
+//   let featuresFilter = [];
+
+//   if (req.query.mobile_app) {
+//     featuresFilter.push("Mobile App");
+//   }
+//   if (req.query.waitlist) {
+//     featuresFilter.push("Waitlist");
+//   }
+//   if (req.query.api) {
+//     featuresFilter.push("API");
+//   }
+//   if (req.query.browser_extension) {
+//     featuresFilter.push("Browser Extension");
+//   }
+//   if (req.query.open_source) {
+//     featuresFilter.push("Open Source");
+//   }
+//   if (req.query.discord_community) {
+//     featuresFilter.push("Discord Community");
+//   }
+//   if (req.query.no_signup) {
+//     featuresFilter.push("No Signup Required");
+//   }
+
+//   //--------------------------------------------------------------
+//   // PRICING FILTER
+
+//   let pricingFilter = [];
+
+//   if (req.query.free) {
+//     pricingFilter.push("Free");
+//   }
+//   if (req.query.free_trial) {
+//     pricingFilter.push("Free Trial");
+//   }
+//   if (req.query.contact_for_pricing) {
+//     pricingFilter.push("Contact for Pricing");
+//   }
+//   if (req.query.freemium) {
+//     pricingFilter.push("Freemium");
+//   }
+//   if (req.query.paid) {
+//     pricingFilter.push("Paid");
+//   }
+//   if (req.query.deals) {
+//     pricingFilter.push("Deals");
+//   }
+
+//   //--------------------------------------------------------------
+
+//   const getQuery = () => {
+//     if (pricingFilter?.length > 0 && featuresFilter?.length > 0) {
+//       return {
+
+//         features: { $in: [featuresFilter] } ,
+//         price: { $in: [pricingFilter] }
+
+//       };
+//     } else if (featuresFilter?.length > 0) {
+//       console.log(" filters is : ", pricingFilter, featuresFilter);
+//       return {
+//         features: { $in:featuresFilter },
+//         // features: { $in: featuresFilter },
+//       };
+//     } else if (pricingFilter?.length > 0) {
+//       return {
+//         price: { $in: pricingFilter },
+//       };
+//     } else {
+//       return;
+//     }
+//   };
+
+//   const getParams = () => {
+//     return {
+//       categories: { $in: categories },
+//     };
+//   };
+
+//   try {
+//     let tools = [];
+//     // if (categories.length > 0) {
+//     //   // console.log("params id is : ", paramsId);
+//     //   tools = await toolsModels
+//     //     .find({ status: "active" })
+//     //     .find({ $and: [{ status: "active" }, { ...getParams() }] })
+//     //     .find(getQuery());
+//     // } else {
+//     //   tools = await toolsModels.find({features: { $in: ["API"] }});
+//     // }
+//     tools = await toolsModels.find();
+
+//     console.log("tools is : ", tools)
+
+//     // if (req?.query?.sort) {
+//     //   console.log("sort is : ", req?.query?.sort);
+
+//     //   if (req?.query?.sort === "popular") {
+//     //     const sortData = await [...tools].sort((a, b) => {
+//     //       // console.log("a is : ", a);
+//     //       return Number(a.favourite.length) - Number(b.favourite.length);
+//     //     });
+//     //     tools = sortData?.slice(0)?.reverse();
+//     //   } else if (req?.query?.sort === "verified") {
+//     //     const sortData = await [...tools].sort((a, b) => {
+//     //       return Number(a.favourite.length) - Number(b.favourite.length);
+//     //     });
+//     //     tools = sortData?.slice(0)?.reverse();
+//     //   } else if (req?.query?.sort === "new") {
+//     //     const newTools = await tools.filter((d) => {
+//     //       // console.log("map date is : ", new Date(d?.createdAt));
+//     //       const currentDate = new Date();
+//     //       const sevenDaysAgo = new Date(
+//     //         Number(currentDate.getTime()) - 7 * 24 * 60 * 60 * 1000
+//     //       );
+//     //       // console.log("seven day ago is : ", sevenDaysAgo);
+//     //       return new Date(d?.createdAt) >= sevenDaysAgo;
+//     //     });
+
+//     //     tools = newTools;
+//     //   }
+//     // }
+
+//     return res.status(200).json({
+//       tools,
+//       status: "success",
+//       message: "Inactive Tools Find Success",
+//     });
+
+//     // res.send({ status: "success", result: tools });
+//   } catch (err) {
+//     res.status(500).json({ massages: "Internal Server Error" });
+//   }
+// };
 
 module.exports = {
   createTool,
