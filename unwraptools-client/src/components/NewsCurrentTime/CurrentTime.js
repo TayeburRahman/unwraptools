@@ -6,11 +6,9 @@ function CurrentTime({news}) {
 
  const [day, setDay] = useState()
  const [hours, setHours] = useState()
+ 
 
- console.log('news', news)
-
- useEffect(()=>{ 
-  
+ useEffect(()=>{  
         axios.get(`http://localhost:5000/api/v1/news/gettime/${news?._id}`)
             .then(res => {
                 if (res.status === 200) {

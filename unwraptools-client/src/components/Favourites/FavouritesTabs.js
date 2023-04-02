@@ -1,5 +1,3 @@
-
-
 import BiotechIcon from '@mui/icons-material/Biotech';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';

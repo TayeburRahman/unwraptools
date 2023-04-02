@@ -174,7 +174,7 @@ function Homes() {
                                         </Box>
                                     </Box>
                                     <Typography className='text-left' variant="body2"  >
-                                         {tool?.short_description?.slice(0, 100)}
+                                         {tool?.short_description?.slice(0, 100)}.
                                     </Typography>
                                     <Box>
                                     <Grid container className='mt-2'>

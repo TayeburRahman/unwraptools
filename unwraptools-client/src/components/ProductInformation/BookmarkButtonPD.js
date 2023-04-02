@@ -13,7 +13,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 
-function BookmarkButton({ setStatus, status, tools, email }) {
+function BookmarkButtonPD({ setStatus, status, tools, email }) {
 
   const [existingUser, setExistingUser] = useState()
   const [message, setMessage] = useState('');
@@ -93,4 +93,4 @@ console.log(id, email)
   )
 }
 
-export default BookmarkButton
+export default BookmarkButtonPD

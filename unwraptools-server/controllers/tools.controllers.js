@@ -85,9 +85,7 @@ const BookmarkTool = async (req, res) => {
           },
         },
         { returnOriginal: false }
-      );
-
-      console.log("response", response);
+      ); 
 
       return res.status(201).json({
         response,
@@ -171,9 +169,23 @@ const randomGetTool = async (req, res) => {
 const findTool = async (req, res) => {
   try {
     const { getId } = req.params;
-
-    console.log("dddd", getId);
+ 
     const tools = await toolsModels.findOne({ _id: getId });
+    return res.status(200).json({
+      tools,
+      status: "success",
+      message: "Inactive Tools Find Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
+const findByCategoryTool = async (req, res) => {
+  try {
+    const { category } = req.body; 
+    const data = category[0].toString(); 
+    const tools = await toolsModels.find({ categories: data}); 
     return res.status(200).json({
       tools,
       status: "success",
@@ -218,8 +230,7 @@ const deleteTool = async (req, res) => {
     return res.status(500).json({ status: "error", message: error });
   }
 };
-
-
+ 
 const searchTools = async (req, res) => {
     const query = req.query.q; // the search query passed in the request URL
     try {
@@ -401,5 +412,6 @@ module.exports = {
   BookmarkExistingUser,
   randomGetTool,
   BookmarkUserData,
-  searchTools
+  searchTools,
+  findByCategoryTool
 };
