@@ -51,22 +51,20 @@ function Homes() {
     let url = `http://localhost:5000/api/v1/tool/get/filter`;
 
     useEffect(() => {
-      url = `${url}${selectCategory
-        ?.map((f, index) => `${index === 0 ? "?" : "&"}${f.toLowerCase()}=true`)
-        .join("")}${pricing
+      url = `${url}${pricing
         .map(
           (f, index) =>
-            `${selectCategory.length > 0 || index > 0  ? "&" : "?"}${f.toLowerCase()}=true`
+            `${index > 0 ? "&" : "?"}${f.toLowerCase()}=true`
         )
         .join("")}${features
         .map(
           (f, index) =>
             `${
-              pricing.length > 0 || selectCategory.length > 0 || features.length > 0 || index > 0 ? "&" : "?"
+              pricing.length > 0 || index > 0 ? "&" : "?"
             }${f.toLowerCase()}=true`
         )
         .join("")}${`${
-        pricing.length > 0 || selectCategory.length > 0 || features.length > 0
+        pricing.length > 0 || features.length > 0
           ? "&"
           : "?"
       }sort=${sort}`}`;
@@ -81,7 +79,7 @@ function Homes() {
           console.log(res);
         }
       });
-    }, [status, selectCategory, features, pricing, sort]);
+    }, [status, features, pricing, sort]);
   
  
 
