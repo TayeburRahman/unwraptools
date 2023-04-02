@@ -85,9 +85,7 @@ const BookmarkTool = async (req, res) => {
           },
         },
         { returnOriginal: false }
-      );
-
-      console.log("response", response);
+      ); 
 
       return res.status(201).json({
         response,
@@ -171,9 +169,23 @@ const randomGetTool = async (req, res) => {
 const findTool = async (req, res) => {
   try {
     const { getId } = req.params;
-
-    console.log("dddd", getId);
+ 
     const tools = await toolsModels.findOne({ _id: getId });
+    return res.status(200).json({
+      tools,
+      status: "success",
+      message: "Inactive Tools Find Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
+const findByCategoryTool = async (req, res) => {
+  try {
+    const { category } = req.body; 
+    const data = category[0].toString(); 
+    const tools = await toolsModels.find({ categories: data}); 
     return res.status(200).json({
       tools,
       status: "success",
@@ -218,7 +230,7 @@ const deleteTool = async (req, res) => {
     return res.status(500).json({ status: "error", message: error });
   }
 };
-
+ 
 const searchTools = async (req, res) => {
   const query = req.query.q; // the search query passed in the request URL
   try {
@@ -357,34 +369,34 @@ const ToolsSearchFilter = async (req, res) => {
 
     // console.log("tools is : ", tools)
 
-    // if (req?.query?.sort) {
-    //   console.log("sort is : ", req?.query?.sort);
+    if (req?.query?.sort) {
+      console.log("sort is : ", req?.query?.sort);
 
-    //   if (req?.query?.sort === "popular") {
-    //     const sortData = await [...tools].sort((a, b) => {
-    //       // console.log("a is : ", a);
-    //       return Number(a.favourite.length) - Number(b.favourite.length);
-    //     });
-    //     tools = sortData?.slice(0)?.reverse();
-    //   } else if (req?.query?.sort === "verified") {
-    //     const sortData = await [...tools].sort((a, b) => {
-    //       return Number(a.favourite.length) - Number(b.favourite.length);
-    //     });
-    //     tools = sortData?.slice(0)?.reverse();
-    //   } else if (req?.query?.sort === "new") {
-    //     const newTools = await tools.filter((d) => {
-    //       // console.log("map date is : ", new Date(d?.createdAt));
-    //       const currentDate = new Date();
-    //       const sevenDaysAgo = new Date(
-    //         Number(currentDate.getTime()) - 7 * 24 * 60 * 60 * 1000
-    //       );
-    //       // console.log("seven day ago is : ", sevenDaysAgo);
-    //       return new Date(d?.createdAt) >= sevenDaysAgo;
-    //     });
+      if (req?.query?.sort === "popular") {
+        const sortData = await [...tools].sort((a, b) => {
+          // console.log("a is : ", a);
+          return Number(a.favourite.length) - Number(b.favourite.length);
+        });
+        tools = sortData?.slice(0)?.reverse();
+      } else if (req?.query?.sort === "verified") {
+        const sortData = await [...tools].sort((a, b) => {
+          return Number(a.favourite.length) - Number(b.favourite.length);
+        });
+        tools = sortData?.slice(0)?.reverse();
+      } else if (req?.query?.sort === "new") {
+        const newTools = await tools.filter((d) => {
+          // console.log("map date is : ", new Date(d?.createdAt));
+          const currentDate = new Date();
+          const sevenDaysAgo = new Date(
+            Number(currentDate.getTime()) - 7 * 24 * 60 * 60 * 1000
+          );
+          // console.log("seven day ago is : ", sevenDaysAgo);
+          return new Date(d?.createdAt) >= sevenDaysAgo;
+        });
 
-    //     tools = newTools;
-    //   }
-    // }
+        tools = newTools;
+      }
+    }
 
     return res.status(200).json({
       tools,
@@ -569,4 +581,5 @@ module.exports = {
   randomGetTool,
   BookmarkUserData,
   searchTools,
+  findByCategoryTool
 };

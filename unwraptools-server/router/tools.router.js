@@ -1,4 +1,4 @@
-const { createTool,   approveTool, findInactiveTool, deleteTool,searchTools, findTool, ToolsSearchFilter, findActiveTool, addBookmarkTool, removeBookmarkTool, BookmarkTool, BookmarkExistingUser, BookmarkUserData, randomGetTool } = require("../controllers/tools.controllers"); 
+const { createTool,   approveTool, findInactiveTool, deleteTool,searchTools, findTool, ToolsSearchFilter, findActiveTool, addBookmarkTool, removeBookmarkTool, BookmarkTool, BookmarkExistingUser, BookmarkUserData, randomGetTool, findByCategoryTool } = require("../controllers/tools.controllers"); 
 const verifyToken = require("../middleware/verifyToken");
 
 const router = require("express").Router();
@@ -13,6 +13,8 @@ router.route('/bookmark/:toolId').put(BookmarkTool);
 router.route('/bookmark/existingUser/:toolId/:email').get(BookmarkExistingUser); 
 router.route('/bookmark/user/:email').get(BookmarkUserData); 
 router.route('/randomTool').get(randomGetTool); 
+router.route('/get/categorys').put(findByCategoryTool); 
+ 
 
  
 router.route('/get/search').get(searchTools);

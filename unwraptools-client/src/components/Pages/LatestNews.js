@@ -2,6 +2,7 @@ import BiotechIcon from '@mui/icons-material/Biotech';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import EastIcon from '@mui/icons-material/East';
+import LaunchIcon from '@mui/icons-material/Launch';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import PodcastsIcon from '@mui/icons-material/Podcasts';
 import SchoolIcon from '@mui/icons-material/School';
@@ -13,21 +14,30 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Skeleton from '@mui/material/Skeleton';
 import { Container } from '@mui/system';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useAuth from '../../Firebase/Hooks/useAuth';
 import Footer from '../AppBar/Footer/Footer';
 import NavBar from '../AppBar/NavBar';
 import BookmarkButtonNw from '../NewsBookmark/BookmarkButtonNw';
+import CurrentTime from '../NewsCurrentTime/CurrentTime';
 
 
 function LatestNews() {
-
+    const [isLoading, setLoading] = useState(true);
     const [allNews, setAllNews] = useState([]);
+    const [status, setStatus] = useState();
     const [time, setSortTime] = useState(null);
     const [category, setSortCategory] = useState(null);
     const [sort, setSort] = useState(null);
+
+
+
+    const { user } = useAuth()
+    const email = user?.email
 
     const handleChangeTime = (event) => {
         setSortTime(event.target.value);
@@ -40,20 +50,22 @@ function LatestNews() {
     const handleChangeSort = (event) => {
         setSort(event.target.value);
     };
-
-
+    
+ 
     useEffect(() => {
         axios.get(`http://localhost:5000/api/v1/news/getActiveNews`)
             .then(res => {
                 if (res.status === 200) {
                     setAllNews(res?.data?.news)
+                    setLoading(false)
                 } else {
                     console.log(res)
                 }
             })
-    }, [time, category, sort])
+    }, [time, category, sort, status])
 
-    console.log('allNews', allNews)
+    console.log('cccc', allNews)
+
     return (
         <div className='background'>
             <NavBar />
@@ -178,43 +190,74 @@ function LatestNews() {
                         </FormControl>
                     </Grid>
                 </Grid>
-                <Grid container>
-                    {
-                        allNews.map((data, idx) => (
-                            <Grid item lg={12} md={12} xs={12}>
-                                <Box>
-                                    <Typography>{data?.news_name}</Typography>
-                                </Box>
-                                <Grid container>
-                                    <Grid item md={4} xs={12} lg={3} >
-                                        <Typography>21 hours ago</Typography>
+                {
+                    !isLoading ? (
+                        <Grid container className='mt-4'>
+                            {
+                                allNews?.map((data, idx) => (
+                                    <Grid className='p-3 mb-2' item lg={12} md={12} xs={12} sx={{ border: "1px solid var(--border_color)", borderRadius: "5px" }}>
+                                        <Box className='text-left'>
+                                            <a href={data?.contentLink} target="_blank" className='text-left linkTextNews'>{data?.news_name} <span className='spanLinkNews'>{data?.contentLink.slice(0, 20)} <LaunchIcon sx={{fontSize:"14px"}}/></span></a>
+                                        </Box>
+                                        <Grid container className='mt-3'>
+                                            <Grid item md={4} xs={12} lg={3} className="text-left" >
+                                                 <CurrentTime news={data} />
+                                            </Grid>
+                                            <Grid item md={4} xs={8} lg={3} className="d-flex text-left">
+                                                {
+                                                    data?.categories?.map((data, idx) => (
+                                                        <Grid item className='m-2 text-left'>
+                                                            <Typography className="tagCard1">
+                                                                {data === "Podcast" && <PodcastsIcon className='cardTagIcon' />}
+                                                                {data === "Opinion" && <ContactSupportIcon className='cardTagIcon' />}
+                                                                {data === "Research" && <BiotechIcon className='cardTagIcon' />}
+                                                                {data === "Updates" && <TaskAltIcon className='cardTagIcon' />}
+                                                                {data === "Interesting" && <LightbulbIcon className='cardTagIcon' />}
+                                                                {data === "Learn" && <SchoolIcon className='cardTagIcon' />}
+                                                                {data === "Video" && <VideocamIcon className='cardTagIcon' />}
+                                                                {data}
+                                                            </Typography>
+                                                        </Grid>
+                                                    ))
+                                                }
+                                            </Grid>
+                                            <Grid item md={4} xs={4} lg={6} className="d-flex" sx={{ justifyContent: "flex-end" }}>
+                                                <BookmarkButtonNw email={email} news={data} setStatus={setStatus} status={status} />
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item md={4} xs={8} lg={3} className="d-flex"> 
-                                        {
-                                            data?.categories?.map((data, idx) => (
-                                                <Grid item className='m-2'>
-                                                    <Typography className="tagCard1">
-                                                        {data === "Podcast" && <PodcastsIcon className='cardTagIcon' />}
-                                                        {data === "Opinion" && <ContactSupportIcon className='cardTagIcon' />}
-                                                        {data === "Research" && <BiotechIcon className='cardTagIcon' />}
-                                                        {data === "Updates" && <TaskAltIcon className='cardTagIcon' />}
-                                                        {data === "Interesting" && <LightbulbIcon className='cardTagIcon' />}
-                                                        {data === "Learn" && <SchoolIcon className='cardTagIcon' />}
-                                                        {data === "Video" && <VideocamIcon className='cardTagIcon' />}
-                                                        {data}
-                                                    </Typography>
-                                                </Grid>
-                                            ))
-                                        }
-                                    </Grid>
-                                    <Grid item md={4} xs={4} lg={3}>
-                                        <BookmarkButtonNw />
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        ))
-                    }
-                </Grid>
+                                ))
+                            }
+                        </Grid>
+
+                    ) : (
+                        <Box className='mt-3'>
+                            <Box className='p-3 mt-1' sx={{ border: "1px solid var(--border_color)", borderRadius: "5px" }}>
+                                <Skeleton sx={{ maxWidth: "100%" }} height={40} />
+                                <Skeleton sx={{ maxWidth: "100%" }} height={40} />
+                            </Box>
+                            <Box className='p-3 mt-1' sx={{ border: "1px solid var(--border_color)", borderRadius: "5px" }}>
+                                <Skeleton sx={{ maxWidth: "100%" }} height={40} />
+                                <Skeleton sx={{ maxWidth: "100%" }} height={40} />
+                            </Box>
+                            <Box className='p-3 mt-1' sx={{ border: "1px solid var(--border_color)", borderRadius: "5px" }}>
+                                <Skeleton sx={{ maxWidth: "100%" }} height={40} />
+                                <Skeleton sx={{ maxWidth: "100%" }} height={40} />
+                            </Box>
+                            <Box className='p-3 mt-1' sx={{ border: "1px solid var(--border_color)", borderRadius: "5px" }}>
+                                <Skeleton sx={{ maxWidth: "100%" }} height={40} />
+                                <Skeleton sx={{ maxWidth: "100%" }} height={40} />
+                            </Box>
+                            <Box className='p-3 mt-1' sx={{ border: "1px solid var(--border_color)", borderRadius: "5px" }}>
+                                <Skeleton sx={{ maxWidth: "100%" }} height={40} />
+                                <Skeleton sx={{ maxWidth: "100%" }} height={40} />
+                            </Box>
+
+                        </Box>
+
+                    )
+                }
+
             </Container>
             <Footer />
         </div>
