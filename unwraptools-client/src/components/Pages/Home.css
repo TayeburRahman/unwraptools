@@ -233,6 +233,25 @@
   display: flex !important;
 }
 
+.linkTextNews {
+  text-decoration: none !important;
+  font-size: 16px;
+  color: var(--body_color) !important;
+  font-weight: 500 !important;
+}
+
+.linkTextNews:hover {
+  color: #0369a1 !important;
+}
+.spanLinkNews {
+  font-size: 13px;
+  color: #0369a1 !important;
+}
+
+.spanLinkNews:hover {
+  text-decoration: underline;
+}
+
 @media only screen and (max-width: 620px) {
   .box-mobile {
     font-size: 12px;

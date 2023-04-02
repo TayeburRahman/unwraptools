@@ -14,7 +14,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 
-function BookmarkButtonNw({ setStatus, status, tool, email }) {
+function BookmarkButtonNw({ setStatus, status, news, email }) {
 
   const [existingUser, setExistingUser] = useState()
   const [message, setMessage] = useState('');
@@ -25,7 +25,7 @@ function BookmarkButtonNw({ setStatus, status, tool, email }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/tool/bookmark/existingUser/${tool?._id}/${email}`)
+    axios.get(`http://localhost:5000/api/v1/news/bookmark/existingUser/${news?._id}/${email}`)
       .then(res => {
         if (res.status === 200) {
           // console.log('sssss',res?.data)
@@ -34,7 +34,7 @@ function BookmarkButtonNw({ setStatus, status, tool, email }) {
           console.log(res)
         }
       })
-  }, [tool, status, email])
+  }, [news, status, email])
 
   const HandleBookmark = (id) => {
 
@@ -45,7 +45,7 @@ function BookmarkButtonNw({ setStatus, status, tool, email }) {
     
     handleClose()
 
-    axios.put(`http://localhost:5000/api/v1/tool/bookmark/${id}`, { email })
+    axios.put(`http://localhost:5000/api/v1/news/bookmark/${id}`,{email})
       .then(res => {
         if (res.status === 200) {
           setMessage("Added to favourites")
@@ -62,13 +62,11 @@ function BookmarkButtonNw({ setStatus, status, tool, email }) {
   }
 
   const handleClickAdded = () => {
-    setOpenSuccess(true);
-
+    setOpenSuccess(true); 
   };
 
   const handleClickRemoved = () => {
-    setOpenInfo(true);
-
+    setOpenInfo(true); 
   };
 
   const handleClose = (event, reason) => {
@@ -80,10 +78,12 @@ function BookmarkButtonNw({ setStatus, status, tool, email }) {
     setMessage('')
   };
 
+  console.log('existingUser', existingUser)
+
   return (
     <Fragment>
-      <Button size="small" onClick={e => HandleBookmark(tool?._id)} className='BookmarkAddIcon'>
-        {!existingUser ? <BookmarkAddIcon /> : <BookmarkAddedIcon />}
+      <Button size="small" onClick={e => HandleBookmark(news?._id)} className='BookmarkAddIcon'>
+        {!existingUser ? <BookmarkAddIcon /> : <BookmarkAddedIcon />} {news?.favourite?.length}
       </Button>
 
       <Snackbar open={openInfo} autoHideDuration={6000} onClose={handleClose}>

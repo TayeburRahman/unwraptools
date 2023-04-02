@@ -216,3 +216,18 @@ function Homes() {
 }
 
 export default Homes
+
+
+ 
+
+{/* <Grid container>
+    <Grid item xs={12} md={6} lg={4}>
+    <Box>
+<Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
+<Box sx={{ pt: 0.5 }}>
+    <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+    <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+</Box>
+</Box>
+    </Grid>
+</Grid> */}
