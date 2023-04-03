@@ -239,7 +239,8 @@ export default StepTwo
 
 
 const CategoriesSec = [
-    'Copywriting', 'General Writing', 'Email Assistant', 'Paraphraser',  'Story Teller', "Summarizer", 'Art', 'Design Assistant', 'Image Generator',  'Design', "Avatars",'Image Editing', 'Logo Generator',  'Audio Editing', "Text To Speech", "Music",'Transcriber', 'Personalized Videos',  'Video Editing', "Video Editing","3D",'SEO', 'E-commerce','Social Media Assistant', "Sales",'Email Marketing', "Fashion","Fun Tools",'Gift Ideas', 'Life Assistant','Fitness', "Real Estate","Gaming","Healthcare","Memory","Prompts","Developer","Spreadsheets","Testing & QA"
+    'Copywriting', 'General Writing', 'Email Assistant', 'Paraphraser',  'Story Teller', "Summarizer", 'Art', 'Design Assistant', 'Image Generator',  'Design', "Avatars",'Image Editing', 'Logo Generator',  'Audio Editing', "Text To Speech", "Music",'Transcriber', 'Personalized Videos',  'Video Editing', "Video Editing","3D",'SEO', 'E-commerce','Social Media Assistant', "Sales",'Email Marketing', "Fashion","Fun Tools",'Gift Ideas', 'Life Assistant','Fitness', "Real Estate","Gaming","Healthcare","Memory","Prompts","Developer","Spreadsheets","Testing & QA",
+    'Code Assistant', 'Low-Code/No-Code','SQL', "Customer Support","Human Resources","Presentations","Startup","Finance","Legal Assistant", "Startup",'Productivity','Education Assistant', "Research","AI Search Engines","Experiments","Resources" 
 
 ];
 

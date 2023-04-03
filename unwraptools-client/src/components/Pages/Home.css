@@ -251,6 +251,9 @@
 .spanLinkNews:hover {
   text-decoration: underline;
 }
+.optionbar {
+  /* height: 500px !important; */
+}
 
 @media only screen and (max-width: 620px) {
   .box-mobile {

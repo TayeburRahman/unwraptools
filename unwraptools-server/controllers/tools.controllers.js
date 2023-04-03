@@ -231,19 +231,33 @@ const deleteTool = async (req, res) => {
   }
 };
  
-const searchTools = async (req, res) => {
-  const query = req.query.q; // the search query passed in the request URL
+const searchTools = async (req, res) => { 
+  const search = req.body.search;  
   try {
-    const tools = await toolsModels.find({
-      tool_name: { $regex: query, $options: "i" },
-    }); // search for documents that match the query
-    //   res.json(results);
 
-    return res.status(200).json({
-      tools,
-      status: "success",
-      message: "Inactive Tools Find Success",
-    });
+    console.log("search", search)
+    const data = await toolsModels.findOne({ categories: search}); 
+    if(data){
+      const tools = await toolsModels.find({ categories: search}); 
+      return res.status(200).json({
+        tools,
+        status: "success",
+        message: "Inactive Tools Find Success",
+      })
+    }else{ 
+      const tools = await toolsModels.find({
+        tool_name: { $regex: search, $options: "i" },
+      }); // search for documents that match the query
+      //   res.json(results);
+      console.log("search", tools)
+      return res.status(200).json({
+        tools,
+        status: "success",
+        message: "Inactive Tools Find Success",
+      }); 
+    }
+
+ 
   } catch (error) {
     res.status(500).send(error.message);
   }

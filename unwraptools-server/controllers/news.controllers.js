@@ -180,7 +180,7 @@ const NewsGetTime = async (req, res) => {
 
     const news = await newsModels.findOne({ _id: id });
 
-    const createdAt = news.createdAt.getTime(); // assuming the createdAt field stores the document's creation time
+    const createdAt = news.createdAt.getTime(); 
     const now = Date.now();
     const diffInMillis = now - createdAt;
 
@@ -191,7 +191,7 @@ const NewsGetTime = async (req, res) => {
     const days = Math.floor(hours / 24);
     const remainingHours = hours % 24;
  
-    console.log(  remainingHours)
+    console.log(remainingHours)
 
     return res.status(200).json({
       days,

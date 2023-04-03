@@ -17,7 +17,7 @@ router.route('/get/categorys').put(findByCategoryTool);
  
 
  
-router.route('/get/search').get(searchTools);
+router.route('/get/search').put(searchTools);
 router.route('/get/filter/:id').get(ToolsSearchFilter);
 router.route('/get/filter').get(ToolsSearchFilter);
  

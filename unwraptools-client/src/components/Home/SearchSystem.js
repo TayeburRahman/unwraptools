@@ -1,9 +1,7 @@
-import { Box } from '@mui/material'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import SearchBar from './SearchBar'
-import SearchFilters from './SearchFilters'
-import TagHome from './TagHome'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import './home.css';
+import SearchFilters from './SearchFilters';
 
 function SearchSystem(props) {
     const {pricing, setPricing, setSortBy,sort, features, setFeatures} = props;
@@ -31,11 +29,7 @@ function SearchSystem(props) {
 
 
     return (
-        <div>
-            <Box>
-                <TagHome />
-            </Box>
-            <SearchBar setSearch={setSearch} />
+        <div> 
             <SearchFilters setSortBy={setSortBy} sort={sort} pricing={pricing} setPricing={setPricing} setFeatures={setFeatures} features={ features} />
 
         </div>

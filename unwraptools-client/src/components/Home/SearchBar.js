@@ -1,42 +1,42 @@
-import SearchIcon from '@mui/icons-material/Search';
-import Autocomplete from '@mui/material/Autocomplete';
-import * as React from 'react';
+// import SearchIcon from '@mui/icons-material/Search';
+// import Autocomplete from '@mui/material/Autocomplete';
+// import * as React from 'react';
 
-import './home.css';
+// import './home.css';
 
-const options = ['Option 1', 'Option 2'];
+// const options = ['Option 1', 'Option 2'];
  
 
-export default function SearchBar({setSearch}) {
+// export default function SearchBar({setSearch}) {
 
-  const HandelOnChangeSearch = (value) => {
-    setSearch(value);
+//   const HandelOnChangeSearch = (value) => {
+//     setSearch(value);
     
-  };
+//   };
 
-  return (
-    <label className='w-100'> 
-      <Autocomplete
-      className='w-100'
-        sx={{
-          display: 'inline-block',
+//   return (
+//     <label className='w-100'> 
+//       <Autocomplete
+//       className='w-100'
+//         sx={{
+//           display: 'inline-block',
           
-          '& input': {
-            width: 200,
-            bgcolor: 'background.paper',
-            color: (theme) =>
-              theme.palette.getContrastText(theme.palette.background.paper),
-          },
-        }}
-        id="custom-input-demo"
-        options={options}
-        renderInput={(params) => (
-          <div className='searchIconRef' ref={params.InputProps.ref}>
-            <SearchIcon className='fontIcon' />  
-            <input className='SearchBar' onChange={HandelOnChangeSearch(params?.inputProps?.value)} placeholder="Search 1384 AI tools and 50 categories" type="text" {...params.inputProps}  /> 
-          </div>
-        )}
-      />
-    </label>
-  );
-}
+//           '& input': {
+//             width: 200,
+//             bgcolor: 'background.paper',
+//             color: (theme) =>
+//               theme.palette.getContrastText(theme.palette.background.paper),
+//           },
+//         }}
+//         id="custom-input-demo"
+//         options={options}
+//         renderInput={(params) => (
+//           <div className='searchIconRef' ref={params.InputProps.ref}>
+//             <SearchIcon className='fontIcon' />  
+//             <input className='SearchBar' onChange={HandelOnChangeSearch(params?.inputProps?.value)} placeholder="Search 1384 AI tools and 50 categories" type="text" {...params.inputProps}  /> 
+//           </div>
+//         )}
+//       />
+//     </label>
+//   );
+// }
