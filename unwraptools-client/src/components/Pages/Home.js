@@ -224,10 +224,10 @@ function Homes() {
                 <Container sx={{ marginTop: "60px" }}>
                     <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
                         <Grid item className='mt-rev' sx={6}>
-                            <button className="button-6_1custom" ><AddIcon />Tools Added Today</button>
+                        <Link to="/submit-tool" className='textDecoration'><button className="button-6_1custom" ><AddIcon />Tools Added Today</button></Link>
                         </Grid>
                         <Grid item className='mt-rev' sx={6}>
-                            <button className="button-6"  ><PostAddIcon /> News Added Today</button>
+                        <Link to="/submit-news" className='textDecoration'> <button className="button-6"  ><PostAddIcon /> News Added Today</button></Link>
                         </Grid>
                     </Grid>
                     <Grid>
@@ -240,6 +240,7 @@ function Homes() {
                     </Grid>
                     <Grid>
                         <TagHome />
+                        <Typography className='textDes2 text-left mb-1 mt-2'  >RESULTS FOUND:  <span className='resultFountSpan'>{tools?.length}</span></Typography> 
                         <Grid container>
                             <Grid item xs={3} md={1} lg={1}>
                                 <Box className=' searchBarIcon'>
@@ -258,7 +259,7 @@ function Homes() {
                                         renderInput={(params) => (
                                             <TextField
                                                 className='SearchBar'
-
+                                                placeholder="Search for AI Tools and Categories"
                                                 {...params}
                                                 onSelect={e => (HandelOnChangeSearch(e.target.value))}
                                                 InputProps={{

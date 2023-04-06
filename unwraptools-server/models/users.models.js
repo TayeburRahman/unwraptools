@@ -21,7 +21,7 @@ const usersModels = new mongoose.Schema(
             role:{
                 type:String,
                 enum:["user", "admin"],
-                default: "admin"
+                default: "user"
             }, 
             photoURL: {
                 type: String,

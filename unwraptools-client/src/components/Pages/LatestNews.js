@@ -50,18 +50,34 @@ function LatestNews() {
     const handleChangeSort = (event) => {
         setSort(event.target.value);
     };
+
+    console.log(time, category,sort)
     
  
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/news/getActiveNews`)
-            .then(res => {
-                if (res.status === 200) {
-                    setAllNews(res?.data?.news)
-                    setLoading(false)
-                } else {
-                    console.log(res)
-                }
-            })
+ 
+   if(category ){
+    axios.get(`http://localhost:5000/api/v1/news/getActiveNews?category=${category}&sort=${sort}&range=${time}`)
+    .then(res => {
+        if (res.status === 200) {
+            setAllNews(res?.data?.news)
+            setLoading(false)
+        } else {
+            console.log(res)
+        }
+    })
+   }else{
+    axios.get(`http://localhost:5000/api/v1/news/getActiveNews?category=&sort=${sort}&range=${time}`)
+    .then(res => {
+        if (res.status === 200) {
+            setAllNews(res?.data?.news)
+            setLoading(false)
+        } else {
+            console.log(res)
+        }
+    })
+   }
+ 
     }, [time, category, sort, status])
 
     console.log('cccc', allNews)
@@ -101,16 +117,16 @@ function LatestNews() {
                                         )
                                     }
 
-                                    <MenuItem className='MenuItemButton text-left' value="today">
+                                    <MenuItem className='MenuItemButton text-left' value="Today">
                                         <Button className='buttonText text-left'>Today</Button>
                                     </MenuItem>
-                                    <MenuItem className='MenuItemButton' value="week">
+                                    <MenuItem className='MenuItemButton' value="This Week">
                                         <Button className='buttonText'>   This Week </Button>
                                     </MenuItem>
-                                    <MenuItem className='MenuItemButton' value="month">
+                                    <MenuItem className='MenuItemButton' value="This Month">
                                         <Button className='buttonText'>  This Month</Button>
                                     </MenuItem>
-                                    <MenuItem className='MenuItemButton' value="month">
+                                    <MenuItem className='MenuItemButton' value="All Time">
                                         <Button className='buttonText'>  All Time</Button>
                                     </MenuItem>
                                 </Select>
@@ -132,28 +148,28 @@ function LatestNews() {
                                         )
                                     }
 
-                                    <MenuItem className='MenuItemButton text-left' value="all">
+                                    <MenuItem className='MenuItemButton text-left' value="">
                                         <Button className='buttonText text-left'><VerifiedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> All</Button>
                                     </MenuItem>
-                                    <MenuItem className='MenuItemButton' value="update">
+                                    <MenuItem className='MenuItemButton' value="Updates">
                                         <Button className='buttonText'> <StrollerIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> Update</Button>
                                     </MenuItem>
-                                    <MenuItem className='MenuItemButton' value="interesting">
+                                    <MenuItem className='MenuItemButton' value="Interesting">
                                         <Button className='buttonText'><BookmarkAddedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> Interesting</Button>
                                     </MenuItem>
-                                    <MenuItem className='MenuItemButton' value="video">
+                                    <MenuItem className='MenuItemButton' value="Video">
                                         <Button className='buttonText'><BookmarkAddedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> Video</Button>
                                     </MenuItem>
-                                    <MenuItem className='MenuItemButton' value="podcast">
+                                    <MenuItem className='MenuItemButton' value="Podcast">
                                         <Button className='buttonText'><BookmarkAddedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> Podcast</Button>
                                     </MenuItem>
-                                    <MenuItem className='MenuItemButton' value="learn">
+                                    <MenuItem className='MenuItemButton' value="Learn">
                                         <Button className='buttonText'><BookmarkAddedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> Learn</Button>
                                     </MenuItem>
-                                    <MenuItem className='MenuItemButton' value="research">
+                                    <MenuItem className='MenuItemButton' value="Research">
                                         <Button className='buttonText'><BookmarkAddedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> Research</Button>
                                     </MenuItem>
-                                    <MenuItem className='MenuItemButton' value="opinion">
+                                    <MenuItem className='MenuItemButton' value="Opinion">
                                         <Button className='buttonText'><BookmarkAddedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} /> Opinion</Button>
                                     </MenuItem>
                                 </Select>

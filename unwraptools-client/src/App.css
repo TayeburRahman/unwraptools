@@ -32,6 +32,23 @@
   color: var(--link_color) !important;
 }
 
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-multiline.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  border: 1px solid var(--border_color) !important;
+}
+
+textarea#outlined-multiline-static {
+  color: var(--body_color) !important;
+}
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-multiline.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  color: var(--body_color) !important;
+}
+
+main.MuiBox-root.css-1e4w6be {
+  padding-top: 20px !important;
+}
+.linkTDNone {
+  text-decoration: none;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

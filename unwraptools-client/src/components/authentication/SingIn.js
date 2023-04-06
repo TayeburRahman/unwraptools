@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { Fragment, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Firebase/Hooks/useAuth';
@@ -56,7 +56,8 @@ const SignIn = () => {
                                         </p>
                                     </div>
                                     <div className='marginRe'>
-                                        <div className='login-button'><Button className='w-100' onClick={handelGoogleSignIn}><span className='padding2'><img src={google} width="30px" /> SIGN WITH GOOGLE</span></Button></div>
+                                        <div className='login-button'><Button className='w-100' onClick={handelGoogleSignIn}><Box className="d-flex w-100" sx={{width: "100%",
+    justifyContent: 'center'}}><span className='padding2'><img src={google} width="30px" /> SIGN WITH GOOGLE</span></Box></Button></div>
                                     </div>
                                     <div className='mt-4'>
                                         <p>These are the tools and posts you have favourited. You can remove them from your favourites by clicking the bookmark icon.</p>

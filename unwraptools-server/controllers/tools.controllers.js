@@ -1,5 +1,6 @@
 const { generateToken } = require("../utils/token");
 const toolsModels = require("../models/tools.models");
+const suggestModels = require("../models/suggest.models");
 
 //  response
 const createTool = async (req, res) => {
@@ -181,6 +182,30 @@ const findTool = async (req, res) => {
   }
 };
 
+const UpdateTool = async (req, res) => {
+  try {
+    const { getId } = req.params;
+
+    const { short_description, tool_name, startingPrice, imageURL, description } = req.body;
+ 
+
+
+    console.log( tool_name )
+ 
+    const tools = await toolsModels.updateOne((
+      { _id: getId },
+      { $set: { short_description, tool_name, startingPrice,imageURL, description} }
+    ));
+    return res.status(200).json({
+      tools,
+      status: "success",
+      message: "Inactive Tools Find Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
 const findByCategoryTool = async (req, res) => {
   try {
     const { category } = req.body; 
@@ -215,6 +240,25 @@ const approveTool = async (req, res) => {
   }
 };
 
+
+const ClickInactiveTool = async (req, res) => {
+  try {
+    const { inactiveId } = req.params;
+    const tool = await toolsModels.updateOne(
+      { _id: inactiveId },
+      { $set: { status: "inactive" } }
+    );
+ 
+    return res.status(200).json({
+      tool,
+      status: "success",
+      message: "Tools Active Successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
 const deleteTool = async (req, res) => {
   try {
     const { deleteId } = req.params;
@@ -233,12 +277,15 @@ const deleteTool = async (req, res) => {
  
 const searchTools = async (req, res) => { 
   const search = req.body.search;  
-  try {
-
-    console.log("search", search)
-    const data = await toolsModels.findOne({ categories: search}); 
+  try { 
+    const data = await toolsModels.findOne({ 
+      $and: [{status: "active"}, { categories: search }]
+      // categories: search
+    }); 
     if(data){
-      const tools = await toolsModels.find({ categories: search}); 
+      const tools = await toolsModels.find({ 
+        $and: [{status: "active"}, {  categories: search }]
+      }); 
       return res.status(200).json({
         tools,
         status: "success",
@@ -398,17 +445,18 @@ const ToolsSearchFilter = async (req, res) => {
         });
         tools = sortData?.slice(0)?.reverse();
       } else if (req?.query?.sort === "new") {
-        const newTools = await tools.filter((d) => {
-          // console.log("map date is : ", new Date(d?.createdAt));
-          const currentDate = new Date();
-          const sevenDaysAgo = new Date(
-            Number(currentDate.getTime()) - 7 * 24 * 60 * 60 * 1000
-          );
-          // console.log("seven day ago is : ", sevenDaysAgo);
-          return new Date(d?.createdAt) >= sevenDaysAgo;
-        });
+        // const newTools = await tools.filter((d) => {
+        //   // console.log("map date is : ", new Date(d?.createdAt));
+        //   const currentDate = new Date();
+        //   const sevenDaysAgo = new Date(
+        //     Number(currentDate.getTime()) - 7 * 24 * 60 * 60 * 1000
+        //   );
+        //   // console.log("seven day ago is : ", sevenDaysAgo);
+        //   return new Date(d?.createdAt) >= sevenDaysAgo;
+        // });
 
-        tools = newTools;
+        const newTools = [...tools]
+        tools = newTools.slice(0)?.reverse();
       }
     }
 
@@ -422,165 +470,61 @@ const ToolsSearchFilter = async (req, res) => {
   } catch (err) {
     res.status(500).json({ massages: "Internal Server Error" });
   }
+}; 
+
+const SuggestEdit = async (req, res) => {
+  try {
+    const { tools, text_suggest, suggest_user, tools_user } = req.body;  
+    console.log( tools_user )
+    const suggest = await suggestModels.create({tools_user, suggest_user, text_suggest, tools}); 
+
+ 
+    return res.status(200).json({
+      suggest,
+      status: "success",
+      message: "Suggest Edit  Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
 };
-// const ToolsSearchFilter = async (req, res) => {
-//   // Waitlist,Mobile App,API,Browser Extension,Open Source,Discord Community,No Signup Required
-//   //--------------------------------------------------------------
-//   //CATEGORY ID
-//   //   const params = req?.params?.id;
 
-//   let categories = [];
 
-//   if (req.query.art) {
-//     categories.push("Art");
-//   }
-//   if (req.query.audio_editing) {
-//     categories.push("Audio Edting");
-//   }
-//   if (req.query.paid) {
-//     categories.push("Paid");
-//   }
-//   if (req.query.contact_for_pricing) {
-//     categories.push("Contact for Pricing");
-//   }
+const getSuggestEdit = async (req, res) => {
+  try {
+    const { email } = req.params;  
+    console.log( email )
+    const suggest = await suggestModels.find({tools_user: email}); 
 
-//   //--------------------------------------------------------------
-//   //FEATURES FILTER
+ 
+    return res.status(200).json({
+      suggest,
+      status: "success",
+      message: "Suggest Edit  Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
 
-//   let featuresFilter = [];
-
-//   if (req.query.mobile_app) {
-//     featuresFilter.push("Mobile App");
-//   }
-//   if (req.query.waitlist) {
-//     featuresFilter.push("Waitlist");
-//   }
-//   if (req.query.api) {
-//     featuresFilter.push("API");
-//   }
-//   if (req.query.browser_extension) {
-//     featuresFilter.push("Browser Extension");
-//   }
-//   if (req.query.open_source) {
-//     featuresFilter.push("Open Source");
-//   }
-//   if (req.query.discord_community) {
-//     featuresFilter.push("Discord Community");
-//   }
-//   if (req.query.no_signup) {
-//     featuresFilter.push("No Signup Required");
-//   }
-
-//   //--------------------------------------------------------------
-//   // PRICING FILTER
-
-//   let pricingFilter = [];
-
-//   if (req.query.free) {
-//     pricingFilter.push("Free");
-//   }
-//   if (req.query.free_trial) {
-//     pricingFilter.push("Free Trial");
-//   }
-//   if (req.query.contact_for_pricing) {
-//     pricingFilter.push("Contact for Pricing");
-//   }
-//   if (req.query.freemium) {
-//     pricingFilter.push("Freemium");
-//   }
-//   if (req.query.paid) {
-//     pricingFilter.push("Paid");
-//   }
-//   if (req.query.deals) {
-//     pricingFilter.push("Deals");
-//   }
-
-//   //--------------------------------------------------------------
-
-//   const getQuery = () => {
-//     if (pricingFilter?.length > 0 && featuresFilter?.length > 0) {
-//       return {
-
-//         features: { $in: [featuresFilter] } ,
-//         price: { $in: [pricingFilter] }
-
-//       };
-//     } else if (featuresFilter?.length > 0) {
-//       console.log(" filters is : ", pricingFilter, featuresFilter);
-//       return {
-//         features: { $in:featuresFilter },
-//         // features: { $in: featuresFilter },
-//       };
-//     } else if (pricingFilter?.length > 0) {
-//       return {
-//         price: { $in: pricingFilter },
-//       };
-//     } else {
-//       return;
-//     }
-//   };
-
-//   const getParams = () => {
-//     return {
-//       categories: { $in: categories },
-//     };
-//   };
-
-//   try {
-//     let tools = [];
-//     // if (categories.length > 0) {
-//     //   // console.log("params id is : ", paramsId);
-//     //   tools = await toolsModels
-//     //     .find({ status: "active" })
-//     //     .find({ $and: [{ status: "active" }, { ...getParams() }] })
-//     //     .find(getQuery());
-//     // } else {
-//     //   tools = await toolsModels.find({features: { $in: ["API"] }});
-//     // }
-//     tools = await toolsModels.find();
-
-//     console.log("tools is : ", tools)
-
-//     // if (req?.query?.sort) {
-//     //   console.log("sort is : ", req?.query?.sort);
-
-//     //   if (req?.query?.sort === "popular") {
-//     //     const sortData = await [...tools].sort((a, b) => {
-//     //       // console.log("a is : ", a);
-//     //       return Number(a.favourite.length) - Number(b.favourite.length);
-//     //     });
-//     //     tools = sortData?.slice(0)?.reverse();
-//     //   } else if (req?.query?.sort === "verified") {
-//     //     const sortData = await [...tools].sort((a, b) => {
-//     //       return Number(a.favourite.length) - Number(b.favourite.length);
-//     //     });
-//     //     tools = sortData?.slice(0)?.reverse();
-//     //   } else if (req?.query?.sort === "new") {
-//     //     const newTools = await tools.filter((d) => {
-//     //       // console.log("map date is : ", new Date(d?.createdAt));
-//     //       const currentDate = new Date();
-//     //       const sevenDaysAgo = new Date(
-//     //         Number(currentDate.getTime()) - 7 * 24 * 60 * 60 * 1000
-//     //       );
-//     //       // console.log("seven day ago is : ", sevenDaysAgo);
-//     //       return new Date(d?.createdAt) >= sevenDaysAgo;
-//     //     });
-
-//     //     tools = newTools;
-//     //   }
-//     // }
-
-//     return res.status(200).json({
-//       tools,
-//       status: "success",
-//       message: "Inactive Tools Find Success",
-//     });
-
-//     // res.send({ status: "success", result: tools });
-//   } catch (err) {
-//     res.status(500).json({ massages: "Internal Server Error" });
-//   }
-// };
+const getUserTools = async (req, res) => {
+  try {
+    const { email } = req.params;   
+    const tools = await toolsModels.find({user_email: email}); 
+    const active = await toolsModels.find({$and: [{ user_email: email },{status: 'active'}]});
+    const inactive = await toolsModels.find({$and: [{ user_email: email },{status: 'inactive'}]});
+ 
+    return res.status(200).json({
+      tools,
+      active,
+      inactive,
+      status: "success",
+      message: "Successfully Find Tools",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
 
 module.exports = {
   createTool,
@@ -595,5 +539,10 @@ module.exports = {
   randomGetTool,
   BookmarkUserData,
   searchTools,
-  findByCategoryTool
+  findByCategoryTool,
+  SuggestEdit,
+  getUserTools,
+  UpdateTool,
+  getSuggestEdit,
+  ClickInactiveTool
 };

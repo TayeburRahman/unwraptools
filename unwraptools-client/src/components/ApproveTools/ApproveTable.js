@@ -66,7 +66,7 @@ export default function ApproveTable() {
 
 
       
-console.log(allTools)
+console.log('sdjd',allTools)
 
 
     return (

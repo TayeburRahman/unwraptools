@@ -95,10 +95,28 @@ const useFirebase = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/user/${user.email}`)
-      .then(res => res.json())
-      .then(data => setAdmin(data.admin))
-  }, [user.email])
+
+    axios.get(`http://localhost:5000/api/v1/user/admin/${user?.email}`)
+    .then(res => {
+      if (res.status === 200) {
+        console.log('sssss',res?.data) 
+         setAdmin(res.data?.admin)
+      }else{
+        console.log(res)
+      }
+    })
+    
+
+
+
+    // fetch(`http://localhost:5000/api/v1/user/admin/${user?.email}`)
+    //   .then(res => res.json())
+    //   .then(data =>{ 
+    //     console.log(data)
+    //     //  setAdmin(data?.admin)
+    //     })
+  }, [user?.email])
+
   return {
     user,
     logOut,

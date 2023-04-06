@@ -18,3 +18,25 @@
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
   justify-content: flex-start !important;
 }
+.minH500 {
+  min-height: 500px !important;
+}
+
+/* .text-left {
+  text-transform: lowercase !important;
+} */
+.button_suggest {
+  border: none;
+  padding: 5px 10px 5px 10px;
+  border-radius: 3px;
+  color: var(--colorLink) !important;
+  background: rgba(112, 127, 139, 0.116);
+  display: flex;
+}
+.button_suggest:hover {
+  text-decoration: underline;
+}
+.icon_suggest {
+  font-size: 18px !important;
+  margin: 3px;
+}

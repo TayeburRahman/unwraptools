@@ -21,7 +21,18 @@
   display: flex;
   align-items: center;
 }
+/* ------------------------------- */
+.backtohome {
+  color: white !important;
+  text-decoration: none !important;
+  font-size: 15px;
+  margin-right: 10px;
+}
 
+.backtohome:hover {
+  color: rgb(196, 215, 228) !important;
+  text-decoration: none !important;
+}
 /* ------------------------ */
 .dashboard-stat {
   width: 100%;

@@ -29,7 +29,7 @@ function StepOne(props) {
                         <OutlinedInput 
                           onChange={e => setToolName(e.target.value)}
                             id="outlined-adornment-weight"
-                            placeholder="Copy AI"
+                            placeholder="ChatGPT"
                             required
                             aria-describedby="outlined-weight-helper-text"
                             inputProps={{
@@ -46,7 +46,7 @@ function StepOne(props) {
                             id="outlined-adornment-weight"
                             required
                             aria-describedby="outlined-weight-helper-text"
-                            placeholder="https://copy.ai"
+                            placeholder="https://chat.openai.com/"
                             inputProps={{
                                 'aria-label': 'weight',
                             }}
@@ -60,7 +60,7 @@ function StepOne(props) {
                          onChange={e => setImageURL(e.target.value)}
                             id="outlined-adornment-weight"
                             aria-describedby="outlined-weight-helper-text"
-                            placeholder="Please provide This Tool Image URL"
+                            placeholder="Please provide the Image URL of the Tool"
                             inputProps={{
                                 'aria-label': 'weight',
                             }}
@@ -74,7 +74,7 @@ function StepOne(props) {
                         onChange={e => setShortDescription(e.target.value)}
                             id="outlined-adornment-weight"
                             aria-describedby="outlined-weight-helper-text"
-                            placeholder="Please provide a short description"
+                            placeholder="Please write a short description of the Tool "
                             inputProps={{
                                 'aria-label': 'weight',
                             }}

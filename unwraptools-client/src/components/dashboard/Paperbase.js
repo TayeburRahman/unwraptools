@@ -1,25 +1,13 @@
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import * as React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navigator from './DashboardNavigator';
 import Header from './Header';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}.
-    </Typography>
-  );
-}
+ 
 
 let theme = createTheme({
   palette: {
@@ -202,8 +190,7 @@ export default function Paperbase() {
              <Outlet />
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>  
-        
-            <Copyright />
+         
           </Box>
         </Box>
       </Box>

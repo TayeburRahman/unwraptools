@@ -35,14 +35,12 @@ export default function NavDower() {
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
-      className="background backgroundDower"
+      className="background backgroundDower "
     >
       <List>
         
           <ListItem disablePadding>
-            
-              {/* <ListItemIcon> 
-              </ListItemIcon> */}
+         
                <Container className="d-flex pt-2 pb-2" sx={{justifyContent: "space-between"}}> <Typography className='text25 textBeg revert'>unwraptools</Typography> <Button className='buttonClose'><CloseIcon/></Button></Container> 
           </ListItem>
         
@@ -99,7 +97,7 @@ export default function NavDower() {
   );
 
   return (
-    <div className='d-flex  '  >
+    <div className='d-flex'>
       {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button className='toggle' onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>

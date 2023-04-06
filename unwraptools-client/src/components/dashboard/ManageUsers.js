@@ -10,7 +10,7 @@ import './ManageUsers.css';
 const ManageUsers = () => {
     return (
 
-        <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+        <Paper sx={{ margin: 'auto', overflow: 'hidden' }}>
         <AppBar
           position="static"
           color="default"
@@ -24,7 +24,10 @@ const ManageUsers = () => {
           </Toolbar>
         </AppBar>
          <Box className="divMain">
-            <UsersTable/>
+         <Paper   sx={{ width: '100%', overflow: 'hidden', minHeight: "80vh" }}>
+         <UsersTable/>
+           </Paper>  
+           
          </Box>
       </Paper>
         

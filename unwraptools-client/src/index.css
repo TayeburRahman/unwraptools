@@ -2,7 +2,7 @@
   --body_background: white !important;
   --body_color: rgb(68, 68, 68) !important;
   --link_color: rgb(3, 105, 161) !important;
-  --border_color: rgba(104, 104, 104, 0.342) !important;
+  --border_color: #9b9b9bcb !important;
   --tag-background: #e1e9e9 !important;
   --delegable-color: #7a7a7a !important;
   --delegable-color: #7a7a7a !important;
@@ -18,7 +18,7 @@
   --body_background: #282c34 !important;
   --body_color: rgb(223, 223, 223) !important;
   --link_color: rgb(208, 232, 245) !important;
-  --border_color: rgb(103, 105, 105) !important;
+  --border_color: #bdc1c6d8 !important;
   --tag-background: #3b3b3b !important;
   --delegable-color: #7a7a7a !important;
   --logo_background: rgb(36 39 46) !important;

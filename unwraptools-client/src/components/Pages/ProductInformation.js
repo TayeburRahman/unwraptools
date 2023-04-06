@@ -1,42 +1,50 @@
-import BackupIcon from '@mui/icons-material/Backup';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import EastIcon from '@mui/icons-material/East';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import SellIcon from '@mui/icons-material/Sell';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import SellIcon from '@mui/icons-material/Sell';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 
 import { Link, useParams } from 'react-router-dom';
 import NavBar from '../AppBar/NavBar';
 
 
+import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
+import MuiAlert from '@mui/material/Alert';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
 import useAuth from '../../Firebase/Hooks/useAuth';
 import Footer from '../AppBar/Footer/Footer';
 import BookmarkButtonPD from '../ProductInformation/BookmarkButtonPD';
+import SuggestEditModal from '../ProductInformation/SuggestEditModal';
 import BookmarkButton from './BookmarkButton';
- 
-import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  
 
 
 function ProductInformation() {
-
+    const [open, setOpen] = useState(false);
     const [tools, setTools] = useState([]);
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const [message, setMessage] = useState('');
+    const [responseMessage, setResponseMessage] = useState(''); 
     const [categoryTools, setCategoryTools] = useState([]);
     const [category, setCategory] = useState([]);
     const { Id } = useParams();
-    const [status, setStatus] = useState(0)
-
+    const [status, setStatus] = useState(0) 
     const { user } = useAuth()
     const email = user?.email
 
@@ -68,10 +76,17 @@ function ProductInformation() {
 
 
  
-    console.log("array",categoryTools);
+ 
+    const handleOpen = () => setOpen(true);
 
-
-
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        } 
+        setOpenSuccess(false) 
+        setMessage('')
+        setResponseMessage('')
+    };
 
     return (
         <div className='background'>
@@ -114,23 +129,16 @@ function ProductInformation() {
                                         <Typography className='textDes'>DESCRIPTION:</Typography>
                                         <p className='text-left DesPText'    >
                                             {tools?.short_description}
-                                        </p>
-
-                                        <div
-                                            className='text-left mt-3'
-                                            dangerouslySetInnerHTML={{
-                                                __html: tools?.description
-                                            }}>
-                                        </div>
+                                        </p> 
                                     </Box>
                                     <Box className='added_text d-flex text-12-sm'>
                                         <VerifiedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} />
-                                        The Unwraptools team has used this tool and recommends it.
+                                        Unwraptools endorses this tool based on our testing results.
                                     </Box>
-                                    <Box className='text-left d-flex added_text'>
+                                    {/* <Box className='text-left d-flex added_text'>
                                         <BackupIcon className='FolderOpenIcon' />
                                         Added on  {tools?.createdAt?.slice(0, 10)}
-                                    </Box>
+                                    </Box> */}
 
                                     <Grid container>
                                         {
@@ -148,19 +156,34 @@ function ProductInformation() {
                                                 </Grid>
                                             ))
                                         }
-                                    </Grid>
-
+                                    </Grid> 
                                     <Box className="text-left" mt="15px">
                                         <a href={tools?.websiteURL} target="_blank" size="small" className='OpenInNewIcon' id="OpenInNewIcon_Custom">VISIT <OpenInNewIcon /></a>
                                     </Box>
-
-                                </Grid>
-
+                                    <Box className='mt-4 text-left'>
+                                    <button className='button_suggest' onClick={handleOpen} variant="text"> <BorderColorIcon className='icon_suggest'/>Propose Modifications</button>
+                                    <SuggestEditModal setMessage={setMessage} setOpenSuccess={setOpenSuccess} tools={tools} open={open} setOpen={setOpen} />
+                                    </Box> 
+                                </Grid> 
                             </Grid>
                         </Box>
                     </Box>
-                    <Box mb="30px" mt="20px">
-
+                  
+                        {
+                            tools?.description&&(
+                                <Box>
+                    <Typography className='textDes text-left'>{tools?.tool_name} Feature</Typography>
+                    <div
+                                            className='text-left mt-2'
+                                            dangerouslySetInnerHTML={{
+                                                __html: tools?.description
+                                            }}>
+                                        </div>
+                    </Box>
+                                
+                            )
+                        }    
+                    <Box mb="30px" mt="20px"> 
                         <Box className='text-left' mt="50px">
                             <Typography className='BrowseAITools' mb="25px">Alternative AI Tools for STORYD</Typography>
                             <Grid container> 
@@ -209,8 +232,7 @@ function ProductInformation() {
                                                </Grid>
                                                 </Box>
                                               </Link>
-                                            </CardContent>
-            
+                                            </CardContent> 
                                             <CardActions sx={{ justifyContent: "space-between" }}>
                                                 <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link> 
                                                  <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email}/>
@@ -230,6 +252,11 @@ function ProductInformation() {
                         </Box>
                     </Box>
                 </Container>
+                <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    {message}
+                </Alert>
+            </Snackbar>
             </div>
             <Footer />
         </div>

@@ -179,7 +179,7 @@ function StepTwo(props) {
                     <FormControl sx={{ width: "100%" }} variant="outlined">
                         <OutlinedInput
                             id="outlined-adornment-weight"
-                            placeholder="$10/mo"
+                            placeholder="$5/mo"
                             defaultValue={startingPrice}
                             onChange={e => { setStartingPrice(e.target.value) }}
                             aria-describedby="outlined-weight-helper-text"
@@ -239,16 +239,13 @@ export default StepTwo
 
 
 const CategoriesSec = [
-    'Copywriting', 'General Writing', 'Email Assistant', 'Paraphraser',  'Story Teller', "Summarizer", 'Art', 'Design Assistant', 'Image Generator',  'Design', "Avatars",'Image Editing', 'Logo Generator',  'Audio Editing', "Text To Speech", "Music",'Transcriber', 'Personalized Videos',  'Video Editing', "Video Editing","3D",'SEO', 'E-commerce','Social Media Assistant', "Sales",'Email Marketing', "Fashion","Fun Tools",'Gift Ideas', 'Life Assistant','Fitness', "Real Estate","Gaming","Healthcare","Memory","Prompts","Developer","Spreadsheets","Testing & QA",
-    'Code Assistant', 'Low-Code/No-Code','SQL', "Customer Support","Human Resources","Presentations","Startup","Finance","Legal Assistant", "Startup",'Productivity','Education Assistant', "Research","AI Search Engines","Experiments","Resources" 
+    'Copywriting', 'General Writing', 'Email Assistant', 'Paraphraser',  'Story Teller', "Summarizer", 'Art', 'Design Assistant', 'Image Generator',  'Design', "Avatars",'Image Editing', 'Logo Generator',  'Audio Editing', "Text Speech", "Music",'Transcriber', 'Personalized Videos',  'Video Editing',"3D",'SEO', 'E-commerce','Social Media', "Sales",'Email Marketing', "Fashion","Fun Tools",'Gift Ideas', 'Life Assistant','Fitness', "Real Estate","Gaming","Healthcare","Memory","Prompts","Developer","Spreadsheets","Testing QA",
+    'Code Assistant', 'Low-Code','SQL', "Customer Support","Human Resources","Presentations","Startup","Finance","Legal Assistant", "Startup",'Productivity','Education Assistant', "Research","AI Search-Engines","Experiments","Resources" 
 
 ];
 
 
-const Features = [
-    'Waitlist', 'Browser Extension', 'Open Source', 'Mobile App',  'Discord Community', 'API',  'No Signup Required' ];
+const Features = ['Waitlist', 'Browser Extension', 'Open Source', 'Mobile App',  'Discord Community', 'API',  'No Signup Required'];
 
 
-const Pricing = [ 'Free', 'Freemium', 'Free Trial', 'Paid',  'Contact for Pricing',  "Deals",
-
-];
+const Pricing = [ 'Free', 'Freemium', 'Free Trial', 'Paid',  'Contact for Pricing',  "Deals" ];

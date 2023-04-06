@@ -4,7 +4,7 @@
   border: none !important;
 }
 .searchBarIcon {
-  border: 1px solid var(--border_color) !important;
+  border: 2px solid var(--border_color) !important;
   height: 100% !important;
   border-right: none !important;
   display: flex;
@@ -47,6 +47,10 @@ input#custom-input-demo {
 label#outlined-select-currency-label {
   color: var(--body_color) !important;
 }
+.showBd {
+  background: linear-gradient(270deg, #00e7e7 -42%, #006cab 98%) !important;
+  color: white !important;
+}
 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.selectGrid.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
   width: 180px !important;
   height: 50px;
@@ -80,7 +84,18 @@ label#outlined-select-currency-label {
 .linkTag {
   text-decoration: none;
   border: 1px solid var(--border_color) !important;
-  color: var(--body_color) !important;
+  color: var(--body_color);
+  padding: 3px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  border-radius: 15px;
+  margin-right: 5px;
+}
+.linkTag:hover {
+  text-decoration: none;
+  box-shadow: var(--body_color) 0px 1px 4px;
+  color: var(--body_color);
   padding: 3px;
   padding-left: 10px;
   padding-bottom: 5px;

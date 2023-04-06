@@ -8,7 +8,7 @@ import ApproveTable from '../ApproveTools/ApproveTable';
 
 const ApproveTools = () => {
   return (
-    <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+    <Paper sx={{ margin: 'auto', overflow: 'hidden' }}>
       <AppBar
         position="static"
         color="default"

@@ -44,10 +44,7 @@ const toolsModels = new mongoose.Schema(
             },
             favourite:{
                 type: Array, 
-            },
-            bookMark:{
-                type: Boolean,
-            },
+            }, 
             linkedinUrl:{
                 type: String, 
             },

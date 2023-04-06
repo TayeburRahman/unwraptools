@@ -1,94 +1,275 @@
 const newsModels = require("../models/news.models");
 
-const createNews = async (req, res ) => {   
-    try {  
-      const {news_name, contentLink, user_email, categories, imageURL } = req?.body   
- 
-      console.log(news_name, contentLink, user_email, categories)
-      const news = await  newsModels.create({news_name, contentLink, user_email, categories, imageURL})  
-       
-     return res.status(200).json({ 
-        news,
+const createNews = async (req, res) => {
+  try {
+    const { news_name, contentLink, user_email, categories, imageURL } =
+      req?.body;
+
+    console.log(news_name, contentLink, user_email, categories);
+    const news = await newsModels.create({
+      news_name,
+      contentLink,
+      user_email,
+      categories,
+      imageURL,
+    });
+
+    return res.status(200).json({
+      news,
       status: "success",
-      message:'news Add Success'});
-   } catch (error) {
-     return res.status(500).json({status: "error", message: error})
-   }
+      message: "news Add Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
+const findInactiveNews = async (req, res) => {
+  try {
+    const news = await newsModels.find({ status: "inactive" });
+    return res.status(200).json({
+      news,
+      status: "success",
+      message: "Inactive news Find Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
 
 
-} 
 
-const findInactiveNews = async (req, res ) => {   
-  try {   
-    const news = await  newsModels.find({status: "inactive"})   
-   return res.status(200).json({ 
-    news,
-    status: "success",
-    message:'Inactive news Find Success'});
- } catch (error) {
-   return res.status(500).json({status: "error", message: error})
- }
-}
+const findUserNews = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const news = await newsModels.find({ user_email: email });
+    const active = await newsModels.find({$and: [{ user_email: email },{status: 'active'}]});
+    const inactive = await newsModels.find({$and: [{ user_email: email },{status: 'inactive'}]});
 
-const findNews = async (req, res ) => {   
-  try {   
-    const {getId} = req.params 
+    return res.status(200).json({
+      news,
+      inactive,
+      active,
+      status: "success",
+      message: "Inactive news Find Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
 
-    console.log('dddd', getId)
-    const tools = await  newsModels.findOne({_id: getId})   
-   return res.status(200).json({ 
-    tools,
-    status: "success",
-    message:'Inactive Tools Find Success'});
- } catch (error) {
-   return res.status(500).json({status: "error", message: error})
- }
-}
 
-const approveNews = async (req, res ) => {   
-  try {   
-    const {approveId} = req.params 
-    const tool = await  newsModels.updateOne({_id: approveId}, {$set:{status: "active"}})   
-    
-    console.log(approveId)
-   return res.status(200).json({ 
-    tool,
-    status: "success",
-    message:'Tools Active Successfully'});
- } catch (error) {
-   return res.status(500).json({status: "error", message: error})
- }
+const findNews = async (req, res) => {
+  try {
+    const { getId } = req.params;
  
-}
+    const news = await newsModels.findOne({ _id: getId });
+    return res.status(200).json({
+      news,
+      status: "success",
+      message: "Inactive News Find Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
 
 
-const deleteNews = async (req, res ) => {   
-  try {   
-    const {deleteId} = req.params 
+const UpdateNews = async (req, res) => {
+  try {
+    const { getId } = req.params;
 
-    console.log(deleteId)
-    const tool = await  newsModels.deleteOne({_id: deleteId})   
-   return res.status(200).json({ 
-    tool,
-    status: "success",
-    message:'Tools Delete Successfully'});
- } catch (error) {
-   return res.status(500).json({status: "error", message: error})
- } 
-}
+    const { news_name, contentLink  } = req.body; 
+    
+    console.log(contentLink, news_name) 
+    const tools = await newsModels.updateOne((
+      { _id: getId },
+      { $set: {news_name, contentLink }}
+    ));
+    return res.status(200).json({
+      tools,
+      status: "success",
+      message: "Inactive Tools Find Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
+const approveNews = async (req, res) => {
+  try {
+    const { approveId } = req.params;
+    const tool = await newsModels.updateOne(
+      { _id: approveId },
+      { $set: { status: "active" } }
+    );
+
+    console.log(approveId);
+    return res.status(200).json({
+      tool,
+      status: "success",
+      message: "Tools Active Successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
 
 
-const findActiveNews = async (req, res ) => {   
-  try {   
-    const news = await  newsModels.find({status: "active"}).sort({createdAt: -1}) 
-   return res.status(200).json({ 
-    news,
-    status: "success",
-    message:'Active news Find Success'});
- } catch (error) {
-   return res.status(500).json({status: "error", message: error})
- }
-}
+const ClickInactiveNews = async (req, res) => {
+  try {
+    const { inactiveId } = req.params;
+    const news = await newsModels.updateOne(
+      { _id: inactiveId },
+      { $set: { status: "inactive" } }
+    );
+ 
+    return res.status(200).json({
+      news,
+      status: "success",
+      message: "News Inactive Successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
+const deleteNews = async (req, res) => {
+  try {
+    const { deleteId } = req.params;
+
+    console.log(deleteId);
+    const tool = await newsModels.deleteOne({ _id: deleteId });
+    return res.status(200).json({
+      tool,
+      status: "success",
+      message: "Tools Delete Successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
+const findActiveNews = async (req, res) => {
+  const category = req?.query?.category;
+  const range = req?.query?.range;
+  const sort = req?.query?.sort;
+
+  console.log("Sort is : ", sort);
+  console.log("Category is : ", category);
+  console.log("Range is : ", range);
+
+  const getQuery = () => {
+    if (category) {
+      return {
+        categories: { $in: [category] },
+      };
+    }
+
+    return;
+  };
+
+  const getRange = () => {
+    const today = new Date();
+    // db.collection.find({ dateField: { $gte: sevenDaysAgo, $lte: today } })
+    if (range === "Today") {
+      console.log("Im called in ", range)
+      const todayy = new Date();
+      todayy.setHours(0, 0, 0, 0);
+      return {
+        createdAt: {
+          $gte: todayy,
+          $lt: new Date(Number(todayy.getTime()) + 24 * 60 * 60 * 1000), // set the end time to the next day
+        },
+      };
+    } else if (range === "This Week") {
+      console.log("Im called in ", range)
+      const sevenDaysAgo = new Date(Number(today.getTime()) - 7 * 24 * 60 * 60 * 1000); // 7 days ago
+      return {
+        createdAt: {
+          $gte: sevenDaysAgo,
+          $lt: today
+        },
+      }
+      
+    } else if (range === "This Month") {
+      console.log("Im called in ", range)
+      const thirtyDaysAgo = new Date(Number(today.getTime()) - 30 * 24 * 60 * 60 * 1000); // 7 days ago
+      return {
+        createdAt: {
+          $gte: thirtyDaysAgo,
+          $lt: today
+        },
+      }
+    }else{
+      return 
+    }
+  };
+
+  try {
+    let news = [];
+
+    if (category && range) {
+      news = await newsModels
+        .find({ status: "active" })
+        .find(getQuery())
+        .find(getRange())
+        .sort({ createdAt: -1 });
+    } else if (category) {
+      news = await newsModels
+        .find({ status: "active" })
+        .find(getQuery())
+        .sort({ createdAt: -1 });
+    } else if (range) {
+      news = await newsModels
+        .find({ status: "active" })
+        .find(getRange())
+        .sort({ createdAt: -1 });
+      }else{
+      news = await newsModels
+        .find({ status: "active" })
+        .sort({ createdAt: -1 });
+    }
+
+    if (sort) {
+      console.log("sort is : ", sort);
+
+      if (sort === "popular") {
+        const sortData = await [...news].sort((a, b) => {
+          // console.log("a is : ", a);
+          return Number(a.favourite.length) - Number(b.favourite.length);
+        });
+        news = sortData?.slice(0)?.reverse();
+      } else if (sort === "featured") {
+        const sortData = await [...news].sort((a, b) => {
+          return Number(a.favourite.length) - Number(b.favourite.length);
+        });
+        news = sortData?.slice(0)?.reverse();
+      } else if (sort === "new") {
+        // const newNews = await news.filter((d) => {
+        //   // console.log("map date is : ", new Date(d?.createdAt));
+        //   const currentDate = new Date();
+        //   const sevenDaysAgo = new Date(
+        //     Number(currentDate.getTime()) - 7 * 24 * 60 * 60 * 1000
+        //   );
+        //   // console.log("seven day ago is : ", sevenDaysAgo);
+        //   return new Date(d?.createdAt) >= sevenDaysAgo;
+        // });
+
+        const newNews = [...news]
+        news = newNews.slice(0)?.reverse(); 
+      }
+    }
+
+    return res.status(200).json({
+      news,
+      status: "success",
+      message: "Active news Find Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
 
 const BookmarkExistingUser = async (req, res) => {
   try {
@@ -108,7 +289,6 @@ const BookmarkExistingUser = async (req, res) => {
     return res.status(500).json({ status: "error", message: error });
   }
 };
-
 
 const BookmarkNews = async (req, res) => {
   const { email } = req.body;
@@ -157,7 +337,6 @@ const BookmarkNews = async (req, res) => {
   }
 };
 
-
 const BookmarkUserData = async (req, res) => {
   try {
     const email = req.params.email;
@@ -185,13 +364,13 @@ const NewsGetTime = async (req, res) => {
     const diffInMillis = now - createdAt;
 
     // calculate time difference in hours
-    const hours = Math.floor(diffInMillis / (1000 * 60 * 60)); 
+    const hours = Math.floor(diffInMillis / (1000 * 60 * 60));
 
     // calculate time difference in days
     const days = Math.floor(hours / 24);
     const remainingHours = hours % 24;
- 
-    console.log(remainingHours)
+
+    console.log(remainingHours);
 
     return res.status(200).json({
       days,
@@ -204,5 +383,18 @@ const NewsGetTime = async (req, res) => {
   }
 };
 
-
-module.exports={ createNews, findInactiveNews,approveNews, deleteNews, findNews, findActiveNews, BookmarkExistingUser, BookmarkNews, BookmarkUserData, NewsGetTime}
+module.exports = {
+  createNews,
+  findInactiveNews,
+  approveNews,
+  deleteNews,
+  findNews,
+  findActiveNews,
+  BookmarkExistingUser,
+  BookmarkNews,
+  BookmarkUserData,
+  NewsGetTime,
+  findUserNews,
+  UpdateNews,
+  ClickInactiveNews
+};

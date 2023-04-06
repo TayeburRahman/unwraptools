@@ -84,6 +84,10 @@
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0 !important;
 }
 
+.cardCustom {
+  height: 600px !important;
+}
+
 .tagCard1 {
   background-color: var(--tag-background);
   width: fit-content;
@@ -154,7 +158,15 @@
   color: var(--body_color) !important;
   font-size: 14px !important;
 }
-
+.textDes2 {
+  font-weight: 700 !important;
+  font-family: revert !important;
+  color: #9b9b9b !important;
+  font-size: 14px !important;
+}
+.textDecoration {
+  text-decoration: none !important;
+}
 .textDesLarger {
   font-weight: 700 !important;
   font-family: revert !important;
@@ -222,13 +234,21 @@
   width: auto;
 }
 
+.MuiFormControl-root.MuiFormControl-fullWidth.MuiTextField-root.SearchBar.css-wb57ya-MuiFormControl-root-MuiTextField-root {
+  border: 1px solid var(--border_color) !important;
+}
+input#free-solo-2-demo {
+  color: var(--body_color) !important;
+}
 .button-6:hover {
   transform: translateY(-1px);
 }
 .w-100 {
   padding: 0 !important;
 }
-
+.resultFountSpan {
+  color: var(--colorLink) !important;
+}
 .custom-flexAndGrid {
   display: flex !important;
 }
@@ -253,6 +273,10 @@
 }
 .optionbar {
   /* height: 500px !important; */
+}
+
+svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiSelect-icon.MuiSelect-iconOutlined.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
+  color: #0ea5e9 !important;
 }
 
 @media only screen and (max-width: 620px) {

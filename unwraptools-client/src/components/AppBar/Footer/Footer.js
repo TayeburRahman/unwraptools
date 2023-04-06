@@ -1,7 +1,7 @@
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import { Divider, Grid, Typography } from '@mui/material';
+import { Divider, Grid } from '@mui/material';
 import { Box, Container } from '@mui/system';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -30,10 +30,7 @@ function Footer() {
                     <Link className="d-flex icon-box">
                     <YouTubeIcon className='YouTub' sx={{color: "rgb(255, 0, 0)"}} />
                     </Link>  
-                </Grid>
-                <Grid item xs={6} md={6} lg={6}> 
-                    <Typography className='text-left' sx={{marginTop:"10px"}}>Copyright © 2023 - Unwraptools™</Typography>
-                </Grid>
+                </Grid> 
             </Grid>
              </Container>
         </div>

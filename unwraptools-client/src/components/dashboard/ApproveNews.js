@@ -8,7 +8,7 @@ import ApproveNewsTable from '../ApproveNews/ApproveNewsTable';
 
 const ApproveNews = () => {
     return (
-        <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+        <Paper sx={{ margin: 'auto', overflow: 'hidden' }}>
         <AppBar
           position="static"
           color="default"

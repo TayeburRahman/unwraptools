@@ -21,6 +21,29 @@
   justify-content: flex-start;
   margin-left: 10px;
 }
+
+.button-login {
+  border-radius: 50px !important;
+  border: 1px solid rgba(122, 122, 122, 0.363) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.Favourites {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  text-decoration: none;
+  padding: 8px;
+  color: var(--body_color) !important;
+  font-weight: 500;
+}
+.button-logout {
+  border-radius: none !important;
+}
+.Favourites:hover {
+  background: rgba(95, 95, 95, 0.226) !important;
+}
 .text-margin {
   margin-left: 50px !important;
   font-weight: 500 !important;
@@ -71,7 +94,6 @@
   padding-bottom: 15px;
   width: 200px !important;
   display: none !important;
-
   z-index: 500;
   transition: 0.3s !important;
 }
@@ -177,6 +199,7 @@
 .icon-box-custom {
   margin-right: 20px !important;
 }
+
 @media only screen and (max-width: 620px) {
   .MuiBox-root.css-1skoexv {
     margin-right: 0px !important;
@@ -209,5 +232,8 @@
   .MuiAvatar-root.MuiAvatar-circular.MuiAvatar-colorDefault.avatar.css-2s90m6-MuiAvatar-root {
     width: 30px;
     height: 30px;
+  }
+  .w30px {
+    width: 30px !important;
   }
 }

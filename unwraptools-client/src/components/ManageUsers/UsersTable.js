@@ -9,25 +9,19 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
 import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import './UsersTable.css';
 
 const columns = [
   { id: 'Name', label: 'Name', minWidth: 170 },
   { id: 'Email', label: 'Email', minWidth: 100 },
   {
-    id: 'News',
-    label: 'News',
+    id: 'Account Create ',
+    label: 'Account Create ',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'Tool',
-    label: 'Tool ',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
+  }, 
   {
     id: 'Details',
     label: 'Details',
@@ -120,14 +114,12 @@ export default function UsersTable() {
                         <TableCell > 
                           {user?.email}
                         </TableCell> 
-                        <TableCell className='text-right' >
-                          0
-                        </TableCell> 
+                        
                         <TableCell className='text-right' > 
-                          0
+                        {user?.createdAt?.slice(0,10)}
                         </TableCell> 
                         <TableCell className='text-right'> 
-                        <Button variant="outlined">View</Button>
+                         <Link className='linkTDNone' to={`/dashboard/user/${user?.email}`}><Button variant="outlined">View</Button></Link>
                         </TableCell> 
                   </TableRow>
                 );

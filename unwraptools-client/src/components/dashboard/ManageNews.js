@@ -1,16 +1,32 @@
-import React, { Fragment } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Toolbar from '@mui/material/Toolbar';
+import { Box } from '@mui/system';
+import React from 'react';
+import ManageNewsTable from '../ManageNewsTable/ManageNewsTable';
 
 const ManageNews = () => {
     return (
-    <Fragment>
-        <div className="main-page">
-            <div className="container-fluid">
-                <div className="page-title-div">
-                    <h2 className="title text-left">Manage News</h2>
-                </div>
-            </div>
-        </div>
-    </Fragment>
+        <Paper sx={{ margin: 'auto', overflow: 'hidden' }}>
+        <AppBar
+          position="static"
+          color="default"
+          elevation={0}
+          sx={{ borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}
+        >
+          <Toolbar>
+            <Grid spacing={2} alignItems="center"> 
+              <span className="textBeg revert p=0 ">Manage News</span>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+         <Box className="divMain">
+         <Paper sx={{ width: '100%', overflow: 'hidden', minHeight: "80vh" }}>
+         <ManageNewsTable/>
+           </Paper>  
+         </Box>
+      </Paper>
     );
 };
 

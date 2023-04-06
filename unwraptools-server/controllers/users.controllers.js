@@ -42,8 +42,7 @@ const createUsers = async (req, res ) => {
 
  
 
- const getUsers = async (req, res) => { 
- 
+ const getUsers = async (req, res) => {  
       try {
 
         const { email, password } = req.body; 
@@ -107,6 +106,46 @@ const createUsers = async (req, res ) => {
     }
 } 
 
+const getAdminOne = async (req, res) => {  
+  
+  try { 
+    const {email} = req.params;   
+ 
+   const admin = await  usersModels.findOne({ $and: [{role: "admin"}, { email }]})  
+
+   console.log('admin',admin)
+
+   return res.status(200).json({
+    admin,
+    status: "success",
+    message: "Successfully",
+  });
+   } catch (error) {
+    return res.status(401).json({status: "error", message: error.massages})
+  }
+} 
+
+
+const getUserOne = async (req, res) => {  
+  
+  try { 
+    const {email} = req.params;   
+ 
+   const user = await  usersModels.findOne({ email })  
+
+  //  console.log('admin',admin)
+
+   return res.status(200).json({
+    user,
+    status: "success",
+    message: "Successfully",
+  });
+   } catch (error) {
+    return res.status(401).json({status: "error", message: error.massages})
+  }
+} 
+
  
  
-  module.exports={  createUsers, getUsers, getAllUsers }
+ 
+  module.exports={  createUsers, getUsers, getAllUsers, getAdminOne, getUserOne }

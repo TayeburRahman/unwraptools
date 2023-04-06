@@ -44,3 +44,11 @@
 .button-39:focus-visible {
   box-shadow: none;
 }
+
+.width100 {
+  width: 100% !important;
+}
+
+.TextFieldColor {
+  color: var(--body_color) !important;
+}

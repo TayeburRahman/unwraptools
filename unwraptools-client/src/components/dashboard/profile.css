@@ -1,0 +1,56 @@
+.box_profile {
+  border: 1px solid rgba(134, 163, 165, 0.788) !important;
+  padding-left: 20px;
+  border-radius: 5px;
+  width: 500px;
+  color: rgb(83, 83, 83);
+}
+.abater-profile {
+  width: 60px !important;
+  height: 60px !important;
+}
+.span-profile {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.notfoundBox {
+  width: 100% !important;
+  background: #e4e4d252;
+  border: 1px solid #cdb52c;
+  border-radius: 5px;
+  padding: 5px !important;
+  padding-top: 25px !important;
+  padding-bottom: 25px !important;
+  text-align: center !important;
+  justify-content: center;
+}
+
+.foundBox {
+  width: 100% !important;
+  background: #d2e3e452;
+  border: 1px solid #24838a;
+  border-radius: 5px;
+  padding: 5px !important;
+  padding-top: 25px !important;
+  padding-bottom: 25px !important;
+  text-align: center !important;
+  justify-content: center;
+}
+.w-100 {
+  width: 100% !important;
+}
+.text_center {
+  text-align: center !important;
+}
+.WarningAmberIcon {
+  color: #d8bc1c;
+  margin-right: 10px;
+}
+.box-bg {
+  background: rgba(173, 182, 180, 0.534);
+  border-radius: 3px;
+  padding: 5px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  border: 0.5px solid rgba(134, 163, 165, 0.788);
+}

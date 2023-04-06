@@ -12,16 +12,23 @@ import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import DarkMode from "../../DarkMode/DarkMode";
 import useAuth from "../../Firebase/Hooks/useAuth";
+import google from '../../image/google.png';
 import "./NavBar.css";
 import NavDower from "./NavDower";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const {logOut}=useAuth()
+  const {logOut, signImWithGoogle, user}=useAuth()
+  const location = useLocation();
+  const navigate = useNavigate();  
+
+  const handelGoogleSignIn = (e) => {
+      signImWithGoogle(location, navigate)
+    };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -37,14 +44,19 @@ function NavBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const logOutHandle = () => {
+    logOut()
+    setAnchorElUser(null);
 
+  }
   
+  console.log('log', user)
 
   return (
     <AppBar position="static" className="navbar">
       <Container maxWidth="xl">
         <Toolbar className="w-90" disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box className="w30px" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, width: "30px" }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -134,7 +146,11 @@ function NavBar() {
             <Box className="DarkMode">
               <DarkMode />
             </Box>
-            <Tooltip className="Tooltip" title="Open settings">
+
+            {
+              user?.email &&(
+                <React.Fragment>
+                   <Tooltip className="Tooltip" title="Open settings">
               <IconButton
                 className="avatarButton"
                 onClick={handleOpenUserMenu}
@@ -142,8 +158,8 @@ function NavBar() {
               >
                 <Avatar
                   className="avatar"
-                  alt="Remy Sharp"
-                  src="/static/images/avatar/2.jpg"
+                  alt={user?.displayName}
+                  src={user?.photoURL}
                 />
               </IconButton>
             </Tooltip>
@@ -163,20 +179,36 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               <Box className="box-100">
-                <Link to="/login" className="link-route custom-link-nav">
+                <Link to="/user/favourites" className="Favourites">
                   {" "}
-                  <Typography className="text-margin">
+                  <Typography className="ms-2">
                     Your Favourites{" "}
                   </Typography>
                 </Link>
                 <Button 
-                onClick={logOut}
-                 className="button-click">
+                 onClick={logOutHandle} 
+                 className="button-click button-logout" >
                   {" "}
-                  <Typography className="button-margin"> Log Out </Typography>
+                  <Typography className="button-margin ms-2"> Log Out </Typography>
                 </Button>
               </Box>
             </Menu>
+                </React.Fragment>
+              )
+            }
+
+
+{
+             ! user?.email &&(
+                <React.Fragment>
+             <Button className='w-100 button-login' onClick={handelGoogleSignIn}><Box className="d-flex w-100" sx={{width: "100%",
+    justifyContent: 'center'}}><span className='padding2'><img src={google} width="30px" />Login</span></Box></Button>
+                </React.Fragment>
+              )
+            }
+
+            
+            
           </Box>
         </Toolbar>
       </Container>
