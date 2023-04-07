@@ -200,6 +200,20 @@
   margin-right: 20px !important;
 }
 
+.displayBlock {
+  display: none;
+}
+#displayNone {
+  display: block;
+}
+
+@media only screen and (max-width: 950px) {
+  .link-route {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+}
+
 @media only screen and (max-width: 620px) {
   .MuiBox-root.css-1skoexv {
     margin-right: 0px !important;
@@ -235,5 +249,8 @@
   }
   .w30px {
     width: 30px !important;
+  }
+  .ju-co {
+    justify-content: flex-start !important;
   }
 }

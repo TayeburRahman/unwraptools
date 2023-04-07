@@ -1,5 +1,4 @@
 import CloseIcon from '@mui/icons-material/Close';
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import MenuIcon from '@mui/icons-material/Menu';
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -41,53 +40,54 @@ export default function NavDower() {
         
           <ListItem disablePadding>
          
-               <Container className="d-flex pt-2 pb-2" sx={{justifyContent: "space-between"}}> <Typography className='text25 textBeg revert'>unwraptools</Typography> <Button className='buttonClose'><CloseIcon/></Button></Container> 
+               <Container className="d-flex pt-2 pb-2" sx={{justifyContent: "space-between"}}>  <Link to="/" style={{textDecoration:"none"}}>
+               <Typography className='text25 textBeg revert'>unwraptools</Typography></Link> <Button className='buttonClose'><CloseIcon/></Button></Container> 
           </ListItem>
         
       </List>
       <Divider />
       <List className='mt-5'> 
             <ListItem className=''  disablePadding>
-                <Link className='link-route-dower'>Categories</Link>
+                <Link to="/categories" className='link-route-dower'>Categories</Link>
             </ListItem> 
              <ListItem className=''  disablePadding>
-                <Link className='link-route-dower'>My Favourites</Link>
+                <Link to="/user/favourites" className='link-route-dower'>My Favourites</Link>
             </ListItem> 
             <ListItem className=''  disablePadding>
-                <Link className='link-route-dower'>  Discover & Tool</Link>
+                <Link to="/tool/explore" className='link-route-dower'>  Explore & Tool</Link>
             </ListItem> 
             <ListItem className='mb-1' disablePadding>
             <Typography className='SubmitTextDower'> Submit:</Typography>
             </ListItem> 
             <ListItem className='' disablePadding>
-                <Link className='link-route-dower'>Submit Tool</Link>
+                <Link to="/submit-tool" className='link-route-dower'>Submit Tool</Link>
             </ListItem> 
             <ListItem className='' disablePadding>
-                <Link className='link-route-dower'>Submit News</Link>
+                <Link to="/submit-news" className='link-route-dower'>Submit News</Link>
             </ListItem> 
             <ListItem className='mb-1' disablePadding>
             <Typography className='SubmitTextDower'> Community:</Typography>
             </ListItem> 
             <ListItem className=''  disablePadding>
-                <Link className='link-route-dower'>Newsletter Issues</Link>
+                <Link to="" className='link-route-dower'>Newsletter Issues</Link>
             </ListItem> 
             <ListItem  className='' disablePadding>
-                <Link className='link-route-dower'>Latest AI News</Link>
+                <Link to="/news" className='link-route-dower'>Latest AI News</Link>
             </ListItem> 
             <ListItem  disablePadding>
-                <Link className='link-route-dower'>Join Discord</Link>
+                <Link to="" className='link-route-dower'>Join Discord</Link>
             </ListItem>  
       </List>
       <Box className='box-bottom '>
       <Container>
       <Box className='d-flex ps-3 pt-2 '>
-                    <Link className="d-flex icon-box icon-box-custom">
-                                 <LinkedInIcon className='linkedIn icon-site' sx={{color: "rgb(0, 119, 181)"}} />
+                    <Link to="" className="d-flex icon-box icon-box-custom">
+                                 <Link to=""edInIcon className='linkedIn icon-site' sx={{color: "rgb(0, 119, 181)"}} />
                                 </Link>
-                                <Link className="d-flex icon-box icon-box-custom">
+                                <Link to="" className="d-flex icon-box icon-box-custom">
                                     <TwitterIcon className='Twitter icon-site' sx={{color: "rgb(0, 119, 181)"}} />
                                 </Link>
-                                <Link className="d-flex icon-box icon-box-custom">
+                                <Link to="" className="d-flex icon-box icon-box-custom">
                                     <YouTubeIcon className='YouTub icon-site' sx={{color: "rgb(255, 0, 0)"}} />
                                 </Link>
               </Box>

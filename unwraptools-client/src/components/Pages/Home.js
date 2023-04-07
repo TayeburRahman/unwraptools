@@ -279,11 +279,17 @@ function Homes() {
                             tools?.map((tool, idx) => (
                                 <Grid item xs={12} md={6} lg={4}>
                                     <Card className='card mb-3' sx={{ maxWidth: 345 }}>
-                                        <CardMedia
+                                       {/* <Box className=' positionab' > */}
+                                       <CardMedia 
+                                          className=' positionab' 
                                             sx={{ height: 140 }}
                                             image={tool?.imageURL}
                                             title="green iguana"
                                         />
+                                        <Box className='positionrs'>
+                                            <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
+                                        </Box>
+                                       {/* </Box> */}
                                         <CardContent sx={{ paddingBottom: '0' }}>
                                             <Link to={`/tool/${tool?._id}`} className='CardLink'>
                                                 <Box className="d-flex" sx={{ justifyContent: "space-between" }}>

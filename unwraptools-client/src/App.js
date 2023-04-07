@@ -29,6 +29,7 @@ import SuggestEdit from './components/dashboard/SuggestEdit';
 import ToolInformation from './components/dashboard/ToolInformation';
 import UserManageNews from './components/dashboard/UserManageNews';
 import UserManageTools from './components/dashboard/UserManageTools';
+import Loading from './components/loading/LiadingPulsate';
 import useAuthCheck from './hooks/useAuthCheck';
 
 
@@ -36,8 +37,8 @@ function App() {
 
   const authChecked = useAuthCheck();
 
-  return ! authChecked ?(
-    <div> Checking Authentication </div>
+  return !authChecked ?(
+    <Loading />
   ):(
     <div className="App">
        <Routes> 
@@ -72,8 +73,8 @@ function App() {
                <Route path='approve_news' element={<AdminRoute><ApproveNews/></AdminRoute>} /> 
                <Route path='approve_tools' element={<AdminRoute><ApproveTools/></AdminRoute>} /> 
                <Route path='manage_users' element={<AdminRoute><ManageUsers/></AdminRoute>} /> 
-               <Route path='tool/:toolId' element={<ToolInformation/>} /> 
-               <Route path='admin_profile' element={<AdminRoute><AdminProfile/></AdminRoute>} /> 
+               <Route path='tool/:toolId' element={<PrivateRoute><ToolInformation/> </PrivateRoute>} /> 
+               <Route path='admin_profile' element={<PrivateRoute><AdminProfile/></PrivateRoute>} /> 
                {/* <Route path='manage_result' element={<ManageResult/>} />  */}
                <Route path='database' element={<Database />} />  
              </Route> 

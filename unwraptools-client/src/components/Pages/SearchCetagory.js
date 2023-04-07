@@ -24,6 +24,7 @@ import Footer from '../AppBar/Footer/Footer';
 import NavBar from '../AppBar/NavBar';
 import SearchSystem from '../Home/SearchSystem';
 import TagHome from '../Home/TagHome';
+import Subscribe from '../Subscribe/Subscribe';
 import BookmarkButton from './BookmarkButton';
 import './Home.css';
 
@@ -91,13 +92,6 @@ const top100Films = [
 
 
 
-
-
-
-
-
-
-
 function SearchCategory() {
 
     const [tools, setTools] = useState([])
@@ -120,17 +114,17 @@ function SearchCategory() {
 
 
 
-  useEffect(()=>{
-    if(search.length === 0){
-        setResponse(response === 0? 1:0)
-    }
-  },[search])
+    useEffect(() => {
+        if (search.length === 0) {
+            setResponse(response === 0 ? 1 : 0)
+        }
+    }, [search])
 
 
- useEffect(()=>{ 
-    const search = Id.replace("_", " ")  
-    setCname(search)
-    axios.put(`http://localhost:5000/api/v1/tool/get/search`, { search })
+    useEffect(() => {
+        const search = Id.replace("_", " ")
+        setCname(search)
+        axios.put(`http://localhost:5000/api/v1/tool/get/search`, { search })
             .then(res => {
                 if (res.status === 200) {
                     console.log('search', res?.data?.tools)
@@ -139,7 +133,7 @@ function SearchCategory() {
                     console.log(res)
                 }
             })
- }, [Id, response])
+    }, [Id, response])
 
     // filter items 
     let url = `http://localhost:5000/api/v1/tool/get/filter`;
@@ -192,38 +186,44 @@ function SearchCategory() {
             })
     };
 
-    console.log(option2)
-
-
 
     return (
         <Box className='theme' >
             <NavBar />
             <Box>
                 <Container sx={{ marginTop: "40px" }}>
-                <Grid> 
-                    <Typography className='revert text-left pt-0' gutterBottom variant="h3" component="div">
-                        {isCname}
-                    </Typography>
-                    <Typography className='textDes text-left'>Find the AI Tool or AI Product you're looking for among <span className='resultFountSpan'>{tools?.length}</span> results from the category - Fitness AI Tools.</Typography> 
+                    <Grid container sx={{ alignItems: "center" }}>
+                        <Grid item xs={12} md={6} lg={6} className='pe-4'>
+                            <Grid>
+                                <Typography className='revert text-left pt-0' gutterBottom variant="h3" component="div">
+                                    {isCname}
+                                </Typography>
+                                <Typography className='textDes text-left'>Find the AI Tool or AI Product you're looking for among <span className='resultFountSpan'>{tools?.length}</span> results from the category - Fitness AI Tools.</Typography>
+                            </Grid>
+                        </Grid>
+
+                        <Grid item xs={12} md={6} lg={6}>
+                            <Subscribe />
+                        </Grid>
+
                     </Grid>
                 </Container>
             </Box>
             <Box>
                 <Container sx={{ marginTop: "60px" }}>
-                     
+
                     <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
                         <Grid item className='mt-rev' sx={6}>
-                             <Link to="/submit-tool" className='textDecoration'><button className="button-6_1custom" ><AddIcon />Tools Added Today</button></Link>
+                            <Link to="/submit-tool" className='textDecoration'><button className="button-6_1custom" ><AddIcon />Tools Added Today</button></Link>
                         </Grid>
                         <Grid item className='mt-rev' sx={6}>
-                        <Link to="/submit-news" className='textDecoration'> <button className="button-6"  ><PostAddIcon /> News Added Today</button></Link>
+                            <Link to="/submit-news" className='textDecoration'> <button className="button-6"  ><PostAddIcon /> News Added Today</button></Link>
                         </Grid>
                     </Grid>
-                    
+
                     <Grid>
                         <TagHome path={Id} />
-                        <Typography className='textDes2 text-left mb-1 mt-2'  >RESULTS FOUND:  <span className='resultFountSpan'>{tools?.length}</span></Typography> 
+                        <Typography className='textDes2 text-left mb-1 mt-2'  >RESULTS FOUND:  <span className='resultFountSpan'>{tools?.length}</span></Typography>
                         <Grid container>
                             <Grid item xs={3} md={1} lg={1}>
                                 <Box className=' searchBarIcon'>
@@ -263,10 +263,14 @@ function SearchCategory() {
                                 <Grid item xs={12} md={6} lg={4}>
                                     <Card className='card mb-3' sx={{ maxWidth: 345 }}>
                                         <CardMedia
+                                            className=' positionab'
                                             sx={{ height: 140 }}
                                             image={tool?.imageURL}
                                             title="green iguana"
                                         />
+                                        <Box className='positionrs'>
+                                            <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
+                                        </Box>
                                         <CardContent sx={{ paddingBottom: '0' }}>
                                             <Link to={`/tool/${tool?._id}`} className='CardLink'>
                                                 <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
@@ -324,17 +328,4 @@ function SearchCategory() {
 
 export default SearchCategory
 
-
-
-
-{/* <Grid container>
-    <Grid item xs={12} md={6} lg={4}>
-    <Box>
-<Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
-<Box sx={{ pt: 0.5 }}>
-    <Skeleton sx={{ maxWidth: "345px" }} height={50} />
-    <Skeleton sx={{ maxWidth: "345px" }} height={50} />
-</Box>
-</Box>
-    </Grid>
-</Grid> */}
+ 

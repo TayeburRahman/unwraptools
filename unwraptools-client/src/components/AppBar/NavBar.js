@@ -11,8 +11,9 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
 import * as React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import DarkMode from "../../DarkMode/DarkMode";
 import useAuth from "../../Firebase/Hooks/useAuth";
 import google from '../../image/google.png';
@@ -22,13 +23,17 @@ import NavDower from "./NavDower";
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const {logOut, signImWithGoogle, user}=useAuth()
+  const [activeNews, setActiveNews] = React.useState([]);
+  const [activeTool, setActiveTool] = React.useState([]);
+  const { logOut, signImWithGoogle, user, admin } = useAuth()
   const location = useLocation();
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
+  const patch = useParams();
+
 
   const handelGoogleSignIn = (e) => {
-      signImWithGoogle(location, navigate)
-    };
+    signImWithGoogle(location, navigate)
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -49,8 +54,32 @@ function NavBar() {
     setAnchorElUser(null);
 
   }
-  
-  console.log('log', user)
+
+
+
+  React.useEffect(() => {
+    axios.get(`http://localhost:5000/api/v1/news/getallNews/${user?.email}`)
+      .then(res => {
+        if (res.status === 200) {
+          setActiveNews(res?.data?.active)
+        } else {
+          console.log(res)
+        }
+      })
+  }, [user, patch])
+
+  React.useEffect(() => {
+    axios.get(`http://localhost:5000/api/v1/tool/getallTools/${user?.email}`)
+      .then(res => {
+        if (res.status === 200) {
+          // console.log('sssss',res?.data)
+          setActiveTool(res?.data?.active)
+        } else {
+          console.log(res)
+        }
+      })
+  }, [user, patch])
+
 
   return (
     <AppBar position="static" className="navbar">
@@ -87,18 +116,18 @@ function NavBar() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Box className="ps-5">
               <Link to="/categories" className="link-route ms-5">
-              Categories
+                Categories
               </Link>
             </Box>
             <Box>
               <Link to="/user/favourites" className="link-route">
                 Favourites
               </Link>
-            </Box> 
+            </Box>
             <Box>
               {" "}
               <Link to="/tool/explore" className="link-route">
-               Explore
+                Explore
               </Link>
             </Box>
             <Box className="navHoverBox">
@@ -118,9 +147,9 @@ function NavBar() {
                 Community
               </Link>
               <Box className="navFocusBox d-grid">
-                <Link to="/" className="link-hover hoverBg p-0">
+                {/* <Link to="/" className="link-hover hoverBg p-0">
                   Newsletter Issues
-                </Link>
+                </Link> */}
                 <Link to="/news" className="link-hover hoverBg">
                   Latest AI News
                 </Link>
@@ -129,13 +158,13 @@ function NavBar() {
                 </Link>
                 <Box className="d-flex ps-3 pt-2">
                   <Link className="d-flex icon-box-custom link-nav-icon">
-                    <LinkedInIcon className="linkedIn icon-site" sx={{color: "rgb(0, 119, 181)"}} />
+                    <LinkedInIcon className="linkedIn icon-site" sx={{ color: "rgb(0, 119, 181)" }} />
                   </Link>
                   <Link className="d-flex icon-box-custom link-nav-icon">
-                    <TwitterIcon className="Twitter icon-site" sx={{color: "rgb(0, 119, 181)"}} />
+                    <TwitterIcon className="Twitter icon-site" sx={{ color: "rgb(0, 119, 181)" }} />
                   </Link>
                   <Link className="d-flex icon-box-custom link-nav-icon">
-                    <YouTubeIcon className="YouTub icon-site" sx={{color: "rgb(255, 0, 0)"}} />
+                    <YouTubeIcon className="YouTub icon-site" sx={{ color: "rgb(255, 0, 0)" }} />
                   </Link>
                 </Box>
               </Box>
@@ -148,21 +177,26 @@ function NavBar() {
             </Box>
 
             {
-              user?.email &&(
-                <React.Fragment>
-                   <Tooltip className="Tooltip" title="Open settings">
-              <IconButton
-                className="avatarButton"
-                onClick={handleOpenUserMenu}
-                sx={{ p: 0 }}
-              >
-                <Avatar
-                  className="avatar"
-                  alt={user?.displayName}
-                  src={user?.photoURL}
-                />
-              </IconButton>
-            </Tooltip>
+              user?.email && (
+
+                <Tooltip className="Tooltip" title="Open settings">
+                  <IconButton
+                    className="avatarButton"
+                    onClick={handleOpenUserMenu}
+                    sx={{ p: 0 }}
+                  >
+                    <Avatar
+                      className="avatar"
+                      alt={user?.displayName}
+                      src={user?.photoURL}
+                    />
+                  </IconButton>
+                </Tooltip>
+
+              )
+            }
+
+
             <Menu
               sx={{ mt: "45px" }}
               anchorEl={anchorElUser}
@@ -179,36 +213,52 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               <Box className="box-100">
+
                 <Link to="/user/favourites" className="Favourites">
-                  {" "}
+
                   <Typography className="ms-2">
-                    Your Favourites{" "}
+                    Your Favourites
                   </Typography>
                 </Link>
-                <Button 
-                 onClick={logOutHandle} 
-                 className="button-click button-logout" >
+
+                {
+                  activeNews?.length || activeTool?.length || admin ? (
+                    <Link to="/dashboard" className={`Favourites`} >
+                      <Typography className="ms-2">
+                        Dashboard{" "}
+                      </Typography>
+
+                    </Link>
+
+                  ):(
+                    ''
+                  )
+                } 
+                <Button
+                  onClick={logOutHandle}
+                  className="button-click button-logout" >
                   {" "}
                   <Typography className="button-margin ms-2"> Log Out </Typography>
                 </Button>
               </Box>
             </Menu>
-                </React.Fragment>
-              )
-            }
 
 
-{
-             ! user?.email &&(
+
+
+            {
+              !user?.email && (
                 <React.Fragment>
-             <Button className='w-100 button-login' onClick={handelGoogleSignIn}><Box className="d-flex w-100" sx={{width: "100%",
-    justifyContent: 'center'}}><span className='padding2'><img src={google} width="30px" />Login</span></Box></Button>
+                  <Button className='w-100 button-login' onClick={handelGoogleSignIn}><Box className="d-flex w-100" sx={{
+                    width: "100%",
+                    justifyContent: 'center'
+                  }}><span className='padding2'><img src={google} width="30px" />Login</span></Box></Button>
                 </React.Fragment>
               )
             }
 
-            
-            
+
+
           </Box>
         </Toolbar>
       </Container>

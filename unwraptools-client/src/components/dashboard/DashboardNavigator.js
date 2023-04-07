@@ -36,7 +36,7 @@ const categories = [
 
 
   {
-    id: 'Approve Tools & News',
+    id: 'Admin Approve',
     children: [
       {
         id: 'Tools',
@@ -52,17 +52,21 @@ const categories = [
     ],
   },
   {
-    id: 'Manage Tool & News',
+    id: 'Manage Admin',
     children: [
       { id: 'Tools', icon: <SchoolIcon />, route: 'manage_tools' },
       { id: 'News', icon: <SettingsInputComponentIcon />, route: 'manage_news' },
+      { id: 'Manage Users', icon: <GroupAddIcon />, route: 'manage_users' },
     ],
-  },
+  } 
+
+];
+
+const profile = [ 
   {
     id: '',
-    children: [
-      { id: 'Manage Users', icon: <GroupAddIcon />, route: 'manage_users' },
-      { id: 'Manage Admin & profile', icon: <ManageAccountsIcon />, route: 'admin_profile' },
+    children: [ 
+      { id: 'Profile', icon: <ManageAccountsIcon />, route: 'admin_profile' },
     ],
   },
 
@@ -148,6 +152,28 @@ export default function DashboardNavigator(props) {
             </React.Fragment>
           )
         }
+
+<React.Fragment>
+              {profile.map(({ id, children }) => (
+                <Box key={id} sx={{ background: '#101F33' }}>
+                  <ListItem sx={{ py: 2, px: 3 }}>
+                    <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
+                  </ListItem>
+                  {children.map(({ id: childId, icon, route }) => (
+                    <ListItem disablePadding key={childId}>
+                      <Link className='linkDashboard' to={`${route}`}>
+                        <ListItemButton selected={uri === `/dashboard/${route}` ? true : false} sx={item}>
+                          <ListItemIcon>{icon}</ListItemIcon>
+                          <ListItemText>{childId}</ListItemText>
+                        </ListItemButton>
+                      </Link>
+                    </ListItem>
+                  ))}
+
+                  <Divider sx={{ mt: 2 }} />
+                </Box>
+              ))}
+            </React.Fragment>
 
 
         <Box className='mt-5' sx={{ background: '#101F33' }}>

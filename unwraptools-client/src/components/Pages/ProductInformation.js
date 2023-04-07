@@ -191,11 +191,15 @@ function ProductInformation() {
                                     categoryTools.slice(0, 5).map((tool, idx) => (
                                         <Grid item xs={12} md={6} lg={4}>
                                         <Card className='card mb-3' sx={{ maxWidth: 345 }}>
-                                            <CardMedia
-                                                sx={{ height: 140 }}
-                                                image={tool?.imageURL}
-                                                title="green iguana"
-                                            />
+                                        <CardMedia 
+                                          className='positionab' 
+                                            sx={{ height: 140 }}
+                                            image={tool?.imageURL}
+                                            title="green iguana"
+                                        />
+                                        <Box className='positionrs'>
+                                            <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
+                                        </Box>
                                             <CardContent sx={{paddingBottom: '0'}}>
                                               <Link to={`/tool/${tool?._id}`} className='CardLink'>
                                               <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
@@ -243,13 +247,13 @@ function ProductInformation() {
                                 }
                             </Grid>
                         </Box>
-                        <Box className='text-left mt-5'>
+                        {/* <Box className='text-left mt-5'>
                             <Typography className='BrowseAITools' mb="15px">Browse AI Tools Similar to Looka</Typography>
                             <Box className='d-flex '>
                                 <Link className='link_similar_tools'> Browse 7 AI logo generator tools.</Link>
                                 <Link className='link_similar_tools'> Browse 53 AI design assistant tools.</Link>
                             </Box>
-                        </Box>
+                        </Box> */}
                     </Box>
                 </Container>
                 <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>

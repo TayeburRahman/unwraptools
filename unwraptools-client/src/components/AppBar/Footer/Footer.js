@@ -14,13 +14,13 @@ function Footer() {
             <Box mt="40px"></Box>
              <Divider/>
              <Grid container mt="25px">
-                <Grid item xs={6} md={6} lg={6} className="link-footer-box" sx={{display:"flex"}}>
+                <Grid item xs={12} md={6} lg={6} className="link-footer-box" sx={{display:"flex"}}>
                     <Link to="/" className="link-footer">Privacy Policy</Link>  <span className='ps-2 pe-2'>|</span>
                     <Link to="/" className="link-footer" sx={{paddingRight:"10px"}}>Terms of Services</Link> <span className='ps-2 pe-2'>|</span>
                     <Link to="" className='link-footer' >
                         Sponsor Us</Link>
                 </Grid> 
-                <Grid item xs={6} md={6} lg={6} className="d-flex text-right" sx={{justifyContent: "flex-end"}}>
+                <Grid item xs={12} md={6} lg={6} className="d-flex text-right ju-co" sx={{justifyContent: "flex-end"}}>
                     <Link className="d-flex icon-box">
                     <LinkedInIcon className='linkedIn' sx={{color: "rgb(0, 119, 181)"}} />
                     </Link>

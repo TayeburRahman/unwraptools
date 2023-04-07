@@ -275,6 +275,27 @@ input#free-solo-2-demo {
   /* height: 500px !important; */
 }
 
+.positionab {
+  position: relative !important;
+}
+
+.positionrs {
+  position: absolute !important;
+  top: 20px !important;
+  width: 70px;
+  padding: 10px 2px;
+  background-color: #f0f9ff;
+  color: rgb(41, 41, 41);
+  right: 0;
+  font-weight: 500 !important;
+  border-radius: 5px 0px 0px 5px;
+  border-top: 0.1px solid rgba(41, 41, 41, 0.13);
+  border-bottom: 0.1px solid rgba(41, 41, 41, 0.13);
+}
+.price {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
 svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiSelect-icon.MuiSelect-iconOutlined.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
   color: #0ea5e9 !important;
 }

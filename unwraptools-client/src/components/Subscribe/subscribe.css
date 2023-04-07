@@ -1,0 +1,44 @@
+.emailField {
+  width: 100%;
+  height: 42px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border_color) !important;
+  background: rgba(188, 209, 219, 0.089) !important;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.SubmitButton {
+  width: 100%;
+  height: 42px;
+  color: var(--body_color) !important;
+  margin-bottom: 10px;
+  background: rgba(34, 159, 197, 0.925);
+  border: 1px solid var(--border_color) !important;
+  border-radius: 5px;
+  font-weight: 500;
+  color: rgb(228, 228, 228) !important;
+}
+
+.SubmitButton:hover {
+  background: rgba(21, 140, 177, 0.925);
+}
+.subscribe {
+  border: 1px solid var(--border_color) !important;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(209, 215, 219, 0.062);
+  color: var(--body_color) !important;
+}
+.submitBox {
+  border: 1px solid var(--border_color) !important;
+  padding: 10px;
+  border-radius: 5px;
+  background: white;
+}
+
+@media only screen and (max-width: 620px) {
+  .subscribe {
+    margin-top: 20px;
+  }
+}
