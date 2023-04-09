@@ -4,13 +4,11 @@ import { Box } from '@mui/system';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../AppBar/Footer/Footer';
-import NavBar from '../AppBar/NavBar';
 import './Category.css';
 
 function Categories() {
     return (
-        <div className='background'>
-            <NavBar />
+        <div className='background'> 
             <Container>
                 <Box className='textTagNav padding5' mt="40px" >
                     <Link className='routeLink'>Home</Link>

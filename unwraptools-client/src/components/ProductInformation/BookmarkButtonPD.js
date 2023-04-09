@@ -22,7 +22,7 @@ function BookmarkButtonPD({ setStatus, status, tools, email }) {
   const [openSuccess, setOpenSuccess] = useState(false); 
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/tool/bookmark/existingUser/${tools?._id}/${email}`)
+    axios.get(`https://server.unwraptools.io/api/v1/tool/bookmark/existingUser/${tools?._id}/${email}`)
       .then(res => {
         if (res.status === 200) {
           // console.log('sssss',res?.data)
@@ -36,7 +36,7 @@ function BookmarkButtonPD({ setStatus, status, tools, email }) {
   const HandleBookmark = (id) => { 
     handleClose()
 console.log(id, email)
-    axios.put(`http://localhost:5000/api/v1/tool/bookmark/${id}`, { email })
+    axios.put(`https://server.unwraptools.io/api/v1/tool/bookmark/${id}`, { email })
       .then(res => {
         if (res.status === 200) {
           setMessage("Added to favourites")

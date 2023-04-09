@@ -9,7 +9,7 @@ function CurrentTime({news}) {
  
 
  useEffect(()=>{  
-        axios.get(`http://localhost:5000/api/v1/news/gettime/${news?._id}`)
+        axios.get(`https://server.unwraptools.io/api/v1/news/gettime/${news?._id}`)
             .then(res => {
                 if (res.status === 200) {
                     setDay(res?.data?.days)

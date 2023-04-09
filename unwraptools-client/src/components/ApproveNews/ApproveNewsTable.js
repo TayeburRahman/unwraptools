@@ -22,7 +22,7 @@ export default function ApproveNewsTable() {
     const [ status, setStatus] =  useState(1);
 
     useEffect(()=>{ 
-        axios.get('http://localhost:5000/api/v1/news/getallNews')
+        axios.get(`https://server.unwraptools.io/api/v1/news/getallNews`)
         .then(res => {
           if (res.status === 200) {
             // console.log('sssss',res?.data)
@@ -35,7 +35,7 @@ export default function ApproveNewsTable() {
 
  
       const handleApprove = (_id) =>{ 
-        axios.put(`http://localhost:5000/api/v1/news/approveNews/${_id}`)
+        axios.put(`https://server.unwraptools.io/api/v1/news/approveNews/${_id}`)
         .then(res => {
           if (res.status === 200) { 
             setStatus(status === 1? 0:1) 
@@ -46,7 +46,7 @@ export default function ApproveNewsTable() {
       }
  
       const handleDelete = (_id) =>{
-        axios.put(`http://localhost:5000/api/v1/news/deleteNews/${_id}`)
+        axios.put(`https://server.unwraptools.io/api/v1/news/deleteNews/${_id}`)
         .then(res => {
           if (res.status === 200) {
             console.log(res)

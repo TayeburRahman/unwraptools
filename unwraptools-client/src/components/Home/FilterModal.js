@@ -57,10 +57,12 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   minWidth: "45%",
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: 'var(--body_background) !important',
+  border: '2px solid #1185bb !important',
   boxShadow: 24,
+  color: "var(--body_color) !important",
   p: 4,
+  borderRadius: "5px"
 };
 
 export default function FilterModal({ open, setOpen, pricing, setPricing, setFeatures, features }) {
@@ -183,7 +185,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                 <Grid item xs={12} md={6} lg={6}>
                   <Typography p={0} m={0} >
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="free"
                       checked={checkedFree}
                       onChange={handelOnChangePricing }
@@ -193,7 +195,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                   </Typography>
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="free_trial"
                       checked={checkedFreeTrial}
                       onChange={handelOnChangePricing}
@@ -203,7 +205,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                   </Typography>
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="contact_for_pricing"
                       checked={checkedContent}
                       onChange={handelOnChangePricing}
@@ -217,7 +219,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
 
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="freemium"
                       checked={checkedFreemium}
                       onChange={handelOnChangePricing}
@@ -227,7 +229,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                   </Typography>
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="paid"
                       checked={checkedPaid}
                       onChange={handelOnChangePricing}
@@ -237,7 +239,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                   </Typography>
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="deals"
                       checked={checkedDeals}
                       onChange={handelOnChangePricing}
@@ -255,7 +257,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                 <Grid item xs={12} md={6} lg={6}>
                   <Typography p={0} m={0}>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="waitlist"
                       checked={waitlist}
                       onChange={handelOnChangeFeatures}
@@ -265,7 +267,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                   </Typography>
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="mobile_app"
                       checked={app}
                       onChange={handelOnChangeFeatures}
@@ -275,7 +277,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                   </Typography>
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="api"
                       checked={api}
                       onChange={handelOnChangeFeatures}
@@ -289,7 +291,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
 
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="browser_extension"
                       checked={browser}
                       onChange={handelOnChangeFeatures}
@@ -299,7 +301,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                   </Typography>
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="open_source"
                       checked={source}
                       onChange={handelOnChangeFeatures}
@@ -309,7 +311,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                   </Typography>
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="discord_community"
                       checked={discord}
                       onChange={handelOnChangeFeatures}
@@ -319,7 +321,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                   </Typography>
                   <Typography>
                     {" "}
-                    <Checkbox
+                    <Checkbox className="chackbox"
                       value="no_signup_required"
                       checked={signup}
                       onChange={handelOnChangeFeatures}

@@ -31,7 +31,7 @@ export default function ManageUserNewsTable({slice}) {
     const email = user?.email
 
     useEffect(()=>{ 
-        axios.get(`http://localhost:5000/api/v1/news/getallNews/${email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/news/getallNews/${email}`)
         .then(res => {
           if (res.status === 200) {
             // console.log('sssss',res?.data)
@@ -49,7 +49,7 @@ export default function ManageUserNewsTable({slice}) {
 
  
       const handleApprove = (_id) =>{ 
-        axios.put(`http://localhost:5000/api/v1/news/approvenews/${_id}`)
+        axios.put(`https://server.unwraptools.io/api/v1/news/approvenews/${_id}`)
         .then(res => {
           if (res.status === 200) { 
             setStatus(status === 1? 0:1) 
@@ -60,7 +60,7 @@ export default function ManageUserNewsTable({slice}) {
       }
  
       const handleDelete = (_id) =>{
-        axios.put(`http://localhost:5000/api/v1/news/deletenews/${_id}`)
+        axios.put(`https://server.unwraptools.io/api/v1/news/deletenews/${_id}`)
         .then(res => {
           if (res.status === 200) {
             console.log(res)

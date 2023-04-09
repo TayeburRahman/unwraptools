@@ -11,24 +11,25 @@ import SellIcon from '@mui/icons-material/Sell';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import { Grid, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { Box, Container } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import Footer from '../AppBar/Footer/Footer';
-import NavBar from '../AppBar/NavBar';
 
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useAuth from '../../Firebase/Hooks/useAuth';
 import SearchSystem from '../Home/SearchSystem';
 import TagHome from '../Home/TagHome';
@@ -50,7 +51,7 @@ const top100Films = [
     { title: 'Image Editing' },
     { title: 'Logo Generator' },
     { title: 'Audio Editing' },
-    { title: 'Text To Speech',  },
+    { title: 'Text To Speech', },
     { title: "Music" },
     { title: 'Transcriber' },
     { title: 'Personalized Videos' },
@@ -102,30 +103,29 @@ const top100Films = [
 
 
 
-
-
-
-
 function Homes() {
 
     const [tools, setTools] = useState([])
     const [status, setStatus] = useState(0)
 
-    const [selectCategory, setSelectCategory] = useState([]);
     const [sort, setSortBy] = useState(null);
     const [pricing, setPricing] = useState([]);
     const [features, setFeatures] = useState([]);
     const [search, setSearch] = useState("");
+    const [response, setResponse] = useState(true);
 
-    console.log("features is :", features)
-    console.log("pricing is :", pricing)
-    console.log("sort is :", sort)
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
 
     const { user } = useAuth()
     const email = user?.email
 
     // filter items 
-    let url = `http://localhost:5000/api/v1/tool/get/filter`;
+    let url = `https://server.unwraptools.io/api/v1/tool/get/filter`;
 
     useEffect(() => {
         url = `${url}${pricing
@@ -148,7 +148,7 @@ function Homes() {
 
         axios.get(url).then((res) => {
             if (res.status === 200) {
-                // console.log('sssss',res?.data)
+                setResponse()
                 setTools(res?.data?.tools);
             } else {
                 console.log(res);
@@ -156,7 +156,7 @@ function Homes() {
         });
 
 
-    }, [status, features, pricing, sort]);
+    }, [status, features, pricing, sort, pathname]);
 
 
     // search system 
@@ -164,10 +164,10 @@ function Homes() {
 
     const HandelOnChangeSearch = (search) => {
         setSearch(search);
-        axios.put(`http://localhost:5000/api/v1/tool/get/search`, { search })
+        axios.put(`https://server.unwraptools.io/api/v1/tool/get/search`, { search })
             .then(res => {
                 if (res.status === 200) {
-                    console.log('search', res?.data?.tools)
+                    setResponse(response === true && false)
                     setTools(res?.data?.tools)
                 } else {
                     console.log(res)
@@ -175,13 +175,8 @@ function Homes() {
             })
     };
 
-    console.log(option2)
-
-
-
     return (
         <Box className='theme' >
-            <NavBar />
             <Box>
                 <Container sx={{ marginTop: "50px" }}>
                     <Grid container >
@@ -224,10 +219,10 @@ function Homes() {
                 <Container sx={{ marginTop: "60px" }}>
                     <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
                         <Grid item className='mt-rev' sx={6}>
-                        <Link to="/submit-tool" className='textDecoration'><button className="button-6_1custom" ><AddIcon />Tools Added Today</button></Link>
+                            <Link to="/submit-tool" className='textDecoration'><button className="button-6_1custom" ><AddIcon />Tools Added Today</button></Link>
                         </Grid>
                         <Grid item className='mt-rev' sx={6}>
-                        <Link to="/submit-news" className='textDecoration'> <button className="button-6"  ><PostAddIcon /> News Added Today</button></Link>
+                            <Link to="/submit-news" className='textDecoration'> <button className="button-6"  ><PostAddIcon /> News Added Today</button></Link>
                         </Grid>
                     </Grid>
                     <Grid>
@@ -240,10 +235,10 @@ function Homes() {
                     </Grid>
                     <Grid>
                         <TagHome />
-                        <Typography className='textDes2 text-left mb-1 mt-2'  >RESULTS FOUND:  <span className='resultFountSpan'>{tools?.length}</span></Typography> 
+                        <Typography className='textDes2 text-left mb-1 mt-2'  >RESULTS FOUND:  <span className='resultFountSpan'>{tools?.length}</span></Typography>
                         <Grid container>
                             <Grid item xs={3} md={1} lg={1}>
-                                <Box className=' searchBarIcon'>
+                                <Box className='searchBarIcon'>
                                     <SearchIcon />
                                 </Box>
                             </Grid>
@@ -274,69 +269,145 @@ function Homes() {
                         </Grid>
                         <SearchSystem pricing={pricing} setPricing={setPricing} features={features} setFeatures={setFeatures} setSortBy={setSortBy} sort={sort} />
                     </Grid>
-                    <Grid container mt={5}>
-                        {
-                            tools?.map((tool, idx) => (
-                                <Grid item xs={12} md={6} lg={4}>
-                                    <Card className='card mb-3' sx={{ maxWidth: 345 }}>
-                                       {/* <Box className=' positionab' > */}
-                                       <CardMedia 
-                                          className=' positionab' 
-                                            sx={{ height: 140 }}
-                                            image={tool?.imageURL}
-                                            title="green iguana"
-                                        />
-                                        <Box className='positionrs'>
-                                            <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
-                                        </Box>
-                                       {/* </Box> */}
-                                        <CardContent sx={{ paddingBottom: '0' }}>
-                                            <Link to={`/tool/${tool?._id}`} className='CardLink'>
-                                                <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
-                                                    <Box>
-                                                        <Typography className='revert' gutterBottom variant="h5" component="div">
-                                                            {tool?.tool_name}
-                                                        </Typography>
-                                                    </Box>
-                                                    <Box>
-                                                        <TurnedInNotIcon />
-                                                        {tool?.favourite?.length}
-                                                    </Box>
-                                                </Box>
-                                                <Typography className='text-left' variant="body2"  >
-                                                    {tool?.short_description?.slice(0, 100)}.
-                                                </Typography>
-                                                <Box>
-                                                    <Grid container className='mt-2'>
-                                                        {
-                                                            tool?.price?.map((data, idx) => (
-                                                                <Grid item className='m-2'>
-                                                                    <Typography className="tagCard1">
-                                                                        {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
-                                                                        {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
-                                                                        {data === "Free" && <TaskAltIcon className='cardTagIcon' />}
-                                                                        {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}
-                                                                        {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}
-                                                                        {data === "Deals" && <SellIcon className='cardTagIcon' />}
-                                                                        {data}
-                                                                    </Typography>
-                                                                </Grid>
-                                                            ))
-                                                        }
-                                                    </Grid>
-                                                </Box>
-                                            </Link>
-                                        </CardContent>
 
-                                        <CardActions sx={{ justifyContent: "space-between" }}>
-                                            <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
-                                            <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
-                                        </CardActions>
-                                    </Card>
+                    {
+                        response ? (
+                            <Grid container mt={5}>
+                                <Grid item xs={12} md={6} lg={4} className='mt-1'>
+                                    <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                        <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
+                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                        </Box>
+                                    </Box>
                                 </Grid>
-                            ))
-                        }
-                    </Grid>
+
+                                <Grid item xs={12} md={6} lg={4} className='mt-1'>
+                                <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                        <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
+                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                        </Box>
+                                    </Box>
+                                </Grid>
+
+                                <Grid item xs={12} md={6} lg={4} className='mt-1'>
+                                <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                        <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
+                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={12} md={6} lg={4} className='mt-4'>
+                                <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                        <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
+                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={12} md={6} lg={4} className='mt-4'>
+                                <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                        <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
+                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                        </Box>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={12} md={6} lg={4} className='mt-4'>
+                                <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                        <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
+                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                            <Skeleton sx={{ maxWidth: "345px" }} height={50} />
+                                        </Box>
+                                    </Box>
+                                </Grid> 
+                            </Grid>
+
+                        ) : (
+                            <Grid container mt={5}>
+                                {
+                                    tools?.map((tool, idx) => (
+                                        <Grid item xs={12} md={6} lg={4} className='mt-4'>
+                                            <Card className='card mb-3' sx={{ maxWidth: 345 }}>
+                                                {/* <Box className=' positionab' > */}
+                                                <Link to={`/tool/${tool?._id}`} className='CardLink'>
+                                                    <CardMedia
+                                                        className='positionab'
+                                                        sx={{ height: 140 }}
+                                                        image={tool?.imageURL}
+                                                        title="green iguana"
+                                                    />
+                                                    <Box className='positionrs'>
+                                                        <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
+                                                    </Box>
+                                                    {/* </Box> */}
+                                                    <CardContent sx={{ paddingBottom: '0' }}>
+
+                                                        <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
+                                                            <Box className="d-flex">
+                                                                <Typography className='revert' gutterBottom variant="h5" component="div">
+                                                                    {tool?.tool_name}
+                                                                </Typography>
+                                                                {
+                                                                    tool?.favourite?.length > 10 && (
+                                                                        <VerifiedIcon className='icon-co buttonIcon mb-1 ms-2' sx={{ marginRight: "10px", fontSize: "20px" }} />
+
+                                                                    )
+                                                                }
+                                                            </Box>
+                                                            <Box>
+                                                                <TurnedInNotIcon />
+                                                                {tool?.favourite?.length}
+                                                            </Box>
+                                                        </Box>
+                                                        <Typography className='text-left' variant="body2"  >
+                                                            {tool?.short_description?.slice(0, 100)}.
+                                                        </Typography>
+                                                        <Box>
+                                                            <Grid container className='mt-2'>
+                                                                {
+                                                                    tool?.price?.map((data, idx) => (
+                                                                        <Grid item className='m-2'>
+                                                                            <Typography className="tagCard1">
+                                                                                {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
+                                                                                {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
+                                                                                {data === "Free" && <TaskAltIcon className='cardTagIcon' />}
+                                                                                {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}
+                                                                                {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}
+                                                                                {data === "Deals" && <SellIcon className='cardTagIcon' />}
+                                                                                {data}
+                                                                            </Typography>
+                                                                        </Grid>
+                                                                    ))
+                                                                }
+                                                            </Grid>
+                                                        </Box>
+
+                                                    </CardContent>
+                                                </Link>
+
+                                                <CardActions sx={{ justifyContent: "space-between" }}>
+                                                    <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
+                                                    <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
+                                                </CardActions>
+                                            </Card>
+                                        </Grid>
+                                    ))
+                                }
+                            </Grid>
+                        )
+                    }
+
+
+
 
                 </Container>
             </Box>
@@ -351,7 +422,7 @@ export default Homes
 
 
 {/* <Grid container>
-    <Grid item xs={12} md={6} lg={4}>
+    <Grid item xs={12} md={6} lg={4} className='mt-4'>
     <Box>
 <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
 <Box sx={{ pt: 0.5 }}>

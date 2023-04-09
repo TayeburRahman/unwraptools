@@ -20,7 +20,7 @@ function ToolInformation() {
 
     useEffect(() => {
         console.log(toolId)
-        axios.get(`http://localhost:5000/api/v1/tool/getTools/${toolId}`)
+        axios.get(`https://server.unwraptools.io/api/v1/tool/getTools/${toolId}`)
             .then(res => {
                 if (res.status === 200) {
                     console.log('sssss', res?.data)

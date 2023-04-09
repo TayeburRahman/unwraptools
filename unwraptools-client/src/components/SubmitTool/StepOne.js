@@ -83,7 +83,7 @@ function StepOne(props) {
                 </Grid>
                 <Grid className='mt-2  ' item xs={12} md={12} lg={12}>
                     <Typography className='text-left'>Tool Description (Optional)</Typography>
-                <ReactQuill theme="snow" style={{ height: "200px" }} value={description} onChange={setDescription} />;
+                <ReactQuill theme="snow" style={{ height: "200px" }} value={description} onChange={setDescription} />
                 </Grid> 
             </Grid>  
         </div>

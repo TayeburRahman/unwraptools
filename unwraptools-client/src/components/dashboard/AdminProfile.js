@@ -23,7 +23,7 @@ const AdminProfile = () => {
     const email = user?.email
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/user/getUsers/${email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/user/getUsers/${email}`)
             .then(res => {
                 if (res.status === 200) {
                     // console.log(res?.data )
@@ -36,7 +36,7 @@ const AdminProfile = () => {
     }, [email])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/news/getallNews/${email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/news/getallNews/${email}`)
             .then(res => {
                 if (res.status === 200) {
                     console.log('sssss', res?.data)
@@ -49,7 +49,7 @@ const AdminProfile = () => {
     }, [email])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/tool/getallTools/${email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools/${email}`)
             .then(res => {
                 if (res.status === 200) {
                     // console.log('sssss',res?.data)

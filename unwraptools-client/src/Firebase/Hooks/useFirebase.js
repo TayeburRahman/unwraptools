@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getAuth, getIdToken, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 import initializeFirebase from "../FirebaseInit";
 
 
@@ -11,8 +12,8 @@ const useFirebase = () => {
   const [user, setUser] = useState({});
   const [isLoading, setIstLoading] = useState(true);
   const [authError, setError] = useState("");
-  const [admin, setAdmin] = useState('');
-  // console.log(admin)
+  const [admin, setAdmin] = useState(''); 
+  const {pathname} = useLocation('');  
 
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
@@ -66,56 +67,32 @@ const useFirebase = () => {
   const saveUser = (email, displayName, photoURL, method) => {
     // const user = { email, displayName, photoURL }; 
 
-    axios.post(`http://localhost:5000/api/v1/user/signup`, {
+    axios.post(`https://server.unwraptools.io/api/v1/user/signup`, {
       email, displayName, photoURL 
     })
       .then(res => {
         if (res.status === 200) {
           // setState(state ? false : true)
         }else{
-          console.log('jhhd',res)
+          console.log('',res)
         }
       })
-
-
-      // fetch("http://localhost:5000/api/v1/user/signup", {
-      //   method: "POST",
-      //   headers: {
-      //     "content-type": "application/json",
-      //   },
-      //   body: JSON.stringify({email, displayName, photoURL }),
-      // }) 
-      // .then(res => {
-      //   if (res.status === 200) {
-      //     // setState(state ? false : true)
-      //   }else{
-      //     console.log('jhhd',res)
-      //   }
-      // }) 
+ 
   };
 
   useEffect(() => {
 
-    axios.get(`http://localhost:5000/api/v1/user/admin/${user?.email}`)
+    axios.get(`https://server.unwraptools.io/api/v1/user/admin/${user?.email}`)
     .then(res => {
       if (res.status === 200) {
-        console.log('sssss',res?.data) 
+        // console.log('sssss',res?.data) 
          setAdmin(res.data?.admin)
       }else{
         console.log(res)
       }
     })
-    
-
-
-
-    // fetch(`http://localhost:5000/api/v1/user/admin/${user?.email}`)
-    //   .then(res => res.json())
-    //   .then(data =>{ 
-    //     console.log(data)
-    //     //  setAdmin(data?.admin)
-    //     })
-  }, [user?.email])
+  
+  }, [user, pathname])
 
   return {
     user,

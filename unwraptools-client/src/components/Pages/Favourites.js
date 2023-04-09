@@ -3,7 +3,6 @@ import { Box, Container, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../AppBar/Footer/Footer';
-import NavBar from '../AppBar/NavBar';
 import FavoritesTabs from '../Favourites/FavouritesTabs';
 
 
@@ -11,8 +10,7 @@ import FavoritesTabs from '../Favourites/FavouritesTabs';
  
 function Favorites() {
     return (
-        <div className='background'>
-            <NavBar/>
+        <div className='background'> 
             <Container>
                 <Box className='textTagNav p-1' mt="40px" >
                     <Link to="/" className='routeLink'>Home</Link> 

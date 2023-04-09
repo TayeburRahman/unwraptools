@@ -42,14 +42,32 @@
 }
 .dashboard_main_regd {
   background: rgb(30, 154, 255);
-  text-decoration: none;
-  color: white;
+  text-decoration: none !important;
+  color: white !important;
 }
 
 .dashboard_main_subjects {
   background: rgb(227, 66, 55);
-  text-decoration: none;
-  color: white;
+  text-decoration: none !important;
+  color: white !important;
+}
+.dashboard_main_inactive {
+  background: rgba(221, 182, 52, 0.993);
+}
+.text-right {
+  text-decoration: none !important;
+}
+.dashboard-stat {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+.cw {
+  color: white !important;
+}
+
+.dashboard-stat:hover {
+  color: white !important;
 }
 
 .dashboard_main_classes {

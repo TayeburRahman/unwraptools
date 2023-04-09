@@ -21,7 +21,7 @@ function Header(props) {
   const email = user?.email
 
   useEffect(()=>{ 
-      axios.get(`http://localhost:5000/api/v1/user/getUsers/${email}`)
+      axios.get(`https://server.unwraptools.io/api/v1/user/getUsers/${email}`)
       .then(res => {
         if (res.status === 200) {
           // console.log(res?.data )

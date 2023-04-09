@@ -25,7 +25,7 @@ function BookmarkButton({ setStatus, status, tool, email }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/tool/bookmark/existingUser/${tool?._id}/${email}`)
+    axios.get(`https://server.unwraptools.io/api/v1/tool/bookmark/existingUser/${tool?._id}/${email}`)
       .then(res => {
         if (res.status === 200) {
           // console.log('sssss',res?.data)
@@ -45,7 +45,7 @@ function BookmarkButton({ setStatus, status, tool, email }) {
     
     handleClose()
 
-    axios.put(`http://localhost:5000/api/v1/tool/bookmark/${id}`, { email })
+    axios.put(`https://server.unwraptools.io/api/v1/tool/bookmark/${id}`, { email })
       .then(res => {
         if (res.status === 200) {
           setMessage("Added to favourites")

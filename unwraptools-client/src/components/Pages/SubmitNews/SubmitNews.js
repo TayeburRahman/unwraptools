@@ -14,7 +14,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../../Firebase/Hooks/useAuth';
 import Footer from '../../AppBar/Footer/Footer';
-import NavBar from '../../AppBar/NavBar';
 
 
 
@@ -55,7 +54,7 @@ function SubmitNews() {
         
         const user_email = user?.email
 
-        axios.post(`http://localhost:5000/api/v1/news/create`, {
+        axios.post(`https://server.unwraptools.io/api/v1/news/create`, {
              
             user_email,
             categories,
@@ -99,8 +98,7 @@ function SubmitNews() {
 
         
     return (
-        <div className='background'>
-            <NavBar/>
+        <div className='background'> 
              <Container >
              <Box className='textTagNav p-1' mt="40px" >
                     <Link to="/" className='routeLink'>Home</Link> 
@@ -148,7 +146,7 @@ function SubmitNews() {
                         />
                     </FormControl>
                 </Grid>
-                <Grid className='p-4' item xs={12} md={12} lg={6}>
+                <Grid className='pt-4 paddingsm' item xs={12} md={12} lg={6}>
                     <Typography className='text-left pb-2'>Select Categories (max 2)</Typography>
                     <Autocomplete
                         multiple

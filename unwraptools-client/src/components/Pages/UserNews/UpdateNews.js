@@ -23,7 +23,7 @@ const UpdateNews = () => {
  
     const onSubmit = async (data) => { 
         const {news_names, contentLinks} = data 
-        axios.put(`http://localhost:5000/api/v1/news/updateNews/${newsId}`,{
+        axios.put(`https://server.unwraptools.io/api/v1/news/updateNews/${newsId}`,{
             news_name: !news_names? news?.news_name : news_names,
             contentLink:  !contentLinks? news?.contentLink : contentLinks, 
         })
@@ -41,7 +41,7 @@ const UpdateNews = () => {
 
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/api/v1/news/getNews/${newsId}`)
+        axios.get(`https://server.unwraptools.io/api/v1/news/getNews/${newsId}`)
         .then(res => {
           if (res.status === 200) { 
             setNews(res.data.news) 

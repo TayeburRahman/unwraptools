@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import './home.css';
 import SearchFilters from './SearchFilters';
+import './home.css';
 
 function SearchSystem(props) {
     const {pricing, setPricing, setSortBy,sort, features, setFeatures} = props;
@@ -16,7 +16,7 @@ function SearchSystem(props) {
     console.log('search', pricing, features)
 
     useEffect(()=>{ 
-        axios.get(`http://localhost:5000/api/v1/tool/get/filter?pricing=${pricing}&search=${search}&features=${sort}`)
+        axios.get(`https://server.unwraptools.io/api/v1/tool/get/filter?pricing=${pricing}&search=${search}&features=${sort}`)
         .then(res => {
           if (res.status === 200) {
             // console.log('sssss',res?.data)

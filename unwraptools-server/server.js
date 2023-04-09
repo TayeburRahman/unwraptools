@@ -20,6 +20,7 @@ connectDB()
 app.use('/api/v1/user', require("./router/users.router"));
 app.use('/api/v1/tool', require("./router/tools.router"));
 app.use('/api/v1/news', require("./router/news.router"));
+app.use('/api/v1/email', require("./router/email.router"));
 
 
 /* testing api  */

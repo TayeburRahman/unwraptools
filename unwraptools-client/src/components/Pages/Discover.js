@@ -14,7 +14,6 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 
 import { Link, useParams } from 'react-router-dom';
-import NavBar from '../AppBar/NavBar';
 
 
 import BorderColorIcon from '@mui/icons-material/BorderColor';
@@ -38,15 +37,15 @@ function ProductInformation() {
     const [category, setCategory] = useState([]);
     const { user } = useAuth()
     const { Id } = useParams();
-    const [open, setOpen] = useState(false); 
+    const [open, setOpen] = useState(false);
     const [openSuccess, setOpenSuccess] = useState(false);
     const [message, setMessage] = useState('');
-    const [responseMessage, setResponseMessage] = useState(''); 
+    const [responseMessage, setResponseMessage] = useState('');
 
     const email = user?.email
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/v1/tool/randomTool")
+        axios.get(`https://server.unwraptools.io/api/v1/tool/randomTool`)
             .then(res => {
                 if (res.status === 200) {
                     setTools(res?.data?.tool)
@@ -62,7 +61,7 @@ function ProductInformation() {
 
 
 
-        axios.put(`http://localhost:5000/api/v1/tool/get/categorys`, {
+        axios.put(`https://server.unwraptools.io/api/v1/tool/get/categorys`, {
             category
         })
             .then(res => {
@@ -80,15 +79,14 @@ function ProductInformation() {
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
-        } 
-        setOpenSuccess(false) 
+        }
+        setOpenSuccess(false)
         setMessage('')
         setResponseMessage('')
     };
 
     return (
         <div className='background'>
-            <NavBar />
             <div>
                 <Container className='minH500'>
                     {
@@ -170,9 +168,9 @@ function ProductInformation() {
                                             </Box>
 
                                             <Box className='mt-4 text-left'>
-                                    <button className='button_suggest' onClick={handleOpen} variant="text"> <BorderColorIcon className='icon_suggest'/>Propose Modifications</button>
-                                    <SuggestEditModal setMessage={setMessage} setOpenSuccess={setOpenSuccess} tools={data} open={open} setOpen={setOpen} />
-                                    </Box>
+                                                <button className='button_suggest' onClick={handleOpen} variant="text"> <BorderColorIcon className='icon_suggest' />Propose Modifications</button>
+                                                <SuggestEditModal setMessage={setMessage} setOpenSuccess={setOpenSuccess} tools={data} open={open} setOpen={setOpen} />
+                                            </Box>
 
                                         </Grid>
 
@@ -207,6 +205,7 @@ function ProductInformation() {
                                     categoryTools.slice(0, 5).map((tool, idx) => (
                                         <Grid item xs={12} md={6} lg={4}>
                                             <Card className='card mb-3' sx={{ maxWidth: 345 }}>
+                                            <Link to={`/tool/${tool?._id}`} className='CardLink'>
                                                 <CardMedia
                                                     className=' positionab'
                                                     sx={{ height: 140 }}
@@ -217,12 +216,18 @@ function ProductInformation() {
                                                     <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
                                                 </Box>
                                                 <CardContent sx={{ paddingBottom: '0' }}>
-                                                    <Link to={`/tool/${tool?._id}`} className='CardLink'>
+                                                   
                                                         <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
-                                                            <Box>
+                                                            <Box className="d-flex">
                                                                 <Typography className='revert' gutterBottom variant="h5" component="div">
                                                                     {tool?.tool_name}
                                                                 </Typography>
+                                                                {
+                                                                    tool?.favourite?.length > 10 && (
+                                                                        <VerifiedIcon className='icon-co buttonIcon mb-1 ms-2' sx={{ marginRight: "10px", fontSize: "20px" }} />
+
+                                                                    )
+                                                                }
                                                             </Box>
                                                             <Box>
                                                                 <TurnedInNotIcon />
@@ -251,8 +256,9 @@ function ProductInformation() {
                                                                 }
                                                             </Grid>
                                                         </Box>
-                                                    </Link>
+                                                   
                                                 </CardContent>
+                                                </Link>
 
                                                 <CardActions sx={{ justifyContent: "space-between" }}>
                                                     <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>

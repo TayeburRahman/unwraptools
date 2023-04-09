@@ -31,7 +31,7 @@ const UpdateTools = () => {
             setToolsName(data.tool_name)
         }
  
-        axios.put(`http://localhost:5000/api/v1/tool/updateTools/${toolsId}`,{
+        axios.put(`https://server.unwraptools.io/api/v1/tool/updateTools/${toolsId}`,{
             short_description: !short_descriptions? tools?.short_description : short_descriptions,
             tool_name:  !tool_names? tools?.tool_name : tool_names,
             startingPrice: !startingPrices? tools?.startingPrice : startingPrices,
@@ -54,7 +54,7 @@ const UpdateTools = () => {
 
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/api/v1/tool/getTools/${toolsId}`)
+        axios.get(`https://server.unwraptools.io/api/v1/tool/getTools/${toolsId}`)
         .then(res => {
           if (res.status === 200) { 
             setTools(res.data.tools) 

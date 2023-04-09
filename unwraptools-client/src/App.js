@@ -1,7 +1,9 @@
-import { Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import AdminRoute from './PrivateRoute/AdminRoute';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
+import NavBar from './components/AppBar/NavBar';
 import UserDetails from './components/ManageUsers/UserDetails';
 import Categories from './components/Pages/Categories';
 import Discover from './components/Pages/Discover';
@@ -18,9 +20,9 @@ import SignIn from './components/authentication/SingIn';
 import AdminProfile from './components/dashboard/AdminProfile';
 import ApproveNews from './components/dashboard/ApproveNews';
 import ApproveTools from './components/dashboard/ApproveTools';
-import Content from './components/dashboard/Content';
 import DashboardMain from './components/dashboard/Dashboard.main';
 import Database from './components/dashboard/Database';
+import ManageEmail from './components/dashboard/ManageEmail';
 import ManageNews from './components/dashboard/ManageNews';
 import ManageTools from './components/dashboard/ManageTools';
 import ManageUsers from './components/dashboard/ManageUsers';
@@ -35,20 +37,34 @@ import useAuthCheck from './hooks/useAuthCheck';
 
 function App() {
 
+  
+  const { pathname } = useLocation(); 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const authChecked = useAuthCheck();
+
+  const dashboard = !useLocation().pathname.includes('/dashboard');
+    const login = !useLocation().pathname.includes('/login');
+  const cobainDashboard = dashboard && login;
+
+ 
 
   return !authChecked ?(
     <Loading />
   ):(
     <div className="App">
+      {cobainDashboard && <NavBar/> }
+       
        <Routes> 
             <Route path="/login" element={<SignIn/>}/>  
              <Route path="/" element={<Homes/>}/>  
-             <Route path="/tool/:Id" element={<PrivateRoute> <ProductInformation/> </PrivateRoute>}/>  
-             <Route path="/categories" element={<PrivateRoute> <Categories/></PrivateRoute>}/>  
-             <Route path="/categories/:Id" element={<PrivateRoute> <SearchCategory/></PrivateRoute>}/>  
-             <Route path="/news" element={<PrivateRoute> <LatestNews/></PrivateRoute>}/>  
-             <Route path="/tool/explore" element={<PrivateRoute> <Discover/> </PrivateRoute>}/>  
+             <Route path="/tool/:Id" element={  <ProductInformation/> }/>  
+             <Route path="/categories" element={ <Categories/>}/>  
+             <Route path="/categories/:Id" element={<SearchCategory/>}/>  
+             <Route path="/news" element={ <LatestNews/>}/>  
+             <Route path="/tool/explore" element={<Discover/>}/>  
              <Route path="/submit-tool" element={<PrivateRoute> <SubmitTool/> </PrivateRoute>}/>  
              <Route path="/submit-news" element={<PrivateRoute> <SubmitNews/> </PrivateRoute>}/>  
              <Route path="/user/favourites" element={<PrivateRoute> <Favorites/> </PrivateRoute>}/> 
@@ -59,8 +75,7 @@ function App() {
                <Route path='' element={ 
                 <PrivateRoute> 
                    <DashboardMain/> 
-                </PrivateRoute> } />  
-               <Route path='authentication' element={<PrivateRoute> <Content/> </PrivateRoute>} />   
+                </PrivateRoute> } />   
                <Route path='user/manage_tools' element={<PrivateRoute> <UserManageTools/></PrivateRoute>} />   
                <Route path='user/manage_news' element={<PrivateRoute><UserManageNews/></PrivateRoute>} />  
                <Route path='user/update_news/:newsId' element={<PrivateRoute><UpdateNews/></PrivateRoute>} />   
@@ -73,8 +88,9 @@ function App() {
                <Route path='approve_news' element={<AdminRoute><ApproveNews/></AdminRoute>} /> 
                <Route path='approve_tools' element={<AdminRoute><ApproveTools/></AdminRoute>} /> 
                <Route path='manage_users' element={<AdminRoute><ManageUsers/></AdminRoute>} /> 
+               <Route path='manage_email' element={<AdminRoute><ManageEmail/></AdminRoute>} /> 
                <Route path='tool/:toolId' element={<PrivateRoute><ToolInformation/> </PrivateRoute>} /> 
-               <Route path='admin_profile' element={<PrivateRoute><AdminProfile/></PrivateRoute>} /> 
+               <Route path='profile' element={<PrivateRoute><AdminProfile/></PrivateRoute>} /> 
                {/* <Route path='manage_result' element={<ManageResult/>} />  */}
                <Route path='database' element={<Database />} />  
              </Route> 

@@ -1,9 +1,7 @@
 .OnPassword {
   color: #4d506c;
 }
-.padding2 {
-  padding: 7px !important;
-}
+
 .login-button {
   display: inline-flex;
   -webkit-box-align: center;

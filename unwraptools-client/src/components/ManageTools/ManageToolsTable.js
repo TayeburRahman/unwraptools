@@ -28,7 +28,7 @@ export default function ManageToolsTable({slice}) {
     const [ status, setStatus] =  useState(1);
 
     useEffect(()=>{ 
-        axios.get('http://localhost:5000/api/v1/tool/getActiveTool')
+        axios.get(`https://server.unwraptools.io/api/v1/tool/getActiveTool`)
         .then(res => {
           if (res.status === 200) { 
             if(slice){
@@ -45,7 +45,7 @@ export default function ManageToolsTable({slice}) {
 
  
       const handleInactive = (_id) =>{ 
-        axios.put(`http://localhost:5000/api/v1/tool/inactive/${_id}`)
+        axios.put(`https://server.unwraptools.io/api/v1/tool/inactive/${_id}`)
         .then(res => {
           if (res.status === 200) { 
             setStatus(status === 1? 0:1) 
@@ -56,7 +56,7 @@ export default function ManageToolsTable({slice}) {
       }
  
       const handleDelete = (_id) =>{
-        axios.put(`http://localhost:5000/api/v1/tool/deleteTool/${_id}`)
+        axios.put(`https://server.unwraptools.io/api/v1/tool/deleteTool/${_id}`)
         .then(res => {
           if (res.status === 200) {
             console.log(res)

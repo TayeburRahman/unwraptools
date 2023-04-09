@@ -81,7 +81,7 @@ export default function FavoritesTabs() {
     const email = user?.email
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/tool/bookmark/user/${email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/tool/bookmark/user/${email}`)
             .then(res => {
                 if (res.status === 200) {
                     // console.log('sssss',res?.data)
@@ -99,7 +99,7 @@ export default function FavoritesTabs() {
 
     useEffect(() => {
         setLoader(true)
-        axios.get(`http://localhost:5000/api/v1/news/bookmark/user/${email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/news/bookmark/user/${email}`)
             .then(res => {
                 if (res.status === 200) {
                     console.log('sssss', res?.data)

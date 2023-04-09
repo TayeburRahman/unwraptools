@@ -1,7 +1,7 @@
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import BatchPredictionIcon from '@mui/icons-material/AutoStories';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import HouseSidingIcon from '@mui/icons-material/HouseSiding';
+import InfoIcon from '@mui/icons-material/FileCopy';
+import ArticleIcon from '@mui/icons-material/HouseSiding';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { Box, Grid, Typography } from '@mui/material';
 import axios from 'axios';
@@ -34,7 +34,7 @@ const DashboardMain = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/user/getByAllUsers`)
+        axios.get(`https://server.unwraptools.io/api/v1/user/getByAllUsers`)
             .then(res => {
                 if (res.status === 200) {
                     console.log(res?.data)
@@ -47,7 +47,7 @@ const DashboardMain = () => {
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/v1/tool/getActiveTool')
+        axios.get(`https://server.unwraptools.io/api/v1/tool/getActiveTool`)
             .then(res => {
                 if (res.status === 200) {
                     setAllTools(res?.data?.tools)
@@ -58,7 +58,7 @@ const DashboardMain = () => {
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/v1/news/getActiveNews')
+        axios.get(`https://server.unwraptools.io/api/v1/news/getActiveNews`)
             .then(res => {
                 if (res.status === 200) {
                     // console.log('sssss',res?.data)
@@ -72,7 +72,7 @@ const DashboardMain = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/v1/tool/getallTools')
+        axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools`)
             .then(res => {
                 if (res.status === 200) {
                     // console.log('sssss',res?.data)
@@ -85,7 +85,7 @@ const DashboardMain = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/v1/news/getallNews')
+        axios.get(`https://server.unwraptools.io/api/v1/news/getallNews`)
             .then(res => {
                 if (res.status === 200) {
                     // console.log('sssss',res?.data)
@@ -94,15 +94,10 @@ const DashboardMain = () => {
                     console.log(res)
                 }
             })
-    }, [])
-
-
-// console.log('userNews', userNews)
-
-    // users data 
+    }, []) 
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/news/getallNews/${user?.email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/news/getallNews/${user?.email}`)
             .then(res => {
                 if (res.status === 200) {
                     // console.log('sssss', res?.data)
@@ -116,7 +111,7 @@ const DashboardMain = () => {
     }, [user])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/tool/getallTools/${user?.email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools/${user?.email}`)
             .then(res => {
                 if (res.status === 200) {
                     // console.log('sssss',res?.data)
@@ -167,9 +162,9 @@ const DashboardMain = () => {
                                         <Link to='/dashboard/manage_tools' className="dashboard-stat dp-grid dashboard_main_subjects" href="manage-students.php">
                                             <Box className='dp-flex justifyContent'>
                                                 <Box>
-                                                    <AutoStoriesIcon className='fontSize-40' />
+                                                    <BatchPredictionIcon className='fontSize-40' />
                                                 </Box>
-                                                <Link className='dp-grid text-right'>
+                                                <Link className='dp-grid text-right cw'>
                                                     <span className="number counter">{allTools?.length}</span>
                                                     <span className="name">All Tools</span>
                                                 </Link>
@@ -186,7 +181,7 @@ const DashboardMain = () => {
                                         <Link to='/dashboard/user/manage_tools' className="dashboard-stat dp-grid dashboard_main_subjects" href="manage-students.php">
                                             <Box className='dp-flex justifyContent'>
                                                 <Box>
-                                                    <AutoStoriesIcon className='fontSize-40' />
+                                                    <BatchPredictionIcon className='fontSize-40' style={{color:"white"}} />
                                                 </Box>
                                                 <Link className='dp-grid text-right'>
                                                     <span className="number counter">{activeTool?.length}</span>
@@ -204,9 +199,9 @@ const DashboardMain = () => {
                                         <Link to="/dashboard/manage_news" className="dashboard-stat dp-grid dashboard_main_classes" href="manage-students.php">
                                             <Box className='dp-flex justifyContent'>
                                                 <Box>
-                                                    <HouseSidingIcon className='fontSize-40' />
+                                                    <ArticleIcon className='fontSize-40' />
                                                 </Box>
-                                                <Box className='dp-grid text-right'>
+                                                <Box className='dp-grid text-right cw'>
                                                     <span className="number counter">{allNews?.length}</span>
                                                     <span className="name">All News</span>
                                                 </Box>
@@ -222,7 +217,7 @@ const DashboardMain = () => {
                                         <Link to="/dashboard/user/manage_news" className="dashboard-stat dp-grid dashboard_main_classes" href="manage-students.php">
                                             <Box className='dp-flex justifyContent'>
                                                 <Box>
-                                                    <HouseSidingIcon className='fontSize-40' />
+                                                    <ArticleIcon className='fontSize-40' />
                                                 </Box>
                                                 <Box className='dp-grid text-right'>
                                                     <span className="number counter">{activeNews?.length}</span>
@@ -240,7 +235,7 @@ const DashboardMain = () => {
                                         <Link to="/dashboard/approve_tools" className="dashboard-stat dp-grid dashboard_main_results" href="manage-students.php">
                                             <Box className='dp-flex justifyContent'>
                                                 <Box>
-                                                    <FileCopyIcon className='fontSize-40' />
+                                                    <InfoIcon className='fontSize-40' />
                                                 </Box>
                                                 <Box className='dp-grid text-right'>
                                                     <span className="number counter">{allInactiveTools?.length}</span>
@@ -254,10 +249,10 @@ const DashboardMain = () => {
                             {
                                 !admin && (
                                     <Grid item xs={6} md={4} lg={3} sx={{ padding: 2 }}>
-                                        <Link to="/dashboard/user/manage_tools" className="dashboard-stat dp-grid dashboard_main_results" href="manage-students.php">
+                                        <Link to="/dashboard/user/manage_tools" className="dashboard-stat dp-grid dashboard_main_inactive" href="manage-students.php">
                                             <Box className='dp-flex justifyContent'>
                                                 <Box>
-                                                    <FileCopyIcon className='fontSize-40' />
+                                                    <InfoIcon className='fontSize-40' />
                                                 </Box>
                                                 <Box className='dp-grid text-right'>
                                                     <span className="number counter">{inactiveTool?.length}</span>
@@ -273,10 +268,10 @@ const DashboardMain = () => {
                             {
                                 admin && (
                                     <Grid item xs={6} md={4} lg={3} sx={{ padding: 2 }}>
-                                        <Link to="/dashboard/approve_news" className="dashboard-stat dp-grid dashboard_main_results" href="manage-students.php">
+                                        <Link to="/dashboard/approve_news" className="dashboard-stat dp-grid dashboard_main_inactive" href="manage-students.php">
                                             <Box className='dp-flex justifyContent'>
                                                 <Box>
-                                                    <FileCopyIcon className='fontSize-40' />
+                                                    <InfoIcon className='fontSize-40' />
                                                 </Box>
                                                 <Box className='dp-grid text-right'>
                                                     <span className="number counter">{allInactiveNews?.length}</span>
@@ -295,7 +290,7 @@ const DashboardMain = () => {
                                         <Link  to="/dashboard/user/manage_news" className="dashboard-stat dp-grid dashboard_main_results" href="manage-students.php">
                                             <Box className='dp-flex justifyContent'>
                                                 <Box>
-                                                    <FileCopyIcon className='fontSize-40' />
+                                                    <InfoIcon className='fontSize-40' />
                                                 </Box>
                                                 <Box className='dp-grid text-right'>
                                                     <span className="number counter">{inactiveNews?.length}</span>

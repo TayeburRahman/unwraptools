@@ -16,12 +16,11 @@ function createData(name, calories, fat, carbs, protein) {
  
 
 export default function ManageNewsTable({slice}) {
-
     const [allNews, setAllNews] =  useState([]);
     const [ status, setStatus] =  useState(1);
 
     useEffect(()=>{ 
-        axios.get('http://localhost:5000/api/v1/news/getActiveNews')
+        axios.get(`https://server.unwraptools.io/api/v1/news/getActiveNews`)
         .then(res => {
           if (res.status === 200) {
              if(slice){
@@ -38,7 +37,7 @@ export default function ManageNewsTable({slice}) {
 
  
       const handleInactive = (_id) =>{ 
-        axios.put(`http://localhost:5000/api/v1/news/inactive/${_id}`)
+        axios.put(`https://server.unwraptools.io/api/v1/news/inactive/${_id}`)
         .then(res => {
           if (res.status === 200) { 
             setStatus(status === 1? 0:1) 
@@ -49,7 +48,7 @@ export default function ManageNewsTable({slice}) {
       }
  
       const handleDelete = (_id) =>{
-        axios.put(`http://localhost:5000/api/v1/news/deleteNews/${_id}`)
+        axios.put(`https://server.unwraptools.io/api/v1/news/deleteNews/${_id}`)
         .then(res => {
           if (res.status === 200) {
             console.log(res)

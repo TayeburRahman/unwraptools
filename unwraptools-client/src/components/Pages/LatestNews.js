@@ -21,7 +21,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../Firebase/Hooks/useAuth';
 import Footer from '../AppBar/Footer/Footer';
-import NavBar from '../AppBar/NavBar';
 import BookmarkButtonNw from '../NewsBookmark/BookmarkButtonNw';
 import CurrentTime from '../NewsCurrentTime/CurrentTime';
 
@@ -57,7 +56,7 @@ function LatestNews() {
     useEffect(() => {
  
    if(category ){
-    axios.get(`http://localhost:5000/api/v1/news/getActiveNews?category=${category}&sort=${sort}&range=${time}`)
+    axios.get(`https://server.unwraptools.io/api/v1/news/getActiveNews?category=${category}&sort=${sort}&range=${time}`)
     .then(res => {
         if (res.status === 200) {
             setAllNews(res?.data?.news)
@@ -67,7 +66,7 @@ function LatestNews() {
         }
     })
    }else{
-    axios.get(`http://localhost:5000/api/v1/news/getActiveNews?category=&sort=${sort}&range=${time}`)
+    axios.get(`https://server.unwraptools.io/api/v1/news/getActiveNews?category=&sort=${sort}&range=${time}`)
     .then(res => {
         if (res.status === 200) {
             setAllNews(res?.data?.news)
@@ -83,9 +82,8 @@ function LatestNews() {
     console.log('cccc', allNews)
 
     return (
-        <div className='background'>
-            <NavBar />
-            <Container>
+        <div className='background'> 
+            <Container className="w100vh">
                 <Box className='textTagNav p-1' mt="40px" >
                     <Link to="/" className='routeLink'>Home</Link>
                     <span> <EastIcon className='RouteLinkIcon' /> </span>
@@ -275,6 +273,7 @@ function LatestNews() {
                 }
 
             </Container>
+            
             <Footer />
         </div>
     )

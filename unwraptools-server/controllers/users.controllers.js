@@ -15,8 +15,7 @@ const createUsers = async (req, res ) => {
       email: req.body.email
       }); 
       
-    if (ExistingUser) {
-      console.log("users-update",ExistingUser)
+    if (ExistingUser) { 
       const user = await usersModels.updateOne({email: req.body.email}, {$set:{displayName, photoURL}}) 
       const token = generateToken(user)
       return res.status(200).json({

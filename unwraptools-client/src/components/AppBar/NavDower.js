@@ -1,4 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import MenuIcon from '@mui/icons-material/Menu';
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -41,12 +42,12 @@ export default function NavDower() {
           <ListItem disablePadding>
          
                <Container className="d-flex pt-2 pb-2" sx={{justifyContent: "space-between"}}>  <Link to="/" style={{textDecoration:"none"}}>
-               <Typography className='text25 textBeg revert'>unwraptools</Typography></Link> <Button className='buttonClose'><CloseIcon/></Button></Container> 
+               <Typography className='text25 textBeg revert'>unwraptools</Typography></Link> <Button className='buttonClose'><CloseIcon className="ms-3"/></Button></Container> 
           </ListItem>
         
       </List>
       <Divider />
-      <List className='mt-5'> 
+      <List className='mt-3'> 
             <ListItem className=''  disablePadding>
                 <Link to="/categories" className='link-route-dower'>Categories</Link>
             </ListItem> 
@@ -67,10 +68,7 @@ export default function NavDower() {
             </ListItem> 
             <ListItem className='mb-1' disablePadding>
             <Typography className='SubmitTextDower'> Community:</Typography>
-            </ListItem> 
-            <ListItem className=''  disablePadding>
-                <Link to="" className='link-route-dower'>Newsletter Issues</Link>
-            </ListItem> 
+            </ListItem>  
             <ListItem  className='' disablePadding>
                 <Link to="/news" className='link-route-dower'>Latest AI News</Link>
             </ListItem> 
@@ -81,8 +79,8 @@ export default function NavDower() {
       <Box className='box-bottom '>
       <Container>
       <Box className='d-flex ps-3 pt-2 '>
-                    <Link to="" className="d-flex icon-box icon-box-custom">
-                                 <Link to=""edInIcon className='linkedIn icon-site' sx={{color: "rgb(0, 119, 181)"}} />
+                       <Link to="" className="d-flex icon-box icon-box-custom">
+                                 <LinkedInIcon className='linkedIn icon-site' sx={{color: "rgb(0, 119, 181)"}} />
                                 </Link>
                                 <Link to="" className="d-flex icon-box icon-box-custom">
                                     <TwitterIcon className='Twitter icon-site' sx={{color: "rgb(0, 119, 181)"}} />

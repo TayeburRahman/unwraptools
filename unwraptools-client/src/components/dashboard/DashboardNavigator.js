@@ -1,11 +1,11 @@
-import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ArticleIcon from '@mui/icons-material/Article';
+import BatchPredictionIcon from '@mui/icons-material/BatchPrediction';
+import GroupIcon from '@mui/icons-material/Group';
 import HomeIcon from '@mui/icons-material/Home';
-import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import LogoutIcon from '@mui/icons-material/Logout';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import SchoolIcon from '@mui/icons-material/School';
-import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputComponent';
+import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -24,9 +24,9 @@ const users = [
   {
     id: 'Manage Your Tools & News',
     children: [
-      { id: 'Tools', icon: <GroupAddIcon />, route: 'user/manage_tools' },
-      { id: 'News', icon: <ManageAccountsIcon />, route: 'user/manage_news' },
-      { id: 'Suggest Edit', icon: <ManageAccountsIcon />, route: 'user/suggest_edit' },
+      { id: 'Tools', icon: <BatchPredictionIcon />, route: 'user/manage_tools' },
+      { id: 'News', icon: <ArticleIcon />, route: 'user/manage_news' },
+      { id: 'Suggest Edit', icon: <SupervisedUserCircleIcon />, route: 'user/suggest_edit' },
     ],
   }
 ];
@@ -40,12 +40,12 @@ const categories = [
     children: [
       {
         id: 'Tools',
-        icon: <LocalLibraryIcon />,
+        icon: <BatchPredictionIcon />,
         route: 'approve_tools'
       },
       {
         id: 'News',
-        icon: <DnsRoundedIcon />, route: 'approve_news'
+        icon: <ArticleIcon />, route: 'approve_news'
       },
 
 
@@ -54,19 +54,20 @@ const categories = [
   {
     id: 'Manage Admin',
     children: [
-      { id: 'Tools', icon: <SchoolIcon />, route: 'manage_tools' },
-      { id: 'News', icon: <SettingsInputComponentIcon />, route: 'manage_news' },
-      { id: 'Manage Users', icon: <GroupAddIcon />, route: 'manage_users' },
+      { id: 'Tools', icon: <BatchPredictionIcon />, route: 'manage_tools' },
+      { id: 'News', icon: <ArticleIcon />, route: 'manage_news' },
+      { id: 'Manage Users', icon: <GroupIcon />, route: 'manage_users' },
+      { id: 'Manage Email', icon: <SendAndArchiveIcon />, route: 'manage_email' },
     ],
-  } 
+  }
 
 ];
 
-const profile = [ 
+const profile = [
   {
     id: '',
-    children: [ 
-      { id: 'Profile', icon: <ManageAccountsIcon />, route: 'admin_profile' },
+    children: [
+      { id: 'Profile', icon: <AccountCircleIcon />, route: 'profile' },
     ],
   },
 
@@ -92,7 +93,7 @@ export default function DashboardNavigator(props) {
 
   const location = useLocation()
   let uri = location.pathname
-  const { user, isLoading, admin, logOut} = useAuth(); 
+  const { user, isLoading, admin, logOut } = useAuth();
 
 
   return (
@@ -153,34 +154,34 @@ export default function DashboardNavigator(props) {
           )
         }
 
-<React.Fragment>
-              {profile.map(({ id, children }) => (
-                <Box key={id} sx={{ background: '#101F33' }}>
-                  <ListItem sx={{ py: 2, px: 3 }}>
-                    <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
-                  </ListItem>
-                  {children.map(({ id: childId, icon, route }) => (
-                    <ListItem disablePadding key={childId}>
-                      <Link className='linkDashboard' to={`${route}`}>
-                        <ListItemButton selected={uri === `/dashboard/${route}` ? true : false} sx={item}>
-                          <ListItemIcon>{icon}</ListItemIcon>
-                          <ListItemText>{childId}</ListItemText>
-                        </ListItemButton>
-                      </Link>
-                    </ListItem>
-                  ))}
-
-                  <Divider sx={{ mt: 2 }} />
-                </Box>
+        <React.Fragment>
+          {profile.map(({ id, children }) => (
+            <Box key={id} sx={{ background: '#101F33' }}>
+              <ListItem sx={{ py: 2, px: 3 }}>
+                <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
+              </ListItem>
+              {children.map(({ id: childId, icon, route }) => (
+                <ListItem disablePadding key={childId}>
+                  <Link className='linkDashboard' to={`${route}`}>
+                    <ListItemButton selected={uri === `/dashboard/${route}` ? true : false} sx={item}>
+                      <ListItemIcon>{icon}</ListItemIcon>
+                      <ListItemText>{childId}</ListItemText>
+                    </ListItemButton>
+                  </Link>
+                </ListItem>
               ))}
-            </React.Fragment>
+
+              <Divider sx={{ mt: 2 }} />
+            </Box>
+          ))}
+        </React.Fragment>
 
 
         <Box className='mt-5' sx={{ background: '#101F33' }}>
-          <ListItem disablePadding > 
-            <ListItemButton  onClick={logOut} >
-              <ListItemIcon  sx={{color:"#e3e3e3"}}><LogoutIcon /> </ListItemIcon>
-              <ListItemText sx={{color:"#e3e3e3"}}>Log Out</ListItemText>
+          <ListItem disablePadding >
+            <ListItemButton onClick={logOut} >
+              <ListItemIcon sx={{ color: "#e3e3e3" }}><LogoutIcon /> </ListItemIcon>
+              <ListItemText sx={{ color: "#e3e3e3" }}>Log Out</ListItemText>
             </ListItemButton>
 
           </ListItem>

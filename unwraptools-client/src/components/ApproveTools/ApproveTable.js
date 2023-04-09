@@ -28,7 +28,7 @@ export default function ApproveTable() {
     const [ status, setStatus] =  useState(1);
 
     useEffect(()=>{ 
-        axios.get('http://localhost:5000/api/v1/tool/getallTools')
+        axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools`)
         .then(res => {
           if (res.status === 200) {
             // console.log('sssss',res?.data)
@@ -41,7 +41,7 @@ export default function ApproveTable() {
 
  
       const handleApprove = (_id) =>{ 
-        axios.put(`http://localhost:5000/api/v1/tool/approveTool/${_id}`)
+        axios.put(`https://server.unwraptools.io/api/v1/tool/approveTool/${_id}`)
         .then(res => {
           if (res.status === 200) { 
             setStatus(status === 1? 0:1) 
@@ -52,7 +52,7 @@ export default function ApproveTable() {
       }
  
       const handleDelete = (_id) =>{
-        axios.put(`http://localhost:5000/api/v1/tool/deleteTool/${_id}`)
+        axios.put(`https://server.unwraptools.io/api/v1/tool/deleteTool/${_id}`)
         .then(res => {
           if (res.status === 200) {
             console.log(res)

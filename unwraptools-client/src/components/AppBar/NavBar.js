@@ -58,7 +58,7 @@ function NavBar() {
 
 
   React.useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/news/getallNews/${user?.email}`)
+    axios.get(`https://server.unwraptools.io/api/v1/news/getallNews/${user?.email}`)
       .then(res => {
         if (res.status === 200) {
           setActiveNews(res?.data?.active)
@@ -69,7 +69,7 @@ function NavBar() {
   }, [user, patch])
 
   React.useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/tool/getallTools/${user?.email}`)
+    axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools/${user?.email}`)
       .then(res => {
         if (res.status === 200) {
           // console.log('sssss',res?.data)
@@ -177,8 +177,7 @@ function NavBar() {
             </Box>
 
             {
-              user?.email && (
-
+              user?.email && ( 
                 <Tooltip className="Tooltip" title="Open settings">
                   <IconButton
                     className="avatarButton"
@@ -214,8 +213,7 @@ function NavBar() {
             >
               <Box className="box-100">
 
-                <Link to="/user/favourites" className="Favourites">
-
+                <Link to="/user/favourites" className="Favourites"> 
                   <Typography className="ms-2">
                     Your Favourites
                   </Typography>
@@ -249,15 +247,14 @@ function NavBar() {
             {
               !user?.email && (
                 <React.Fragment>
-                  <Button className='w-100 button-login' onClick={handelGoogleSignIn}><Box className="d-flex w-100" sx={{
+                  <Button className='w-100 button-login d-flex' onClick={handelGoogleSignIn}><Box className="d-flex w-100" sx={{
                     width: "100%",
-                    justifyContent: 'center'
-                  }}><span className='padding2'><img src={google} width="30px" />Login</span></Box></Button>
+                    justifyContent: 'center',
+                    minWidth:"50px"
+                  }}><span className='padding-2'><img src={google} width="30px" />  </span> <span className="d-none me-3">Login</span></Box></Button>
                 </React.Fragment>
               )
-            }
-
-
+            } 
 
           </Box>
         </Toolbar>

@@ -4,14 +4,12 @@ import { Container } from '@mui/system';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../AppBar/Footer/Footer';
-import NavBar from '../AppBar/NavBar';
 import HorizontalStepper from '../SubmitTool/HorizontalStepper';
 
 
 function SubmitTool() {
     return (
-        <div className='background'>
-            <NavBar/>
+        <div className='background'> 
             <Container className="pb-5"> 
             <Box className='textTagNav p-1' mt="40px" >
                     <Link to="/" className='routeLink'>Home</Link> 

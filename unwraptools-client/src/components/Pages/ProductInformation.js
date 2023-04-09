@@ -11,7 +11,6 @@ import React, { useEffect, useState } from 'react';
 
 
 import { Link, useParams } from 'react-router-dom';
-import NavBar from '../AppBar/NavBar';
 
 
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
@@ -31,8 +30,8 @@ import BookmarkButton from './BookmarkButton';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-  
+});
+
 
 
 function ProductInformation() {
@@ -40,17 +39,17 @@ function ProductInformation() {
     const [tools, setTools] = useState([]);
     const [openSuccess, setOpenSuccess] = useState(false);
     const [message, setMessage] = useState('');
-    const [responseMessage, setResponseMessage] = useState(''); 
+    const [responseMessage, setResponseMessage] = useState('');
     const [categoryTools, setCategoryTools] = useState([]);
     const [category, setCategory] = useState([]);
     const { Id } = useParams();
-    const [status, setStatus] = useState(0) 
+    const [status, setStatus] = useState(0)
     const { user } = useAuth()
     const email = user?.email
 
     useEffect(() => {
         console.log(Id)
-        axios.get(`http://localhost:5000/api/v1/tool/getTools/${Id}`)
+        axios.get(`https://server.unwraptools.io/api/v1/tool/getTools/${Id}`)
             .then(res => {
                 if (res.status === 200) {
                     setTools(res?.data?.tools)
@@ -62,7 +61,7 @@ function ProductInformation() {
     }, [Id, status])
 
     useEffect(() => {
-        axios.put(`http://localhost:5000/api/v1/tool/get/categorys`, {
+        axios.put(`https://server.unwraptools.io/api/v1/tool/get/categorys`, {
             category
         })
             .then(res => {
@@ -75,22 +74,21 @@ function ProductInformation() {
     }, [Id, status, tools])
 
 
- 
- 
+
+
     const handleOpen = () => setOpen(true);
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
-        } 
-        setOpenSuccess(false) 
+        }
+        setOpenSuccess(false)
         setMessage('')
         setResponseMessage('')
     };
 
     return (
         <div className='background'>
-            <NavBar />
             <div>
                 <Container>
                     <Box >
@@ -129,12 +127,19 @@ function ProductInformation() {
                                         <Typography className='textDes'>DESCRIPTION:</Typography>
                                         <p className='text-left DesPText'    >
                                             {tools?.short_description}
-                                        </p> 
+                                        </p>
                                     </Box>
-                                    <Box className='added_text d-flex text-12-sm'>
-                                        <VerifiedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} />
-                                        Unwraptools endorses this tool based on our testing results.
-                                    </Box>
+                                    {
+                                        tools?.favourite?.length > 10 && (
+                                            <Box className='added_text d-flex text-12-sm'>
+
+                                                <VerifiedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} />
+                                                Unwraptools endorses this tool based on our testing results.
+                                            </Box>
+
+                                        )
+                                    }
+
                                     {/* <Box className='text-left d-flex added_text'>
                                         <BackupIcon className='FolderOpenIcon' />
                                         Added on  {tools?.createdAt?.slice(0, 10)}
@@ -156,93 +161,101 @@ function ProductInformation() {
                                                 </Grid>
                                             ))
                                         }
-                                    </Grid> 
+                                    </Grid>
                                     <Box className="text-left" mt="15px">
                                         <a href={tools?.websiteURL} target="_blank" size="small" className='OpenInNewIcon' id="OpenInNewIcon_Custom">VISIT <OpenInNewIcon /></a>
                                     </Box>
                                     <Box className='mt-4 text-left'>
-                                    <button className='button_suggest' onClick={handleOpen} variant="text"> <BorderColorIcon className='icon_suggest'/>Propose Modifications</button>
-                                    <SuggestEditModal setMessage={setMessage} setOpenSuccess={setOpenSuccess} tools={tools} open={open} setOpen={setOpen} />
-                                    </Box> 
-                                </Grid> 
+                                        <button className='button_suggest' onClick={handleOpen} variant="text"> <BorderColorIcon className='icon_suggest' />Propose Modifications</button>
+                                        <SuggestEditModal setMessage={setMessage} setOpenSuccess={setOpenSuccess} tools={tools} open={open} setOpen={setOpen} />
+                                    </Box>
+                                </Grid>
                             </Grid>
                         </Box>
                     </Box>
-                  
-                        {
-                            tools?.description&&(
-                                <Box>
-                    <Typography className='textDes text-left'>{tools?.tool_name} Feature</Typography>
-                    <div
-                                            className='text-left mt-2'
-                                            dangerouslySetInnerHTML={{
-                                                __html: tools?.description
-                                            }}>
-                                        </div>
-                    </Box>
-                                
-                            )
-                        }    
-                    <Box mb="30px" mt="20px"> 
+
+                    {
+                        tools?.description && (
+                            <Box>
+                                <Typography className='textDes text-left'>{tools?.tool_name} Feature</Typography>
+                                <div
+                                    className='text-left mt-2'
+                                    dangerouslySetInnerHTML={{
+                                        __html: tools?.description
+                                    }}>
+                                </div>
+                            </Box>
+
+                        )
+                    }
+                    <Box mb="30px" mt="20px">
                         <Box className='text-left' mt="50px">
                             <Typography className='BrowseAITools' mb="25px">Alternative AI Tools for STORYD</Typography>
-                            <Grid container> 
+                            <Grid container>
                                 {
                                     categoryTools.slice(0, 5).map((tool, idx) => (
                                         <Grid item xs={12} md={6} lg={4}>
-                                        <Card className='card mb-3' sx={{ maxWidth: 345 }}>
-                                        <CardMedia 
-                                          className='positionab' 
-                                            sx={{ height: 140 }}
-                                            image={tool?.imageURL}
-                                            title="green iguana"
-                                        />
-                                        <Box className='positionrs'>
-                                            <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
-                                        </Box>
-                                            <CardContent sx={{paddingBottom: '0'}}>
-                                              <Link to={`/tool/${tool?._id}`} className='CardLink'>
-                                              <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
-                                                    <Box>
-                                                        <Typography className='revert' gutterBottom variant="h5" component="div">
-                                                            {tool?.tool_name}
+                                            <Card className='card mb-3' sx={{ maxWidth: 345 }}>
+                                            <Link to={`/tool/${tool?._id}`} className='CardLink'>
+                                                <CardMedia
+                                                    className='positionab'
+                                                    sx={{ height: 140 }}
+                                                    image={tool?.imageURL}
+                                                    title="green iguana"
+                                                />
+                                                <Box className='positionrs'>
+                                                    <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
+                                                </Box>
+                                                <CardContent sx={{ paddingBottom: '0' }}>
+                                                   
+                                                        <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
+                                                            <Box className="d-flex">
+                                                                <Typography className='revert' gutterBottom variant="h5" component="div">
+                                                                    {tool?.tool_name}
+                                                                </Typography>
+                                                                {
+                                                                    tool?.favourite?.length > 10 && (
+                                                                        <VerifiedIcon className='icon-co buttonIcon mb-1 ms-2' sx={{ marginRight: "10px", fontSize: "20px" }} />
+
+                                                                    )
+                                                                }
+                                                            </Box>
+                                                            <Box>
+                                                                <TurnedInNotIcon />
+                                                                {tool?.favourite?.length}
+                                                            </Box>
+                                                        </Box>
+                                                        <Typography className='text-left' variant="body2"  >
+                                                            {tool?.short_description?.slice(0, 100)}.
                                                         </Typography>
-                                                    </Box>
-                                                    <Box>
-                                                        <TurnedInNotIcon />
-                                                        {tool?.favourite?.length}
-                                                    </Box>
-                                                </Box>
-                                                <Typography className='text-left' variant="body2"  >
-                                                     {tool?.short_description?.slice(0, 100)}.
-                                                </Typography>
-                                                <Box>
-                                                <Grid container className='mt-2'>
-                                               {
-                                                    tool?.price?.map((data, idx) =>(
-                                                   <Grid item className='m-2'> 
-                                                     <Typography className="tagCard1">
-                                                     {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}  
-                                                   {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}  
-                                                   {data === "Free" && <TaskAltIcon className='cardTagIcon' />}  
-                                                   {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}  
-                                                   {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}  
-                                                   {data === "Deals" && <SellIcon className='cardTagIcon' />}  
-                                                   {data} 
-                                                     </Typography>
-                                                </Grid>
-                                                    ))
-                                                }
-                                               </Grid>
-                                                </Box>
-                                              </Link>
-                                            </CardContent> 
-                                            <CardActions sx={{ justifyContent: "space-between" }}>
-                                                <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link> 
-                                                 <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email}/>
-                                            </CardActions>
-                                        </Card>
-                                    </Grid>
+                                                        <Box>
+                                                            <Grid container className='mt-2'>
+                                                                {
+                                                                    tool?.price?.map((data, idx) => (
+                                                                        <Grid item className='m-2'>
+                                                                            <Typography className="tagCard1">
+                                                                                {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
+                                                                                {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
+                                                                                {data === "Free" && <TaskAltIcon className='cardTagIcon' />}
+                                                                                {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}
+                                                                                {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}
+                                                                                {data === "Deals" && <SellIcon className='cardTagIcon' />}
+                                                                                {data}
+                                                                            </Typography>
+                                                                        </Grid>
+                                                                    ))
+                                                                }
+                                                            </Grid>
+                                                        </Box>
+                                                   
+                                                </CardContent>
+                                                </Link>
+                                                <CardActions sx={{ justifyContent: "space-between" }}>
+                                                    <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
+                                                    <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
+                                                </CardActions>
+                                            </Card>
+                                        </Grid>
                                     ))
                                 }
                             </Grid>
@@ -257,10 +270,10 @@ function ProductInformation() {
                     </Box>
                 </Container>
                 <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    {message}
-                </Alert>
-            </Snackbar>
+                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                        {message}
+                    </Alert>
+                </Snackbar>
             </div>
             <Footer />
         </div>

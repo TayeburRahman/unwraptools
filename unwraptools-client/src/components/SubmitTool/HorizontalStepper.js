@@ -24,7 +24,7 @@ export default function HorizontalStepper() {
  console.log(tool_name)
 
 useEffect(()=>{
-  if(tool_name.length === 0 || websiteURL.length === 0 || imageURL.length === 0){
+  if( websiteURL.length === 0 || imageURL.length === 0){
     setDisable(true)
   }else{
     setDisable(false)

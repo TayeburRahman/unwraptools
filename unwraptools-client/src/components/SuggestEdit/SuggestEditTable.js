@@ -12,7 +12,7 @@ function SuggestEditTable() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/tool/get/suggestedit/${email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/tool/get/suggestedit/${email}`)
             .then(res => {
                 if (res.status === 200) {
                     console.log(res?.data)
