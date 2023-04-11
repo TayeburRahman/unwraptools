@@ -1,4 +1,4 @@
-const { generateToken } = require("../utils/token");
+ 
 const toolsModels = require("../models/tools.models");
 const suggestModels = require("../models/suggest.models");
 
@@ -33,7 +33,7 @@ const createTool = async (req, res) => {
       imageURL,
     });
 
-    console.log(tools);
+
     return res.status(200).json({
       tools,
       status: "success",
@@ -182,15 +182,60 @@ const findTool = async (req, res) => {
   }
 };
 
+
+const getUserActiveTools = async (req, res) => {
+  try {
+    const { email } = req.params;   
+    // const tools = await toolsModels.find({user_email: email}); 
+    const active = await toolsModels.find({$and: [{ user_email: email },{status: 'active'}]});
+    // const inactive = await toolsModels.find({$and: [{ user_email: email },{status: 'inactive'}]});
+ 
+    return res.status(200).json({ 
+      active, 
+      status: "success",
+      message: "Successfully Find Tools",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+}; 
+
+const getUserInactiveTools = async (req, res) => {
+  try {
+    const { email } = req.params;   
+    // const tools = await toolsModels.find({user_email: email}); 
+    // const active = await toolsModels.find({$and: [{ user_email: email },{status: 'inactive'}]});
+    const inactive = await toolsModels.find({$and: [{ user_email: email },{status: 'inactive'}]});
+ 
+    return res.status(200).json({ 
+      inactive, 
+      status: "success",
+      message: "Successfully Find Tools",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
+const getUserTools = async (req, res) => {
+  try {
+    const { email } = req.params;   
+    const tools = await toolsModels.find({user_email: email});  
+    return res.status(200).json({ 
+      tools, 
+      status: "success",
+      message: "Successfully Find Tools",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
 const UpdateTool = async (req, res) => {
   try {
     const { getId } = req.params;
 
     const { short_description, tool_name, startingPrice, imageURL, description } = req.body;
- 
-
-
-    console.log( tool_name )
  
     const tools = await toolsModels.updateOne((
       { _id: getId },
@@ -209,8 +254,10 @@ const UpdateTool = async (req, res) => {
 const findByCategoryTool = async (req, res) => {
   try {
     const { category } = req.body; 
+
+    console.log(category)
     const data = category[0].toString(); 
-    const tools = await toolsModels.find({ categories: data}); 
+    const tools = await toolsModels.find({$and: [{ status: "active" }, {categories: data}]}); 
     return res.status(200).json({
       tools,
       status: "success",
@@ -229,7 +276,6 @@ const approveTool = async (req, res) => {
       { $set: { status: "active" } }
     );
 
-    console.log(approveId);
     return res.status(200).json({
       tool,
       status: "success",
@@ -263,7 +309,6 @@ const deleteTool = async (req, res) => {
   try {
     const { deleteId } = req.params;
 
-    console.log(deleteId);
     const tool = await toolsModels.deleteOne({ _id: deleteId });
     return res.status(200).json({
       tool,
@@ -296,7 +341,7 @@ const searchTools = async (req, res) => {
         tool_name: { $regex: search, $options: "i" },
       }); // search for documents that match the query
       //   res.json(results);
-      console.log("search", tools)
+
       return res.status(200).json({
         tools,
         status: "success",
@@ -386,7 +431,7 @@ const ToolsSearchFilter = async (req, res) => {
 
   const getQuery = () => {
     if (pricingFilter?.length > 0 && featuresFilter?.length > 0) {
-      console.log("called from both")
+
       return {
         $or: [
           { price:{$in: pricingFilter}},
@@ -431,7 +476,7 @@ const ToolsSearchFilter = async (req, res) => {
     // console.log("tools is : ", tools)
 
     if (req?.query?.sort) {
-      console.log("sort is : ", req?.query?.sort);
+
 
       if (req?.query?.sort === "popular") {
         const sortData = await [...tools].sort((a, b) => {
@@ -444,17 +489,7 @@ const ToolsSearchFilter = async (req, res) => {
           return Number(a.favourite.length) - Number(b.favourite.length);
         });
         tools = sortData?.slice(0)?.reverse();
-      } else if (req?.query?.sort === "new") {
-        // const newTools = await tools.filter((d) => {
-        //   // console.log("map date is : ", new Date(d?.createdAt));
-        //   const currentDate = new Date();
-        //   const sevenDaysAgo = new Date(
-        //     Number(currentDate.getTime()) - 7 * 24 * 60 * 60 * 1000
-        //   );
-        //   // console.log("seven day ago is : ", sevenDaysAgo);
-        //   return new Date(d?.createdAt) >= sevenDaysAgo;
-        // });
-
+      } else if (req?.query?.sort === "new") { 
         const newTools = [...tools]
         tools = newTools.slice(0)?.reverse();
       }
@@ -475,7 +510,7 @@ const ToolsSearchFilter = async (req, res) => {
 const SuggestEdit = async (req, res) => {
   try {
     const { tools, text_suggest, suggest_user, tools_user } = req.body;  
-    console.log( tools_user )
+
     const suggest = await suggestModels.create({tools_user, suggest_user, text_suggest, tools}); 
 
  
@@ -493,7 +528,7 @@ const SuggestEdit = async (req, res) => {
 const getSuggestEdit = async (req, res) => {
   try {
     const { email } = req.params;  
-    console.log( email )
+
     const suggest = await suggestModels.find({tools_user: email}); 
 
  
@@ -507,25 +542,7 @@ const getSuggestEdit = async (req, res) => {
   }
 };
 
-const getUserTools = async (req, res) => {
-  try {
-    const { email } = req.params;   
-    const tools = await toolsModels.find({user_email: email}); 
-    const active = await toolsModels.find({$and: [{ user_email: email },{status: 'active'}]});
-    const inactive = await toolsModels.find({$and: [{ user_email: email },{status: 'inactive'}]});
  
-    return res.status(200).json({
-      tools,
-      active,
-      inactive,
-      status: "success",
-      message: "Successfully Find Tools",
-    });
-  } catch (error) {
-    return res.status(500).json({ status: "error", message: error });
-  }
-};
-
 module.exports = {
   createTool,
   findInactiveTool,
@@ -541,8 +558,10 @@ module.exports = {
   searchTools,
   findByCategoryTool,
   SuggestEdit,
-  getUserTools,
+  getUserActiveTools,
   UpdateTool,
   getSuggestEdit,
-  ClickInactiveTool
+  ClickInactiveTool,
+  getUserInactiveTools,
+  getUserTools
 };

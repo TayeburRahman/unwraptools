@@ -27,8 +27,6 @@ const createUsers = async (req, res ) => {
 
      const user = await usersModels.create({email, displayName, photoURL}) 
      const token = generateToken(user)
-     
-     console.log(token)
      return res.status(200).json({
       user,
       token,
@@ -111,8 +109,6 @@ const getAdminOne = async (req, res) => {
     const {email} = req.params;   
  
    const admin = await  usersModels.findOne({ $and: [{role: "admin"}, { email }]})  
-
-   console.log('admin',admin)
 
    return res.status(200).json({
     admin,

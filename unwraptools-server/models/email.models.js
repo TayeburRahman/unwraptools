@@ -1,6 +1,4 @@
-const mongoose = require('mongoose')
-let validator = require("validator");
-let bcrypt = require("bcryptjs");
+const mongoose = require('mongoose') 
 
 
 // model step: 1

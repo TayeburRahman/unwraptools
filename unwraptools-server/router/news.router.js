@@ -1,12 +1,20 @@
  
-const { createNews, findInactiveNews, findNews, deleteNews, approveNews, findActiveNews, BookmarkExistingUser,  BookmarkNews, BookmarkUserData, NewsGetTime, findUserNews, UpdateNews, ClickInactiveNews } = require("../controllers/news.controllers");
+const { createNews, findInactiveNews, findNews, deleteNews, approveNews, findActiveNews, BookmarkExistingUser,  BookmarkNews, BookmarkUserData, NewsGetTime, findUserNews, UpdateNews, ClickInactiveNews, getUserActiveNews, getUserInactiveNews, getUserNews } = require("../controllers/news.controllers");
+const { getUserActiveTools, getUserInactiveTools, getUserTools } = require("../controllers/tools.controllers");
 const verifyToken = require("../middleware/verifyToken");
 
 const router = require("express").Router();
 
 router.route('/create').post(createNews); 
 router.route('/getallNews').get(findInactiveNews);
-router.route('/getallNews/:email').get(findUserNews);
+
+
+router.route('/user/active/:email').get(getUserActiveNews);
+router.route('/user/inactive/:email').get(getUserInactiveNews);
+router.route('/user/news/:email').get(getUserNews); 
+
+
+
 router.route('/getActiveNews').get(findActiveNews);
 router.route('/inactive/:inactiveId').put(ClickInactiveNews);
 router.route('/getNews/:getId').get(findNews); 

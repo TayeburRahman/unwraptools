@@ -1,7 +1,7 @@
  
-const { BookmarkExistingUser } = require("../controllers/news.controllers");
+ 
 const { createUsers, getUsers, getAllUsers, getAdminOne, getUserOne } = require("../controllers/users.controllers");
-const verifyToken = require("../middleware/verifyToken");
+ 
 
 const router = require("express").Router();
 

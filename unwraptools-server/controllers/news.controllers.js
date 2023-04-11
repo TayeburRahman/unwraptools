@@ -5,7 +5,6 @@ const createNews = async (req, res) => {
     const { news_name, contentLink, user_email, categories, imageURL } =
       req?.body;
 
-    console.log(news_name, contentLink, user_email, categories);
     const news = await newsModels.create({
       news_name,
       contentLink,
@@ -39,17 +38,35 @@ const findInactiveNews = async (req, res) => {
 
 
 
-const findUserNews = async (req, res) => {
+const getUserActiveNews = async (req, res) => {
   try {
     const { email } = req.params;
-    const news = await newsModels.find({ user_email: email });
+    // const news = await newsModels.find({ user_email: email });
     const active = await newsModels.find({$and: [{ user_email: email },{status: 'active'}]});
+    // const inactive = await newsModels.find({$and: [{ user_email: email },{status: 'inactive'}]});
+
+    return res.status(200).json({
+     
+      active,
+      status: "success",
+      message: "active news Find Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+
+
+const getUserInactiveNews = async (req, res) => {
+  try {
+    const { email } = req.params;
+    // const news = await newsModels.find({ user_email: email });
+    // const active = await newsModels.find({$and: [{ user_email: email },{status: 'active'}]});
     const inactive = await newsModels.find({$and: [{ user_email: email },{status: 'inactive'}]});
 
     return res.status(200).json({
-      news,
+     
       inactive,
-      active,
       status: "success",
       message: "Inactive news Find Success",
     });
@@ -58,6 +75,26 @@ const findUserNews = async (req, res) => {
   }
 };
 
+
+const getUserNews = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const news = await newsModels.find({ user_email: email });
+    // const active = await newsModels.find({$and: [{ user_email: email },{status: 'active'}]});
+    // const inactive = await newsModels.find({$and: [{ user_email: email },{status: 'inactive'}]});
+
+    return res.status(200).json({
+     
+      news,
+      status: "success",
+      message: "news Find Success",
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error });
+  }
+};
+  
+ 
 
 const findNews = async (req, res) => {
   try {
@@ -81,7 +118,7 @@ const UpdateNews = async (req, res) => {
 
     const { news_name, contentLink  } = req.body; 
     
-    console.log(contentLink, news_name) 
+ 
     const tools = await newsModels.updateOne((
       { _id: getId },
       { $set: {news_name, contentLink }}
@@ -104,7 +141,7 @@ const approveNews = async (req, res) => {
       { $set: { status: "active" } }
     );
 
-    console.log(approveId);
+    
     return res.status(200).json({
       tool,
       status: "success",
@@ -138,7 +175,7 @@ const deleteNews = async (req, res) => {
   try {
     const { deleteId } = req.params;
 
-    console.log(deleteId);
+    
     const tool = await newsModels.deleteOne({ _id: deleteId });
     return res.status(200).json({
       tool,
@@ -155,10 +192,6 @@ const findActiveNews = async (req, res) => {
   const range = req?.query?.range;
   const sort = req?.query?.sort;
 
-  console.log("Sort is : ", sort);
-  console.log("Category is : ", category);
-  console.log("Range is : ", range);
-
   const getQuery = () => {
     if (category) {
       return {
@@ -173,7 +206,7 @@ const findActiveNews = async (req, res) => {
     const today = new Date();
     // db.collection.find({ dateField: { $gte: sevenDaysAgo, $lte: today } })
     if (range === "Today") {
-      console.log("Im called in ", range)
+   
       const todayy = new Date();
       todayy.setHours(0, 0, 0, 0);
       return {
@@ -183,7 +216,7 @@ const findActiveNews = async (req, res) => {
         },
       };
     } else if (range === "This Week") {
-      console.log("Im called in ", range)
+ 
       const sevenDaysAgo = new Date(Number(today.getTime()) - 7 * 24 * 60 * 60 * 1000); // 7 days ago
       return {
         createdAt: {
@@ -193,7 +226,7 @@ const findActiveNews = async (req, res) => {
       }
       
     } else if (range === "This Month") {
-      console.log("Im called in ", range)
+   
       const thirtyDaysAgo = new Date(Number(today.getTime()) - 30 * 24 * 60 * 60 * 1000); // 7 days ago
       return {
         createdAt: {
@@ -232,7 +265,6 @@ const findActiveNews = async (req, res) => {
     }
 
     if (sort) {
-      console.log("sort is : ", sort);
 
       if (sort === "popular") {
         const sortData = await [...news].sort((a, b) => {
@@ -308,7 +340,6 @@ const BookmarkNews = async (req, res) => {
         { returnOriginal: false }
       );
 
-      console.log("response", response);
 
       return res.status(201).json({
         response,
@@ -370,7 +401,6 @@ const NewsGetTime = async (req, res) => {
     const days = Math.floor(hours / 24);
     const remainingHours = hours % 24;
 
-    console.log(remainingHours);
 
     return res.status(200).json({
       days,
@@ -394,7 +424,9 @@ module.exports = {
   BookmarkNews,
   BookmarkUserData,
   NewsGetTime,
-  findUserNews,
+  getUserNews,
+  getUserActiveNews,
+  getUserInactiveNews,
   UpdateNews,
   ClickInactiveNews
 };

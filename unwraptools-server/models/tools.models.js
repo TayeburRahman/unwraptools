@@ -21,8 +21,7 @@ const toolsModels = new mongoose.Schema(
                 // validate:[validator.isURL, "Provided image URL is not valid."], 
             },
             imageURL:{
-                type: String,
-                validate:[validator.isURL, "Provided image URL is not valid."], 
+                type: String, 
             } ,
             description:{
                 type: String, 
