@@ -67,20 +67,20 @@ const style = {
 
 export default function FilterModal({ open, setOpen, pricing, setPricing, setFeatures, features }) {
 
-  const [checkedFree, setCheckedFree] =  useState(false)
-  const [checkedFreeTrial, setCheckedFreeTrial] =  useState(false)
-  const [checkedContent, setCheckedContact] =  useState(false)
-  const [checkedFreemium, setCheckedFreemium] =  useState(false)
-  const [checkedPaid, setCheckedPaid] =  useState(false)
-  const [checkedDeals, setCheckedDeals] =  useState(false)
+  const [checkedFree, setCheckedFree] = useState(false)
+  const [checkedFreeTrial, setCheckedFreeTrial] = useState(false)
+  const [checkedContent, setCheckedContact] = useState(false)
+  const [checkedFreemium, setCheckedFreemium] = useState(false)
+  const [checkedPaid, setCheckedPaid] = useState(false)
+  const [checkedDeals, setCheckedDeals] = useState(false)
 
-  const [waitlist, setCheckedWaitlist] =  useState(false)
-  const [app, setCheckedApp] =  useState(false)
-  const [api, setCheckedApi] =  useState(false)
-  const [browser, setCheckedBrowser] =  useState(false)
-  const [source, setCheckedOpen] =  useState(false)
-  const [discord, setCheckedDiscord] =  useState(false)
-  const [signup, setCheckedSignup] =  useState(false)
+  const [waitlist, setCheckedWaitlist] = useState(false)
+  const [app, setCheckedApp] = useState(false)
+  const [api, setCheckedApi] = useState(false)
+  const [browser, setCheckedBrowser] = useState(false)
+  const [source, setCheckedOpen] = useState(false)
+  const [discord, setCheckedDiscord] = useState(false)
+  const [signup, setCheckedSignup] = useState(false)
 
 
 
@@ -88,32 +88,32 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
   const handleClose = () => setOpen(false);
 
 
-  const handelOnChangePricing = (event) => { 
-    if(event?.target?.value === "free"){ 
-      setCheckedFree(checkedFree === true? false: true)
+  const handelOnChangePricing = (event) => {
+    if (event?.target?.value === "free") {
+      setCheckedFree(checkedFree === true ? false : true)
     }
-    if(event.target.value === "free_trial"){
-      setCheckedFreeTrial(checkedFreeTrial=== true? false: true)
+    if (event.target.value === "free_trial") {
+      setCheckedFreeTrial(checkedFreeTrial === true ? false : true)
     }
-    if(event.target.value === "contact_for_pricing"){
-      setCheckedContact(checkedContent===true? false: true)
+    if (event.target.value === "contact_for_pricing") {
+      setCheckedContact(checkedContent === true ? false : true)
     }
-    if(event.target.value === "freemium"){
-      setCheckedFreemium(checkedFreemium===true? false: true)
+    if (event.target.value === "freemium") {
+      setCheckedFreemium(checkedFreemium === true ? false : true)
     }
-    if(event.target.value === "paid"){
-      setCheckedPaid(checkedPaid===true? false: true)
+    if (event.target.value === "paid") {
+      setCheckedPaid(checkedPaid === true ? false : true)
     }
-    if(event.target.value === "deals"){
-      setCheckedDeals(checkedDeals===true? false: true)
+    if (event.target.value === "deals") {
+      setCheckedDeals(checkedDeals === true ? false : true)
     }
 
 
-    const value = event.target.value; 
+    const value = event.target.value;
     const currentIndex = pricing.indexOf(value);
     const newChecked = [...pricing];
 
-    console.log("new checked is : ", newChecked)
+
 
     if (currentIndex === -1) {
       newChecked.push(value);
@@ -126,30 +126,30 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
 
   const handelOnChangeFeatures = (event) => {
 
-    if(event?.target?.value === "waitlist"){ 
-      setCheckedWaitlist(waitlist === true? false: true)
+    if (event?.target?.value === "waitlist") {
+      setCheckedWaitlist(waitlist === true ? false : true)
     }
-    if(event.target.value === "mobile_app"){
-      setCheckedApp(app === true? false: true)
+    if (event.target.value === "mobile_app") {
+      setCheckedApp(app === true ? false : true)
     }
-    if(event.target.value === "api"){
-      setCheckedApi(api === true? false: true)
+    if (event.target.value === "api") {
+      setCheckedApi(api === true ? false : true)
     }
-    if(event.target.value === "browser_extension"){
-      setCheckedBrowser(browser===true? false: true)
+    if (event.target.value === "browser_extension") {
+      setCheckedBrowser(browser === true ? false : true)
     }
-    if(event.target.value === "open_source"){
-      setCheckedOpen(source ===true? false: true)
+    if (event.target.value === "open_source") {
+      setCheckedOpen(source === true ? false : true)
     }
-    if(event.target.value === "discord_community"){
-      setCheckedDiscord(discord===true? false: true)
+    if (event.target.value === "discord_community") {
+      setCheckedDiscord(discord === true ? false : true)
     }
-    if(event.target.value === "no_signup_required"){
-      setCheckedSignup(signup===true? false: true)
+    if (event.target.value === "no_signup_required") {
+      setCheckedSignup(signup === true ? false : true)
     }
-     
- 
-    const value = event.target.value; 
+
+
+    const value = event.target.value;
     const currentIndex = features.indexOf(value);
     const newChecked = [...features];
 
@@ -188,7 +188,7 @@ export default function FilterModal({ open, setOpen, pricing, setPricing, setFea
                     <Checkbox className="chackbox"
                       value="free"
                       checked={checkedFree}
-                      onChange={handelOnChangePricing }
+                      onChange={handelOnChangePricing}
                       {...label}
                     />{" "}
                     Free{" "}

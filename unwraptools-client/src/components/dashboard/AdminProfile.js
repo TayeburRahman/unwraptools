@@ -25,44 +25,37 @@ const AdminProfile = () => {
     useEffect(() => {
         axios.get(`https://server.unwraptools.io/api/v1/user/getUsers/${email}`)
             .then(res => {
-                if (res.status === 200) {
-                    // console.log(res?.data )
-                    setUsers(res?.data.user)
-                } else {
-                    console.log(res)
-                }
+                setUsers(res?.data?.user)
             })
 
     }, [email])
 
     useEffect(() => {
-        axios.get(`https://server.unwraptools.io/api/v1/news/getallNews/${email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/news/user/active/${email}`)
             .then(res => {
-                if (res.status === 200) {
-                    console.log('sssss', res?.data)
-                    setActiveNews(res?.data?.active)
-                    setInactiveNews(res?.data?.inactive)
-                } else {
-                    console.log(res)
-                }
+                setActiveNews(res?.data?.active)  
+            })
+
+            axios.get(`https://server.unwraptools.io/api/v1/news/user/inactive/${email}`)
+            .then(res => { 
+                setInactiveNews(res?.data?.inactive) 
             })
     }, [email])
 
     useEffect(() => {
-        axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools/${email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/tool/user/active/${email}`)
             .then(res => {
-                if (res.status === 200) {
-                    // console.log('sssss',res?.data)
-                    setActiveTool(res?.data?.active)
-                    setInactiveTool(res?.data?.inactive)
-                } else {
-                    console.log(res)
-                }
+                setActiveTool(res?.data?.active) 
             })
-    }, [email])
+
+            axios.get(`https://server.unwraptools.io/api/v1/tool/user/inactive/${email}`)
+            .then(res => { 
+                setInactiveTool(res?.data?.inactive) 
+            })
+
+    }, [])
 
 
-    console.log(activeNews)
 
     return (
         <Paper sx={{ margin: 'auto', overflow: 'hidden' }}>
@@ -92,7 +85,7 @@ const AdminProfile = () => {
                         </Grid>
                     </Grid>
                     <Grid className='p-4'>
-                        <Box className="box-bg"><Typography className='textDes text-left'>Submit The Tools:</Typography></Box> 
+                        <Box className="box-bg"><Typography className='textDes text-left'>Submit The Tools:</Typography></Box>
 
                         {
                             activeTool.length === 0 && inactiveTool.length === 0 ? (

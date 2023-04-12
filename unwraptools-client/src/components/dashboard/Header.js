@@ -16,30 +16,25 @@ function Header(props) {
   const { onDrawerToggle } = props;
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [users, setUsers] =  useState([]); 
-  const {user} = useAuth() 
+  const [users, setUsers] = useState([]);
+  const { user } = useAuth()
   const email = user?.email
 
-  useEffect(()=>{ 
-      axios.get(`https://server.unwraptools.io/api/v1/user/getUsers/${email}`)
+  useEffect(() => {
+    axios.get(`https://server.unwraptools.io/api/v1/user/getUsers/${email}`)
       .then(res => {
-        if (res.status === 200) {
-          // console.log(res?.data )
-          setUsers(res?.data.user)
-        }else{
-          console.log(res)
-        }
+        setUsers(res?.data.user)
       })
-  
-    },[])
 
- 
+  }, [])
+
+
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
   // --------log out-----------------
- 
+
 
   return (
     <Fragment>
@@ -57,7 +52,7 @@ function Header(props) {
               </IconButton>
             </Grid>
             <Grid item xs />
-            
+
             <Grid item>
               <Link
                 to="/"
@@ -71,15 +66,15 @@ function Header(props) {
                   },
                 }}
                 rel="noopener noreferrer"
-                
+
               >
-              Back To Home
+                Back To Home
               </Link>
             </Grid>
             <Grid item>
-              
-                <Avatar alt={users.displayName} src={users?.photoURL} />
-               
+
+              <Avatar alt={users.displayName} src={users?.photoURL} />
+
             </Grid>
           </Grid>
         </Toolbar>

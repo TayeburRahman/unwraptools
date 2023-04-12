@@ -19,23 +19,18 @@ function BookmarkButtonPD({ setStatus, status, tools, email }) {
   const [message, setMessage] = useState('');
 
   const [openInfo, setOpenInfo] = useState(false);
-  const [openSuccess, setOpenSuccess] = useState(false); 
+  const [openSuccess, setOpenSuccess] = useState(false);
 
   useEffect(() => {
     axios.get(`https://server.unwraptools.io/api/v1/tool/bookmark/existingUser/${tools?._id}/${email}`)
       .then(res => {
-        if (res.status === 200) {
-          // console.log('sssss',res?.data)
-          setExistingUser(res.data?.ExistingUser)
-        } else {
-          console.log(res)
-        }
+        setExistingUser(res.data?.ExistingUser)
       })
   }, [tools, status])
 
-  const HandleBookmark = (id) => { 
+  const HandleBookmark = (id) => {
     handleClose()
-console.log(id, email)
+
     axios.put(`https://server.unwraptools.io/api/v1/tool/bookmark/${id}`, { email })
       .then(res => {
         if (res.status === 200) {

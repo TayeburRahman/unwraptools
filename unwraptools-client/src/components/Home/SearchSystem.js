@@ -13,7 +13,7 @@ function SearchSystem(props) {
     // const [features, setFeatures] = useState([]);
 
 
-    console.log('search', pricing, features)
+ 
 
     useEffect(()=>{ 
         axios.get(`https://server.unwraptools.io/api/v1/tool/get/filter?pricing=${pricing}&search=${search}&features=${sort}`)

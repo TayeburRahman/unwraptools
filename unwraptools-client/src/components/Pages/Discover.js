@@ -1,4 +1,3 @@
-import BackupIcon from '@mui/icons-material/Backup';
 import EastIcon from '@mui/icons-material/East';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 
@@ -34,7 +33,7 @@ function ProductInformation() {
     const [tools, setTools] = useState([]);
     const [status, setStatus] = useState(0)
     const [categoryTools, setCategoryTools] = useState([]);
-    const [category, setCategory] = useState([]);
+    const [category, setCategory] = useState();
     const { user } = useAuth()
     const { Id } = useParams();
     const [open, setOpen] = useState(false);
@@ -46,31 +45,22 @@ function ProductInformation() {
 
     useEffect(() => {
         axios.get(`https://server.unwraptools.io/api/v1/tool/randomTool`)
-            .then(res => {
-                if (res.status === 200) {
+            .then(res => { 
                     setTools(res?.data?.tool)
-                    setCategory(res?.data?.tool[0]?.categories)
-                } else {
-                    console.log(res)
-                }
+                    setCategory(res?.data?.tool[0]?.categories) 
             })
     }, [status])
 
-    useEffect(() => {
-
-
-
-
-        axios.put(`https://server.unwraptools.io/api/v1/tool/get/categorys`, {
-            category
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    setCategoryTools(res?.data?.tools)
-                } else {
-                    console.log(res)
-                }
+    useEffect(() => { 
+        if(category){
+            axios.put(`https://server.unwraptools.io/api/v1/tool/get/categorys`, {
+                category
             })
+                .then(res => { 
+                        setCategoryTools(res?.data?.tools) 
+                })
+        }
+        
     }, [Id, status, tools])
 
 
@@ -91,7 +81,7 @@ function ProductInformation() {
                 <Container className='minH500'>
                     {
                         tools?.map((data, idx) => (
-                            <Box >
+                            <Box className='' key={idx}>
                                 <Box className='textTagNav padding5' mt="40px" >
                                     <Link className='routeLink'>Home</Link>
                                     <span>  <EastIcon className='RouteLinkIcon' /> </span>
@@ -136,19 +126,22 @@ function ProductInformation() {
                                             }}>
                                         </div>  */}
                                             </Box>
+                                            {
+                                        data?.favourite?.length > 10 && (
                                             <Box className='added_text d-flex text-12-sm'>
+
                                                 <VerifiedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} />
-                                                The Unwraptools team has used this tool and recommends it.
+                                                Unwraptools endorses this tool based on our testing results.
                                             </Box>
-                                            <Box className='text-left d-flex added_text'>
-                                                <BackupIcon className='FolderOpenIcon' />
-                                                Added on  {data?.createdAt?.slice(0, 10)}
-                                            </Box>
+
+                                        )
+                                    }
+                                            
 
                                             <Grid container>
                                                 {
                                                     data?.price?.map((data, idx) => (
-                                                        <Grid item className='m-2'>
+                                                        <Grid item className='m-2' key={idx}>
                                                             <Typography className="tagCard1">
                                                                 {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
                                                                 {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
@@ -198,14 +191,20 @@ function ProductInformation() {
 
                     <Box mb="30px" mt="20px">
                         <Box className='text-left' mt="50px">
-                            <Typography className='BrowseAITools' mb="25px">Alternative AI Tools for STORYD</Typography>
+                            {
+                                tools.map((data, idx) => (
+                              <Typography key={idx} className='BrowseAITools' mb="25px">Alternative AI Tools for {data?.tool_name} </Typography>
+                                ))
+                            }
+                            
+                            
 
                             <Grid container>
                                 {
-                                    categoryTools.slice(0, 5).map((tool, idx) => (
-                                        <Grid item xs={12} md={6} lg={4}>
+                                    categoryTools?.slice(0, 5)?.map((tool, idx) => (
+                                        <Grid item xs={12} md={6} lg={4} key={idx}>
                                             <Card className='card mb-3' sx={{ maxWidth: 345 }}>
-                                            <Link to={`/tool/${tool?._id}`} className='CardLink'>
+                                            <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
                                                 <CardMedia
                                                     className=' positionab'
                                                     sx={{ height: 140 }}
@@ -241,7 +240,7 @@ function ProductInformation() {
                                                             <Grid container className='mt-2'>
                                                                 {
                                                                     tool?.price?.map((data, idx) => (
-                                                                        <Grid item className='m-2'>
+                                                                        <Grid item className='m-2' key={idx}>
                                                                             <Typography className="tagCard1">
                                                                                 {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
                                                                                 {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
@@ -262,7 +261,7 @@ function ProductInformation() {
 
                                                 <CardActions sx={{ justifyContent: "space-between" }}>
                                                     <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
-                                                    <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
+                                                    <BookmarkButton setStatus={setStatus} status={status} tools={tool} email={email} />
                                                 </CardActions>
                                             </Card>
                                         </Grid>

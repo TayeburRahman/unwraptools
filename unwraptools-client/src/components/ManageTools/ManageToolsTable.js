@@ -30,47 +30,38 @@ export default function ManageToolsTable({slice}) {
     useEffect(()=>{ 
         axios.get(`https://server.unwraptools.io/api/v1/tool/getActiveTool`)
         .then(res => {
-          if (res.status === 200) { 
+     
             if(slice){
               setAllTools(res?.data?.tools?.slice(0,5))
             }else{
               setAllTools(res?.data?.tools)
             }
-            
-          }else{
-            console.log(res)
-          }
+        
         })
-      },[status, allTools])
+      },[status])
 
  
       const handleInactive = (_id) =>{ 
         axios.put(`https://server.unwraptools.io/api/v1/tool/inactive/${_id}`)
         .then(res => {
-          if (res.status === 200) { 
+          
             setStatus(status === 1? 0:1) 
-          }else{
-            console.log(res)
-          }
+          
         }) 
       }
  
       const handleDelete = (_id) =>{
         axios.put(`https://server.unwraptools.io/api/v1/tool/deleteTool/${_id}`)
         .then(res => {
-          if (res.status === 200) {
-            console.log(res)
+          
             setStatus(status === 1? 0:1) 
-          }else{
-            console.log(res)
-          }
+           
         }) 
       }
  
 
 
-      
-console.log('sdjd',allTools)
+ 
 
 
     return (

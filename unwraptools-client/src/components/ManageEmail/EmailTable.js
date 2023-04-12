@@ -33,12 +33,9 @@ export default function EmailTable() {
     useEffect(()=>{ 
         axios.get(`https://server.unwraptools.io/api/v1/email/get`)
         .then(res => {
-          if (res.status === 200) {
-            console.log('sssss',res?.data)
+           
             setAllEmail(res?.data?.response ) 
-          }else{
-            console.log(res)
-          }
+          
         })
       },[])
  

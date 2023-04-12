@@ -37,8 +37,7 @@ function StepTwo(props) {
   const {user}=useAuth()
     const { tool_name, websiteURL, short_description, description, imageURL } = props;
    
- 
-    console.log(price)
+  
  
 
     const HandleOnClick = () => { 

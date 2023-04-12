@@ -27,45 +27,31 @@ const DashboardMain = () => {
     const [activeTool, setActiveTool] = useState([]);
     const [inactiveTool, setInactiveTool] = useState([]);
     const [userNews, setUserNews] = useState([]); 
-    const [userTool, setUserTool] = useState([]);
+    const [userTool, setUserTools] = useState([]); 
 
 
-    const { admin, user } = useAuth()
+    const { admin, user } = useAuth() 
 
 
     useEffect(() => {
         axios.get(`https://server.unwraptools.io/api/v1/user/getByAllUsers`)
-            .then(res => {
-                if (res.status === 200) {
-                    console.log(res?.data)
-                    setUsers(res?.data)
-                } else {
-                    console.log(res)
-                }
+            .then(res => { 
+                setUsers(res?.data) 
             })
 
     }, [])
 
     useEffect(() => {
         axios.get(`https://server.unwraptools.io/api/v1/tool/getActiveTool`)
-            .then(res => {
-                if (res.status === 200) {
-                    setAllTools(res?.data?.tools)
-                } else {
-                    console.log(res)
-                }
+            .then(res => { 
+                setAllTools(res?.data?.tools) 
             })
     }, [])
 
     useEffect(() => {
         axios.get(`https://server.unwraptools.io/api/v1/news/getActiveNews`)
-            .then(res => {
-                if (res.status === 200) {
-                    // console.log('sssss',res?.data)
-                    setAllNews(res?.data?.news)
-                } else {
-                    console.log(res)
-                }
+            .then(res => { 
+                setAllNews(res?.data?.news) 
             })
     }, [])
 
@@ -73,56 +59,55 @@ const DashboardMain = () => {
 
     useEffect(() => {
         axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools`)
-            .then(res => {
-                if (res.status === 200) {
-                    // console.log('sssss',res?.data)
-                    setAllInactiveTools(res?.data?.tools)
-                } else {
-                    console.log(res)
-                }
+            .then(res => { 
+                setAllInactiveTools(res?.data?.tools) 
             })
     }, [])
 
 
     useEffect(() => {
         axios.get(`https://server.unwraptools.io/api/v1/news/getallNews`)
-            .then(res => {
-                if (res.status === 200) {
-                    // console.log('sssss',res?.data)
-                    setAllInactiveNews(res?.data?.news)
-                } else {
-                    console.log(res)
-                }
+            .then(res => { 
+                setAllInactiveNews(res?.data?.news) 
             })
-    }, []) 
+    }, [])
 
     useEffect(() => {
-        axios.get(`https://server.unwraptools.io/api/v1/news/getallNews/${user?.email}`)
-            .then(res => {
-                if (res.status === 200) {
-                    // console.log('sssss', res?.data)
-                    setUserNews(res?.data?.news)
-                    setActiveNews(res?.data?.active)
-                    setInactiveNews(res?.data?.inactive)
-                } else {
-                    console.log(res)
-                }
-            })
-    }, [user])
+        axios.get(`https://server.unwraptools.io/api/v1/news/user/active/${user?.email}`)
+        .then(res => {
+            setActiveNews(res?.data?.active) 
+            console.log('res?.data?.active', res?.data?.active)
+        })
 
-    useEffect(() => {
-        axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools/${user?.email}`)
-            .then(res => {
-                if (res.status === 200) {
-                    // console.log('sssss',res?.data)
-                    setUserTool(res?.data?.tools)
-                    setActiveTool(res?.data?.active)
-                    setInactiveTool(res?.data?.inactive)
-                } else {
-                    console.log(res)
-                }
+        axios.get(`https://server.unwraptools.io/api/v1/news/user/inactive/${user?.email}`)
+        .then(res => { 
+            setInactiveNews(res?.data?.inactive)
+            console.log('res?.data?.inactive', res?.data?.inactive)
+        })
+
+        axios.get(`https://server.unwraptools.io/api/v1/news/user/news/${user?.email}`)
+        .then(res => {  
+            setUserNews(res?.data?.news) 
+        })
+
+    }, [])
+
+    useEffect(() => { 
+            axios.get(`https://server.unwraptools.io/api/v1/tool/user/active/${user?.email}`)
+            .then(res => { 
+                setActiveTool(res?.data?.active)  
+            }) 
+
+            axios.get(`https://server.unwraptools.io/api/v1/tool/user/inactive/${user?.email}`)
+            .then(res => { 
+                setInactiveTool(res?.data?.inactive)  
+            }) 
+
+            axios.get(`https://server.unwraptools.io/api/v1/tool/user/tool/${user?.email}`)
+            .then(res => {  
+                  setUserTools(res?.data?.tools) 
             })
-    }, [user])
+    }, [])
 
 
 
@@ -181,7 +166,7 @@ const DashboardMain = () => {
                                         <Link to='/dashboard/user/manage_tools' className="dashboard-stat dp-grid dashboard_main_subjects" href="manage-students.php">
                                             <Box className='dp-flex justifyContent'>
                                                 <Box>
-                                                    <BatchPredictionIcon className='fontSize-40' style={{color:"white"}} />
+                                                    <BatchPredictionIcon className='fontSize-40' style={{ color: "white" }} />
                                                 </Box>
                                                 <Link className='dp-grid text-right'>
                                                     <span className="number counter">{activeTool?.length}</span>
@@ -287,7 +272,7 @@ const DashboardMain = () => {
                             {
                                 !admin && (
                                     <Grid item xs={6} md={4} lg={3} sx={{ padding: 2 }}>
-                                        <Link  to="/dashboard/user/manage_news" className="dashboard-stat dp-grid dashboard_main_results" href="manage-students.php">
+                                        <Link to="/dashboard/user/manage_news" className="dashboard-stat dp-grid dashboard_main_results" href="manage-students.php">
                                             <Box className='dp-flex justifyContent'>
                                                 <Box>
                                                     <InfoIcon className='fontSize-40' />
@@ -304,17 +289,17 @@ const DashboardMain = () => {
 
                         </Grid>
                         {
-                            admin &&(
+                            admin && (
                                 <Grid>
-                                <Grid spacing={2} alignItems="center" className='text-left mt-5'>
-                                    <span className="textBeg revert text-left pb-3">Storage Tools: </span> 
-                                            <ManageToolsTable slice={true}/> 
+                                    <Grid spacing={2} alignItems="center" className='text-left mt-5'>
+                                        <span className="textBeg revert text-left pb-3">Storage Tools: </span>
+                                        <ManageToolsTable slice={true} />
+                                    </Grid>
+                                    <Grid spacing={2} alignItems="center" className='text-left mt-5'>
+                                        <span className="textBeg revert text-left pb-3 ">Storage News: </span>
+                                        <ManageNewsTable slice={true} />
+                                    </Grid>
                                 </Grid>
-                                <Grid spacing={2} alignItems="center" className='text-left mt-5'>
-                                    <span className="textBeg revert text-left pb-3 ">Storage News: </span> 
-                                            <ManageNewsTable slice={true}/>  
-                                </Grid>
-                            </Grid>
                             )
                         }
                         <Grid>
@@ -323,31 +308,31 @@ const DashboardMain = () => {
 
                                 {
                                     userTool?.length && (
-                                        <ManageUserToolsTable slice={true}/>
+                                        <ManageUserToolsTable slice={true} />
                                     )
                                 }
                                 {
-                                    !userTool?.length  && (
+                                    !userTool?.length && (
                                         <Box className="d-flex notfoundBox w-100 mt-4">
-                                    <WarningAmberIcon className='WarningAmberIcon' />    <Typography className='textDes text_center mt-1'>You No Tools Submit Yet !</Typography>
-                                </Box>
+                                            <WarningAmberIcon className='WarningAmberIcon' />    <Typography className='textDes text_center mt-1'>You No Tools Submit Yet !</Typography>
+                                        </Box>
                                     )
                                 }
-                                
+
                             </Grid>
                             <Grid spacing={2} alignItems="center" className='text-left mt-5'>
                                 <span className="textBeg revert text-left pb-3 ">Your News: </span>
-                                
+
                                 {
                                     userNews?.length && (
-                                        <ManageUserNewsTable slice={true}/>
+                                        <ManageUserNewsTable slice={true} />
                                     )
                                 }
                                 {
-                                    !userNews?.length  && (
+                                    !userNews?.length && (
                                         <Box className="d-flex notfoundBox w-100 mt-4">
-                                    <WarningAmberIcon className='WarningAmberIcon' />    <Typography className='textDes text_center mt-1'> You No News Submit Yet !</Typography>
-                                </Box>
+                                            <WarningAmberIcon className='WarningAmberIcon' />    <Typography className='textDes text_center mt-1'> You No News Submit Yet !</Typography>
+                                        </Box>
                                     )
                                 }
                             </Grid>

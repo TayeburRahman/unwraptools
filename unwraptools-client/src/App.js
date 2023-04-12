@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
@@ -5,6 +6,7 @@ import AdminRoute from './PrivateRoute/AdminRoute';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import NavBar from './components/AppBar/NavBar';
 import UserDetails from './components/ManageUsers/UserDetails';
+import NotFound from './components/NotFound/NotFound';
 import Categories from './components/Pages/Categories';
 import Discover from './components/Pages/Discover';
 import Favorites from './components/Pages/Favourites';
@@ -31,8 +33,6 @@ import SuggestEdit from './components/dashboard/SuggestEdit';
 import ToolInformation from './components/dashboard/ToolInformation';
 import UserManageNews from './components/dashboard/UserManageNews';
 import UserManageTools from './components/dashboard/UserManageTools';
-import Loading from './components/loading/LiadingPulsate';
-import useAuthCheck from './hooks/useAuthCheck';
 
 
 function App() {
@@ -41,9 +41,20 @@ function App() {
   const { pathname } = useLocation(); 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    let url = `https://server.unwraptools.io/api/v1/tool/get/filter`;
+
+    axios.get(url).then((res) => { 
+      // setResponse()
+      // setTools(res?.data?.tools); 
+  });
   }, [pathname]);
 
-  const authChecked = useAuthCheck();
+
+ 
+
+
+ 
 
   const dashboard = !useLocation().pathname.includes('/dashboard');
     const login = !useLocation().pathname.includes('/login');
@@ -51,9 +62,7 @@ function App() {
 
  
 
-  return !authChecked ?(
-    <Loading />
-  ):(
+  return (
     <div className="App">
       {cobainDashboard && <NavBar/> }
        
@@ -92,8 +101,9 @@ function App() {
                <Route path='tool/:toolId' element={<PrivateRoute><ToolInformation/> </PrivateRoute>} /> 
                <Route path='profile' element={<PrivateRoute><AdminProfile/></PrivateRoute>} /> 
                {/* <Route path='manage_result' element={<ManageResult/>} />  */}
-               <Route path='database' element={<Database />} />  
+               <Route path='database' element={<Database />} />   
              </Route> 
+             <Route path='*' element={<NotFound />} />  
         </Routes>
     </div>
   ); 

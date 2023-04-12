@@ -12,8 +12,8 @@ const useFirebase = () => {
   const [user, setUser] = useState({});
   const [isLoading, setIstLoading] = useState(true);
   const [authError, setError] = useState("");
-  const [admin, setAdmin] = useState(''); 
-  const {pathname} = useLocation('');  
+  const [admin, setAdmin] = useState('');
+  const { pathname } = useLocation('');
 
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
@@ -68,30 +68,25 @@ const useFirebase = () => {
     // const user = { email, displayName, photoURL }; 
 
     axios.post(`https://server.unwraptools.io/api/v1/user/signup`, {
-      email, displayName, photoURL 
+      email, displayName, photoURL
     })
       .then(res => {
         if (res.status === 200) {
           // setState(state ? false : true)
-        }else{
-          console.log('',res)
+        } else {
+          console.log('', res)
         }
       })
- 
+
   };
 
   useEffect(() => {
 
     axios.get(`https://server.unwraptools.io/api/v1/user/admin/${user?.email}`)
-    .then(res => {
-      if (res.status === 200) {
-        // console.log('sssss',res?.data) 
-         setAdmin(res.data?.admin)
-      }else{
-        console.log(res)
-      }
-    })
-  
+      .then(res => {
+        setAdmin(res.data?.admin)
+      })
+
   }, [user, pathname])
 
   return {

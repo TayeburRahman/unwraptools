@@ -6,8 +6,9 @@ import { BrowserRouter } from 'react-router-dom';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import App from './App';
-import { store } from './app/store';
 import AuthProvider from './Firebase/Context/AuthProvider';
+import { store } from './app/store';
+import './customCss.css';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 

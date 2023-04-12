@@ -21,10 +21,10 @@ const DarkMode = () => {
             <input
                 className='dark_mode_input'
                 type='checkbox'
-                id='darkmode-toggle'
+                id='dark-mode-toggle'
                 onChange={toggleTheme}
             />
-            <label className='dark_mode_label' for='darkmode-toggle'>
+            <label className='dark_mode_label' for='dark-mode-toggle'>
                 <Sun />
                 <Moon />
             </label>

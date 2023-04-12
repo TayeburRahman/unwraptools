@@ -23,44 +23,40 @@ const UserDetails = () => {
     useEffect(() => {
         axios.get(`https://server.unwraptools.io/api/v1/user/getUsers/${email}`)
             .then(res => {
-                if (res.status === 200) {
-                    // console.log(res?.data )
+                
                     setUsers(res?.data.user)
-                } else {
-                    console.log(res)
-                }
+                
             })
 
     }, [email])
 
     useEffect(() => {
-        axios.get(`https://server.unwraptools.io/api/v1/news/getallNews/${email}`)
+        axios.get(`https://server.unwraptools.io/api/v1/news/user/active/${email}`)
             .then(res => {
-                if (res.status === 200) {
-                    console.log('sssss', res?.data)
-                    setActiveNews(res?.data?.active)
-                    setInactiveNews(res?.data?.inactive)
-                } else {
-                    console.log(res)
-                }
+                setActiveNews(res?.data?.active) 
+                console.log('res?.data?.active', res?.data?.active)
+            })
+
+            axios.get(`https://server.unwraptools.io/api/v1/news/user/inactive/${email}`)
+            .then(res => { 
+                setInactiveNews(res?.data?.inactive)
+                console.log('res?.data?.inactive', res?.data?.inactive)
             })
     }, [email])
 
     useEffect(() => {
-        axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools/${email}`)
-            .then(res => {
-                if (res.status === 200) {
-                    // console.log('sssss',res?.data)
-                    setActiveTool(res?.data?.active)
-                    setInactiveTool(res?.data?.inactive)
-                } else {
-                    console.log(res)
-                }
-            })
-    }, [email])
+        axios.get(`https://server.unwraptools.io/api/v1/tool/user/active/${email}`)
+        .then(res => { 
+            setActiveTool(res?.data?.active)  
+        }) 
 
+        axios.get(`https://server.unwraptools.io/api/v1/tool/user/inactive/${email}`)
+        .then(res => { 
+            setInactiveTool(res?.data?.inactive)  
+        }) 
+    }, [])
 
-    console.log(activeNews)
+ 
 
     return (
         <Paper sx={{ margin: 'auto', overflow: 'hidden' }}>

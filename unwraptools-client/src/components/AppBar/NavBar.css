@@ -273,4 +273,7 @@
   .padding-2 {
     padding: 0px !important;
   }
+  .LogoNav {
+    margin: 0 !important;
+  }
 }

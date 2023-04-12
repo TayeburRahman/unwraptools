@@ -30,12 +30,9 @@ export default function ApproveTable() {
     useEffect(()=>{ 
         axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools`)
         .then(res => {
-          if (res.status === 200) {
-            // console.log('sssss',res?.data)
+          
             setAllTools(res?.data?.tools)
-          }else{
-            console.log(res)
-          }
+          
         })
       },[status])
 
@@ -43,31 +40,25 @@ export default function ApproveTable() {
       const handleApprove = (_id) =>{ 
         axios.put(`https://server.unwraptools.io/api/v1/tool/approveTool/${_id}`)
         .then(res => {
-          if (res.status === 200) { 
+         
             setStatus(status === 1? 0:1) 
-          }else{
-            console.log(res)
-          }
+          
         }) 
       }
  
       const handleDelete = (_id) =>{
         axios.put(`https://server.unwraptools.io/api/v1/tool/deleteTool/${_id}`)
         .then(res => {
-          if (res.status === 200) {
-            console.log(res)
+         
             setStatus(status === 1? 0:1) 
-          }else{
-            console.log(res)
-          }
+          
         }) 
       }
  
 
 
       
-console.log('sdjd',allTools)
-
+ 
 
     return (
         <TableContainer >

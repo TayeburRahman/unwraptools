@@ -22,16 +22,14 @@ export default function ManageNewsTable({slice}) {
     useEffect(()=>{ 
         axios.get(`https://server.unwraptools.io/api/v1/news/getActiveNews`)
         .then(res => {
-          if (res.status === 200) {
+         
              if(slice){
               setAllNews(res?.data?.news)
              }else{
               setAllNews(res?.data?.news?.slice(0,5))
              }
            
-          }else{
-            console.log(res)
-          }
+         
         })
       },[status])
 
@@ -39,23 +37,18 @@ export default function ManageNewsTable({slice}) {
       const handleInactive = (_id) =>{ 
         axios.put(`https://server.unwraptools.io/api/v1/news/inactive/${_id}`)
         .then(res => {
-          if (res.status === 200) { 
+          
             setStatus(status === 1? 0:1) 
-          }else{
-            console.log(res)
-          }
+          
         }) 
       }
  
       const handleDelete = (_id) =>{
         axios.put(`https://server.unwraptools.io/api/v1/news/deleteNews/${_id}`)
         .then(res => {
-          if (res.status === 200) {
-            console.log(res)
+          
             setStatus(status === 1? 0:1) 
-          }else{
-            console.log(res)
-          }
+          
         }) 
       } 
 

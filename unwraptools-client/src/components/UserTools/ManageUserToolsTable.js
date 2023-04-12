@@ -32,50 +32,33 @@ export default function ManageUserToolsTable({ slice}) {
     const email = user?.email
 
     useEffect(()=>{ 
-        axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools/${email}`)
-        .then(res => {
-          if (res.status === 200) {
-            // console.log('sssss',res?.data)
+        axios.get(`https://server.unwraptools.io/api/v1/tool/user/tool/${email}`)
+        .then(res => { 
             if(slice){
               setAllTools(res?.data?.tools?.slice(0, 5))
             }else{
               setAllTools(res?.data?.tools)
-            }
-             
-          }else{
-            console.log(res)
-          }
+            } 
         })
       },[status])
 
  
       const handleApprove = (_id) =>{ 
         axios.put(`https://server.unwraptools.io/api/v1/tool/approveTool/${_id}`)
-        .then(res => {
-          if (res.status === 200) { 
-            setStatus(status === 1? 0:1) 
-          }else{
-            console.log(res)
-          }
+        .then(res => { 
+            setStatus(status === 1? 0:1)  
         }) 
       }
  
       const handleDelete = (_id) =>{
         axios.put(`https://server.unwraptools.io/api/v1/tool/deleteTool/${_id}`)
-        .then(res => {
-          if (res.status === 200) {
-            console.log(res)
-            setStatus(status === 1? 0:1) 
-          }else{
-            console.log(res)
-          }
+        .then(res => { 
+            setStatus(status === 1? 0:1)  
         }) 
       }
  
 
-
-      
-console.log(allTools)
+ 
 
 
     return (

@@ -1,28 +1,39 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Alert, Box, Grid, Typography } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import useAuth from '../../Firebase/Hooks/useAuth';
 import './subscribe.css';
 
 function Subscribe() {
-    const {user} = useAuth()
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => { 
-        const {email} = data;
-        console.log(email)
+    const { user } = useAuth()
+    const [message, setMessage] = useState('');
 
-        axios.post(`https://server.unwraptools.io/api/v1/email/create`, { email, user})
-        .then(res => {
-            if (res.status === 200) {
-                console.log('search', res?.data?.response)
-                // setTools(res?.data?.tools)
-            } else {
-                console.log(res)
-            }
-        })
+    const [openSuccess, setOpenSuccess] = useState(false);
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+    const onSubmit = data => {
+        const { email } = data; 
+        axios.post(`https://server.unwraptools.io/api/v1/email/create`, { email, user })
+            .then(res => {
+                handleClickAdded()
+                setMessage("Subscribe Successfully")
+            })
+    };
+    const handleClickAdded = () => {
+        setOpenSuccess(true);
     };
 
+
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccess(false)
+        setMessage('')
+    };
 
 
 
@@ -34,17 +45,25 @@ function Subscribe() {
                 <Typography>Join 90,000+ AI enthusiasts getting weekly updates on new tools</Typography>
                 <Typography></Typography>
             </Grid>
-            <Grid item xs={12} md={6} lg={6}> 
+            <Grid item xs={12} md={6} lg={6}>
                 <Box className='submitBox'>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         {/* register your input into the hook by invoking the "register" function */}
                         <input className='emailField' placeholder='Email'  {...register("email")} /> <br />
                         {errors.exampleRequired && <span>Email field is required</span>}
 
-                        <input className='SubmitButton' type="submit" />
+                        <input className='SubmitButton' type="submit" value="Subscribe" />
                     </form>
                 </Box>
+
             </Grid>
+            <Box>
+                <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%', }}>
+                        {message}
+                    </Alert>
+                </Snackbar>
+            </Box>
         </Grid>
     )
 }

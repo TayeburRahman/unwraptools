@@ -27,12 +27,7 @@ function BookmarkButton({ setStatus, status, tool, email }) {
   useEffect(() => {
     axios.get(`https://server.unwraptools.io/api/v1/tool/bookmark/existingUser/${tool?._id}/${email}`)
       .then(res => {
-        if (res.status === 200) {
-          // console.log('sssss',res?.data)
-          setExistingUser(res.data?.ExistingUser)
-        } else {
-          console.log(res)
-        }
+        setExistingUser(res.data?.ExistingUser)
       })
   }, [tool, status, email])
 
@@ -42,7 +37,7 @@ function BookmarkButton({ setStatus, status, tool, email }) {
       navigate('/login')
       return;
     }
-    
+
     handleClose()
 
     axios.put(`https://server.unwraptools.io/api/v1/tool/bookmark/${id}`, { email })

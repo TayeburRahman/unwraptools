@@ -83,16 +83,13 @@ export default function FavoritesTabs() {
     useEffect(() => {
         axios.get(`https://server.unwraptools.io/api/v1/tool/bookmark/user/${email}`)
             .then(res => {
-                if (res.status === 200) {
-                    // console.log('sssss',res?.data)
+                
                     setTools(res?.data?.tools)
                     setLoader(false)
                     if (!res?.data?.tools?.length) {
                         setNotFoundTool(true)
                     }
-                } else {
-                    console.log(res)
-                }
+                 
             })
     }, [status])
 
@@ -101,17 +98,14 @@ export default function FavoritesTabs() {
         setLoader(true)
         axios.get(`https://server.unwraptools.io/api/v1/news/bookmark/user/${email}`)
             .then(res => {
-                if (res.status === 200) {
-                    console.log('sssss', res?.data)
+               
                     setNews(res?.data?.news)
                     setLoader(false)
 
                     if (!res?.data?.news?.length) {
                         setNotFoundNews(true)
                     }
-                } else {
-                    console.log(res)
-                }
+                
             })
     }, [status])
 

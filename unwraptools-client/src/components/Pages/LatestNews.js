@@ -27,7 +27,7 @@ import CurrentTime from '../NewsCurrentTime/CurrentTime';
 
 function LatestNews() {
     const [isLoading, setLoading] = useState(true);
-    const [allNews, setAllNews] = useState([]);
+    const [allNews, setAllNews] = useState();
     const [status, setStatus] = useState();
     const [time, setSortTime] = useState(null);
     const [category, setSortCategory] = useState(null);
@@ -50,39 +50,33 @@ function LatestNews() {
         setSort(event.target.value);
     };
 
-    console.log(time, category,sort)
-    
- 
+
+
     useEffect(() => {
- 
-   if(category ){
-    axios.get(`https://server.unwraptools.io/api/v1/news/getActiveNews?category=${category}&sort=${sort}&range=${time}`)
-    .then(res => {
-        if (res.status === 200) {
-            setAllNews(res?.data?.news)
-            setLoading(false)
+
+        if (category) {
+            axios.get(`https://server.unwraptools.io/api/v1/news/getActiveNews?category=${category}&sort=${sort}&range=${time}`)
+                .then(res => {
+
+                    setAllNews(res?.data?.news)
+                    setLoading(false)
+
+                })
         } else {
-            console.log(res)
+            axios.get(`https://server.unwraptools.io/api/v1/news/getActiveNews?category=&sort=${sort}&range=${time}`)
+                .then(res => {
+
+                    setAllNews(res?.data?.news)
+                    setLoading(false)
+
+                })
         }
-    })
-   }else{
-    axios.get(`https://server.unwraptools.io/api/v1/news/getActiveNews?category=&sort=${sort}&range=${time}`)
-    .then(res => {
-        if (res.status === 200) {
-            setAllNews(res?.data?.news)
-            setLoading(false)
-        } else {
-            console.log(res)
-        }
-    })
-   }
- 
+
     }, [time, category, sort, status])
 
-    console.log('cccc', allNews)
 
     return (
-        <div className='background'> 
+        <div className='background'>
             <Container className="w100vh">
                 <Box className='textTagNav p-1' mt="40px" >
                     <Link to="/" className='routeLink'>Home</Link>
@@ -206,43 +200,52 @@ function LatestNews() {
                 </Grid>
                 {
                     !isLoading ? (
-                        <Grid container className='mt-4'>
+                        <Box>
                             {
-                                allNews?.map((data, idx) => (
-                                    <Grid className='p-3 mb-2' item lg={12} md={12} xs={12} sx={{ border: "1px solid var(--border_color)", borderRadius: "5px" }}>
-                                        <Box className='text-left'>
-                                            <a href={data?.contentLink} target="_blank" className='text-left linkTextNews'>{data?.news_name} <span className='spanLinkNews'>{data?.contentLink.slice(0, 20)} <LaunchIcon sx={{fontSize:"14px"}}/></span></a>
-                                        </Box>
-                                        <Grid container className='mt-3'>
-                                            <Grid item md={4} xs={12} lg={3} className="text-left" >
-                                                 <CurrentTime news={data} />
-                                            </Grid>
-                                            <Grid item md={4} xs={8} lg={3} className="d-flex text-left">
-                                                {
-                                                    data?.categories?.map((data, idx) => (
-                                                        <Grid item className='m-2 text-left'>
-                                                            <Typography className="tagCard1">
-                                                                {data === "Podcast" && <PodcastsIcon className='cardTagIcon' />}
-                                                                {data === "Opinion" && <ContactSupportIcon className='cardTagIcon' />}
-                                                                {data === "Research" && <BiotechIcon className='cardTagIcon' />}
-                                                                {data === "Updates" && <TaskAltIcon className='cardTagIcon' />}
-                                                                {data === "Interesting" && <LightbulbIcon className='cardTagIcon' />}
-                                                                {data === "Learn" && <SchoolIcon className='cardTagIcon' />}
-                                                                {data === "Video" && <VideocamIcon className='cardTagIcon' />}
-                                                                {data}
-                                                            </Typography>
+                                allNews?.length ? (
+                                    <Grid container className='mt-4'>
+                                        {
+                                            allNews?.map((data, idx) => (
+                                                <Grid className='p-3 mb-2' item lg={12} md={12} xs={12} sx={{ border: "1px solid var(--border_color)", borderRadius: "5px" }}>
+                                                    <Box className='text-left'>
+                                                        <a href={data?.contentLink} target="_blank" className='text-left linkTextNews'>{data?.news_name} <span className='spanLinkNews'>{data?.contentLink.slice(0, 20)} <LaunchIcon sx={{ fontSize: "14px" }} /></span></a>
+                                                    </Box>
+                                                    <Grid container className='mt-3'>
+                                                        <Grid item md={4} xs={12} lg={3} className="text-left" >
+                                                            <CurrentTime news={data} />
                                                         </Grid>
-                                                    ))
-                                                }
-                                            </Grid>
-                                            <Grid item md={4} xs={4} lg={6} className="d-flex" sx={{ justifyContent: "flex-end" }}>
-                                                <BookmarkButtonNw email={email} news={data} setStatus={setStatus} status={status} />
-                                            </Grid>
-                                        </Grid>
+                                                        <Grid item md={4} xs={8} lg={3} className="d-flex text-left">
+                                                            {
+                                                                data?.categories?.map((data, idx) => (
+                                                                    <Grid item className='m-2 text-left'>
+                                                                        <Typography className="tagCard1">
+                                                                            {data === "Podcast" && <PodcastsIcon className='cardTagIcon' />}
+                                                                            {data === "Opinion" && <ContactSupportIcon className='cardTagIcon' />}
+                                                                            {data === "Research" && <BiotechIcon className='cardTagIcon' />}
+                                                                            {data === "Updates" && <TaskAltIcon className='cardTagIcon' />}
+                                                                            {data === "Interesting" && <LightbulbIcon className='cardTagIcon' />}
+                                                                            {data === "Learn" && <SchoolIcon className='cardTagIcon' />}
+                                                                            {data === "Video" && <VideocamIcon className='cardTagIcon' />}
+                                                                            {data}
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                ))
+                                                            }
+                                                        </Grid>
+                                                        <Grid item md={4} xs={4} lg={6} className="d-flex" sx={{ justifyContent: "flex-end" }}>
+                                                            <BookmarkButtonNw email={email} news={data} setStatus={setStatus} status={status} />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            ))
+                                        }
                                     </Grid>
-                                ))
+                                ) : (
+                                    <Box className='didnotfind'><Typography className='textDesLarger' >Search did not find news !
+                                    </Typography></Box>
+                                )
                             }
-                        </Grid>
+                        </Box>
 
                     ) : (
                         <Box className='mt-3'>
@@ -267,13 +270,12 @@ function LatestNews() {
                                 <Skeleton sx={{ maxWidth: "100%" }} height={40} />
                             </Box>
 
-                        </Box>
-
+                        </Box> 
                     )
                 }
 
             </Container>
-            
+
             <Footer />
         </div>
     )

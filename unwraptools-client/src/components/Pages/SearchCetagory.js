@@ -20,7 +20,7 @@ import TextField from '@mui/material/TextField';
 import { Box, Container } from '@mui/system';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import useAuth from '../../Firebase/Hooks/useAuth';
 import Footer from '../AppBar/Footer/Footer';
 import SearchSystem from '../Home/SearchSystem';
@@ -107,14 +107,18 @@ function SearchCategory() {
     const { Id } = useParams();
     const [responses, setResponses] = useState(true);
 
-    console.log("features is :", features)
-    console.log("pricing is :", pricing)
-    console.log("sort is :", sort)
+    const location = useLocation()
+
+
 
     const { user } = useAuth()
     const email = user?.email
 
 
+
+    useEffect(() => {
+        setSearch('');
+    }, [location])
 
     useEffect(() => {
         if (search.length === 0) {
@@ -126,14 +130,12 @@ function SearchCategory() {
     useEffect(() => {
         const search = Id.replace("_", " ")
         setCname(search)
+
         axios.put(`https://server.unwraptools.io/api/v1/tool/get/search`, { search })
             .then(res => {
-                if (res.status === 200) {
-                    console.log('search', res?.data?.tools)
-                    setTools(res?.data?.tools)
-                } else {
-                    console.log(res)
-                }
+
+                setResponses(response === true && false)
+                setTools(res?.data?.tools)
             })
     }, [Id, response])
 
@@ -157,14 +159,11 @@ function SearchCategory() {
                     : "?"
                 }sort=${sort}`}`;
 
-        console.log("url", url);
+
 
         axios.get(url).then((res) => {
-            if (res.status === 200) { 
-                setTools(res?.data?.tools);
-            } else {
-                console.log(res);
-            }
+            setTools(res?.data?.tools);
+            setResponses(response === true && false)
         });
 
 
@@ -178,13 +177,11 @@ function SearchCategory() {
         setSearch(search);
         axios.put(`https://server.unwraptools.io/api/v1/tool/get/search`, { search })
             .then(res => {
-                if (res.status === 200) { 
-                    setResponses(response === true && false)
-                    setTools(res?.data?.tools)
-                } else {
-                    console.log(res)
-                }
+                setResponses(response === true && false)
+                setTools(res?.data?.tools)
             })
+
+
     };
 
 
@@ -226,7 +223,7 @@ function SearchCategory() {
                         <Typography className='textDes2 text-left mb-1 mt-2'  >RESULTS FOUND:  <span className='resultFountSpan'>{tools?.length}</span></Typography>
                         <Grid container>
                             <Grid item xs={3} md={1} lg={1}>
-                                <Box className=' searchBarIcon'>
+                                <Box className='searchBarIcon'>
                                     <SearchIcon />
                                 </Box>
                             </Grid>
@@ -388,77 +385,86 @@ function SearchCategory() {
                             </Grid>
 
                         ) : (
-                            <Grid container mt={5}>
+                            <Box>
                                 {
-                                    tools?.map((tool, idx) => (
-                                        <Grid item xs={12} md={6} lg={4} className='mt-4'>
-                                            <Card className='card mb-3' sx={{ maxWidth: 345 }}>
-                                                {/* <Box className=' positionab' > */}
-                                                <Link to={`/tool/${tool?._id}`} className='CardLink'>
-                                                    <CardMedia
-                                                        className='positionab'
-                                                        sx={{ height: 140 }}
-                                                        image={tool?.imageURL}
-                                                        title="green iguana"
-                                                    />
-                                                    <Box className='positionrs'>
-                                                        <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
-                                                    </Box>
-                                                    {/* </Box> */}
-                                                    <CardContent sx={{ paddingBottom: '0' }}>
+                                    tools.length ? (
+                                        <Grid container mt={5}>
+                                            {
+                                                tools?.map((tool, idx) => (
+                                                    <Grid item xs={12} md={6} lg={4} className='mt-4'>
+                                                        <Card className='card mb-3' sx={{ maxWidth: 345 }}>
+                                                            {/* <Box className=' positionab' > */}
+                                                            <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
+                                                                <CardMedia
+                                                                    className='positionab'
+                                                                    sx={{ height: 140 }}
+                                                                    image={tool?.imageURL}
+                                                                    title="green iguana"
+                                                                />
+                                                                <Box className='positionrs'>
+                                                                    <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
+                                                                </Box>
+                                                                {/* </Box> */}
+                                                                <CardContent sx={{ paddingBottom: '0' }}>
 
-                                                        <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
-                                                            <Box className="d-flex">
-                                                                <Typography className='revert' gutterBottom variant="h5" component="div">
-                                                                    {tool?.tool_name}
-                                                                </Typography>
-                                                                {
-                                                                    tool?.favourite?.length > 10 && (
-                                                                        <VerifiedIcon className='icon-co buttonIcon mb-1 ms-2' sx={{ marginRight: "10px", fontSize: "20px" }} />
-
-                                                                    )
-                                                                }
-                                                            </Box>
-                                                            <Box>
-                                                                <TurnedInNotIcon />
-                                                                {tool?.favourite?.length}
-                                                            </Box>
-                                                        </Box>
-                                                        <Typography className='text-left' variant="body2"  >
-                                                            {tool?.short_description?.slice(0, 100)}.
-                                                        </Typography>
-                                                        <Box>
-                                                            <Grid container className='mt-2'>
-                                                                {
-                                                                    tool?.price?.map((data, idx) => (
-                                                                        <Grid item className='m-2'>
-                                                                            <Typography className="tagCard1">
-                                                                                {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
-                                                                                {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
-                                                                                {data === "Free" && <TaskAltIcon className='cardTagIcon' />}
-                                                                                {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}
-                                                                                {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}
-                                                                                {data === "Deals" && <SellIcon className='cardTagIcon' />}
-                                                                                {data}
+                                                                    <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
+                                                                        <Box className="d-flex">
+                                                                            <Typography className='revert' gutterBottom variant="h5" component="div">
+                                                                                {tool?.tool_name}
                                                                             </Typography>
+                                                                            {
+                                                                                tool?.favourite?.length > 10 && (
+                                                                                    <VerifiedIcon className='icon-co buttonIcon mb-1 ms-2' sx={{ marginRight: "10px", fontSize: "20px" }} />
+
+                                                                                )
+                                                                            }
+                                                                        </Box>
+                                                                        <Box>
+                                                                            <TurnedInNotIcon />
+                                                                            {tool?.favourite?.length}
+                                                                        </Box>
+                                                                    </Box>
+                                                                    <Typography className='text-left' variant="body2"  >
+                                                                        {tool?.short_description?.slice(0, 100)}.
+                                                                    </Typography>
+                                                                    <Box>
+                                                                        <Grid container className='mt-2'>
+                                                                            {
+                                                                                tool?.price?.map((data, idx) => (
+                                                                                    <Grid item className='m-2'>
+                                                                                        <Typography className="tagCard1">
+                                                                                            {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
+                                                                                            {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
+                                                                                            {data === "Free" && <TaskAltIcon className='cardTagIcon' />}
+                                                                                            {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}
+                                                                                            {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}
+                                                                                            {data === "Deals" && <SellIcon className='cardTagIcon' />}
+                                                                                            {data}
+                                                                                        </Typography>
+                                                                                    </Grid>
+                                                                                ))
+                                                                            }
                                                                         </Grid>
-                                                                    ))
-                                                                }
-                                                            </Grid>
-                                                        </Box>
+                                                                    </Box>
 
-                                                    </CardContent>
-                                                </Link>
+                                                                </CardContent>
+                                                            </Link>
 
-                                                <CardActions sx={{ justifyContent: "space-between" }}>
-                                                    <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
-                                                    <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
-                                                </CardActions>
-                                            </Card>
+                                                            <CardActions sx={{ justifyContent: "space-between" }}>
+                                                                <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
+                                                                <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
+                                                            </CardActions>
+                                                        </Card>
+                                                    </Grid>
+                                                ))
+                                            }
                                         </Grid>
-                                    ))
+                                    ) : (
+                                        <Box className='didnotfind'><Typography className='textDesLarger' >Search did not find tools !
+                                        </Typography></Box>
+                                    )
                                 }
-                            </Grid>
+                            </Box>
                         )
                     }
 

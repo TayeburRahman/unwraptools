@@ -12,7 +12,7 @@ import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-import * as React from "react";
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import DarkMode from "../../DarkMode/DarkMode";
 import useAuth from "../../Firebase/Hooks/useAuth";
@@ -21,14 +21,15 @@ import "./NavBar.css";
 import NavDower from "./NavDower";
 
 function NavBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [activeNews, setActiveNews] = React.useState([]);
-  const [activeTool, setActiveTool] = React.useState([]);
+  const [anchorElNav, setAnchorElNav] =  useState(null);
+  const [anchorElUser, setAnchorElUser] =  useState(null);
+  const [activeNews, setActiveNews] =  useState([]);
+  const [activeTool, setActiveTool] =  useState([]);
   const { logOut, signImWithGoogle, user, admin } = useAuth()
   const location = useLocation();
   const navigate = useNavigate();
   const patch = useParams();
+ 
 
 
   const handelGoogleSignIn = (e) => {
@@ -57,28 +58,23 @@ function NavBar() {
 
 
 
-  React.useEffect(() => {
-    axios.get(`https://server.unwraptools.io/api/v1/news/getallNews/${user?.email}`)
-      .then(res => {
-        if (res.status === 200) {
-          setActiveNews(res?.data?.active)
-        } else {
-          console.log(res)
-        }
+  useEffect(() => {
+    if(user){
+      axios.get(`https://server.unwraptools.io/api/v1/news/active/${user?.email}`)
+      .then(res => { 
+          setActiveNews(res?.data?.active) 
       })
-  }, [user, patch])
+    }
 
-  React.useEffect(() => {
-    axios.get(`https://server.unwraptools.io/api/v1/tool/getallTools/${user?.email}`)
-      .then(res => {
-        if (res.status === 200) {
-          // console.log('sssss',res?.data)
-          setActiveTool(res?.data?.active)
-        } else {
-          console.log(res)
-        }
-      })
-  }, [user, patch])
+    if(user){
+      axios.get(`https://server.unwraptools.io/api/v1/tool/user/active/${user?.email}`)
+      .then(res => { 
+          setActiveTool(res?.data?.active)  
+      }) 
+    }
+  }, [user])
+
+ 
 
 
   return (
@@ -110,7 +106,7 @@ function NavBar() {
             }}
             className="revert LogoNav ms-5"
           >
-            <span className="textBeg revert">unwraptools</span>
+            <span className="textBeg revert mb-1">unwraptools</span>
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>

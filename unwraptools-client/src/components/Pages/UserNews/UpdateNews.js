@@ -28,12 +28,10 @@ const UpdateNews = () => {
             contentLink:  !contentLinks? news?.contentLink : contentLinks, 
         })
         .then(res => {
-          if (res.status === 200) { 
+        
             alert("Your Tool Successfully Update")
             navigator('/dashboard/user/manage_news')
-          }else{
-            console.log(res)
-          }
+          
         }) 
         
     };
@@ -43,16 +41,12 @@ const UpdateNews = () => {
     useEffect(()=>{
         axios.get(`https://server.unwraptools.io/api/v1/news/getNews/${newsId}`)
         .then(res => {
-          if (res.status === 200) { 
+         
             setNews(res.data.news) 
-          }else{
-            console.log(res)
-          }
+         
         }) 
     },[])
-
-
-console.log(news)
+ 
 
     return (
         <Fragment>

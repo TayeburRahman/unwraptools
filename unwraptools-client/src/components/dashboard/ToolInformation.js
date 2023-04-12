@@ -16,22 +16,15 @@ function ToolInformation() {
     const [tools, setTools] = useState([]);
     const { toolId } = useParams();
 
- 
+
 
     useEffect(() => {
-        console.log(toolId)
         axios.get(`https://server.unwraptools.io/api/v1/tool/getTools/${toolId}`)
             .then(res => {
-                if (res.status === 200) {
-                    console.log('sssss', res?.data)
-                    setTools(res?.data?.tools)
-                } else {
-                    console.log(res)
-                }
+                setTools(res?.data?.tools)
             })
     }, [toolId])
 
-    console.log('ssss', toolId)
 
     return (
         <div className='background p-5'>
@@ -61,7 +54,7 @@ function ToolInformation() {
                                 <Grid item sx={12} md={12} lg={6} className='padding5' >
                                     <img
                                         className='w-100'
-                                        src={tools?.imageURL} 
+                                        src={tools?.imageURL}
                                     />
                                 </Grid>
                                 <Grid item sx={12} md={12} lg={6} className='padding5'>
@@ -69,7 +62,7 @@ function ToolInformation() {
                                         <Typography className='textDes'>DESCRIPTION:</Typography>
 
                                         <p className='text-left DesPText'    >
-                                            {tools?.short_description } 
+                                            {tools?.short_description}
                                         </p>
 
                                         <div
@@ -77,34 +70,34 @@ function ToolInformation() {
                                             dangerouslySetInnerHTML={{
                                                 __html: tools?.description
                                             }}>
-                                        </div> 
+                                        </div>
                                     </Box>
                                     <Box className='added_text d-flex text-12-sm text-left'>
                                         <VerifiedIcon className='icon-co buttonIcon' sx={{ marginRight: "10px", fontSize: "20px" }} />
                                         The Unwraptools team has used this tool and recommends it.
                                     </Box>
-                                    <Box className='text-left d-flex added_text' sx={{width: "fit-content"}}>
+                                    <Box className='text-left d-flex added_text' sx={{ width: "fit-content" }}>
                                         <BackupIcon className='FolderOpenIcon' />
                                         Added on {tools?.createdAt?.slice(0, 5)}
                                     </Box>
-                                   <Grid container>
-                                   {
-                                        tools?.price?.map((data, idx) =>(
-                                       <Grid item className='m-2'> 
-                                         <Typography className="tagCard1">
-                                         {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}  
-                                       {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}  
-                                       {data === "Free" && <TaskAltIcon className='cardTagIcon' />}  
-                                       {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}  
-                                       {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}  
-                                       {data === "Deals" && <SellIcon className='cardTagIcon' />}  
-                                       {data} 
-                                         </Typography>
+                                    <Grid container>
+                                        {
+                                            tools?.price?.map((data, idx) => (
+                                                <Grid item className='m-2'>
+                                                    <Typography className="tagCard1">
+                                                        {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
+                                                        {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
+                                                        {data === "Free" && <TaskAltIcon className='cardTagIcon' />}
+                                                        {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}
+                                                        {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}
+                                                        {data === "Deals" && <SellIcon className='cardTagIcon' />}
+                                                        {data}
+                                                    </Typography>
+                                                </Grid>
+                                            ))
+                                        }
                                     </Grid>
-                                        ))
-                                    }
-                                   </Grid>
-                                     
+
 
 
                                 </Grid>

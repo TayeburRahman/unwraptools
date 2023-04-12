@@ -27,12 +27,10 @@ function BookmarkButtonNw({ setStatus, status, news, email }) {
   useEffect(() => {
     axios.get(`https://server.unwraptools.io/api/v1/news/bookmark/existingUser/${news?._id}/${email}`)
       .then(res => {
-        if (res.status === 200) {
-          // console.log('sssss',res?.data)
+        
+         
           setExistingUser(res.data?.ExistingUser)
-        } else {
-          console.log(res)
-        }
+        
       })
   }, [news, status, email])
 
@@ -77,8 +75,7 @@ function BookmarkButtonNw({ setStatus, status, news, email }) {
     setOpenSuccess(false)
     setMessage('')
   };
-
-  console.log('existingUser', existingUser)
+ 
 
   return (
     <Fragment>

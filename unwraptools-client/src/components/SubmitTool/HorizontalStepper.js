@@ -20,8 +20,7 @@ export default function HorizontalStepper() {
   const [description, setDescription] = useState('');
   const [disable, setDisable] = useState(true);
 
- 
- console.log(tool_name)
+  
 
 useEffect(()=>{
   if( websiteURL.length === 0 || imageURL.length === 0){
@@ -29,7 +28,7 @@ useEffect(()=>{
   }else{
     setDisable(false)
   }
-},[tool_name,websiteURL ])
+},[tool_name, websiteURL, imageURL ])
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -110,7 +109,7 @@ useEffect(()=>{
               />
             )
           }
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2,  marginTop: "50px" }}>
             <Button
               variant="outlined"
               disabled={activeStep === 0}

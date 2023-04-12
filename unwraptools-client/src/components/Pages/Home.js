@@ -144,15 +144,10 @@ function Homes() {
                     : "?"
                 }sort=${sort}`}`;
 
-        console.log("url", url);
 
         axios.get(url).then((res) => {
-            if (res.status === 200) {
-                setResponse()
-                setTools(res?.data?.tools);
-            } else {
-                console.log(res);
-            }
+            setResponse()
+            setTools(res?.data?.tools);
         });
 
 
@@ -166,12 +161,8 @@ function Homes() {
         setSearch(search);
         axios.put(`https://server.unwraptools.io/api/v1/tool/get/search`, { search })
             .then(res => {
-                if (res.status === 200) {
-                    setResponse(response === true && false)
-                    setTools(res?.data?.tools)
-                } else {
-                    console.log(res)
-                }
+                setResponse(response === true && false)
+                setTools(res?.data?.tools)
             })
     };
 
@@ -274,9 +265,9 @@ function Homes() {
                         response ? (
                             <Grid container mt={5}>
                                 <Grid item xs={12} md={6} lg={4} className='mt-1'>
-                                    <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                    <Box sx={{ display: "grid", justifyItems: 'center', width: "100%" }}>
                                         <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
-                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                        <Box sx={{ pt: 0.5, display: "grid", justifyItems: 'center', width: "100%" }} >
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                         </Box>
@@ -284,9 +275,9 @@ function Homes() {
                                 </Grid>
 
                                 <Grid item xs={12} md={6} lg={4} className='mt-1'>
-                                <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                    <Box sx={{ display: "grid", justifyItems: 'center', width: "100%" }}>
                                         <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
-                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                        <Box sx={{ pt: 0.5, display: "grid", justifyItems: 'center', width: "100%" }} >
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                         </Box>
@@ -294,121 +285,127 @@ function Homes() {
                                 </Grid>
 
                                 <Grid item xs={12} md={6} lg={4} className='mt-1'>
-                                <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                    <Box sx={{ display: "grid", justifyItems: 'center', width: "100%" }}>
                                         <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
-                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                        <Box sx={{ pt: 0.5, display: "grid", justifyItems: 'center', width: "100%" }} >
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                         </Box>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} md={6} lg={4} className='mt-4'>
-                                <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                    <Box sx={{ display: "grid", justifyItems: 'center', width: "100%" }}>
                                         <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
-                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                        <Box sx={{ pt: 0.5, display: "grid", justifyItems: 'center', width: "100%" }} >
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                         </Box>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} md={6} lg={4} className='mt-4'>
-                                <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                    <Box sx={{ display: "grid", justifyItems: 'center', width: "100%" }}>
                                         <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
-                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                        <Box sx={{ pt: 0.5, display: "grid", justifyItems: 'center', width: "100%" }} >
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                         </Box>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} md={6} lg={4} className='mt-4'>
-                                <Box sx={{display: "grid" ,justifyItems: 'center', width:"100%"}}>
+                                    <Box sx={{ display: "grid", justifyItems: 'center', width: "100%" }}>
                                         <Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
-                                        <Box sx={{ pt: 0.5, display: "grid" ,justifyItems: 'center', width:"100%"}} >
+                                        <Box sx={{ pt: 0.5, display: "grid", justifyItems: 'center', width: "100%" }} >
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                             <Skeleton sx={{ maxWidth: "345px" }} height={50} />
                                         </Box>
                                     </Box>
-                                </Grid> 
+                                </Grid>
                             </Grid>
 
                         ) : (
-                            <Grid container mt={5}>
+                            <Box>
                                 {
-                                    tools?.map((tool, idx) => (
-                                        <Grid item xs={12} md={6} lg={4} className='mt-4'>
-                                            <Card className='card mb-3' sx={{ maxWidth: 345 }}>
-                                                {/* <Box className=' positionab' > */}
-                                                <Link to={`/tool/${tool?._id}`} className='CardLink'>
-                                                    <CardMedia
-                                                        className='positionab'
-                                                        sx={{ height: 140 }}
-                                                        image={tool?.imageURL}
-                                                        title="green iguana"
-                                                    />
-                                                    <Box className='positionrs'>
-                                                        <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
-                                                    </Box>
-                                                    {/* </Box> */}
-                                                    <CardContent sx={{ paddingBottom: '0' }}>
+                                    tools.length ? (
+                                        <Grid container mt={5}>
+                                            {
+                                                tools?.map((tool, idx) => (
+                                                    <Grid item xs={12} md={6} lg={4} className='mt-4'>
+                                                        <Card className='card mb-3' sx={{ maxWidth: 345 }}>
+                                                            {/* <Box className=' positionab' > */}
+                                                            <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
+                                                                <CardMedia
+                                                                    className='positionab'
+                                                                    sx={{ height: 140 }}
+                                                                    image={tool?.imageURL}
+                                                                    title="green iguana"
+                                                                />
+                                                                <Box className='positionrs'>
+                                                                    <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
+                                                                </Box>
+                                                                {/* </Box> */}
+                                                                <CardContent sx={{ paddingBottom: '0' }}>
 
-                                                        <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
-                                                            <Box className="d-flex">
-                                                                <Typography className='revert' gutterBottom variant="h5" component="div">
-                                                                    {tool?.tool_name}
-                                                                </Typography>
-                                                                {
-                                                                    tool?.favourite?.length > 10 && (
-                                                                        <VerifiedIcon className='icon-co buttonIcon mb-1 ms-2' sx={{ marginRight: "10px", fontSize: "20px" }} />
-
-                                                                    )
-                                                                }
-                                                            </Box>
-                                                            <Box>
-                                                                <TurnedInNotIcon />
-                                                                {tool?.favourite?.length}
-                                                            </Box>
-                                                        </Box>
-                                                        <Typography className='text-left' variant="body2"  >
-                                                            {tool?.short_description?.slice(0, 100)}.
-                                                        </Typography>
-                                                        <Box>
-                                                            <Grid container className='mt-2'>
-                                                                {
-                                                                    tool?.price?.map((data, idx) => (
-                                                                        <Grid item className='m-2'>
-                                                                            <Typography className="tagCard1">
-                                                                                {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
-                                                                                {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
-                                                                                {data === "Free" && <TaskAltIcon className='cardTagIcon' />}
-                                                                                {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}
-                                                                                {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}
-                                                                                {data === "Deals" && <SellIcon className='cardTagIcon' />}
-                                                                                {data}
+                                                                    <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
+                                                                        <Box className="d-flex">
+                                                                            <Typography className='revert' gutterBottom variant="h5" component="div">
+                                                                                {tool?.tool_name}
                                                                             </Typography>
+                                                                            {
+                                                                                tool?.favourite?.length > 10 && (
+                                                                                    <VerifiedIcon className='icon-co buttonIcon mb-1 ms-2' sx={{ marginRight: "10px", fontSize: "20px" }} />
+
+                                                                                )
+                                                                            }
+                                                                        </Box>
+                                                                        <Box>
+                                                                            <TurnedInNotIcon />
+                                                                            {tool?.favourite?.length}
+                                                                        </Box>
+                                                                    </Box>
+                                                                    <Typography className='text-left' variant="body2"  >
+                                                                        {tool?.short_description?.slice(0, 100)}.
+                                                                    </Typography>
+                                                                    <Box>
+                                                                        <Grid container className='mt-2'>
+                                                                            {
+                                                                                tool?.price?.map((data, idx) => (
+                                                                                    <Grid item className='m-2'>
+                                                                                        <Typography className="tagCard1">
+                                                                                            {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
+                                                                                            {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
+                                                                                            {data === "Free" && <TaskAltIcon className='cardTagIcon' />}
+                                                                                            {data === "Paid" && <MonetizationOnIcon className='cardTagIcon' />}
+                                                                                            {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}
+                                                                                            {data === "Deals" && <SellIcon className='cardTagIcon' />}
+                                                                                            {data}
+                                                                                        </Typography>
+                                                                                    </Grid>
+                                                                                ))
+                                                                            }
                                                                         </Grid>
-                                                                    ))
-                                                                }
-                                                            </Grid>
-                                                        </Box>
+                                                                    </Box>
 
-                                                    </CardContent>
-                                                </Link>
+                                                                </CardContent>
+                                                            </Link>
 
-                                                <CardActions sx={{ justifyContent: "space-between" }}>
-                                                    <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
-                                                    <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
-                                                </CardActions>
-                                            </Card>
+                                                            <CardActions sx={{ justifyContent: "space-between" }}>
+                                                                <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
+                                                                <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
+                                                            </CardActions>
+                                                        </Card>
+                                                    </Grid>
+                                                ))
+                                            }
                                         </Grid>
-                                    ))
+
+                                    ) : (
+                                        <Box className='didnotfind'><Typography className='textDesLarger' >Search did not find tools !
+                                        </Typography></Box>
+                                    )
                                 }
-                            </Grid>
+                            </Box>
                         )
-                    }
-
-
-
-
+                    } 
                 </Container>
             </Box>
             <Footer />

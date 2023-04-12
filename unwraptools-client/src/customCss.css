@@ -1,0 +1,137 @@
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiAutocomplete-inputRoot.css-1bp1ao6 {
+  border: 1px solid var(--border_color) !important;
+  border-radius: inherit !important;
+}
+
+.chackbox {
+  color: #0ea5e9 !important;
+}
+
+svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiSelect-icon.MuiSelect-iconOutlined.css-1636szt {
+  color: #0ea5e9 !important;
+}
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.selectGrid.css-fvipm8 {
+  height: 50px !important;
+  width: 175px !important;
+  border: 1px solid var(--border_color) !important;
+  color: var(--body_color) !important;
+}
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.buttonText.css-1ujsas3 {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-md-6.MuiGrid-grid-lg-4.css-170ukis {
+  display: flex;
+  justify-content: center;
+}
+
+.MuiAutocomplete-root.MuiAutocomplete-hasPopupIcon.css-xxees4 {
+  border-bottom: 1px solid var(--border_color) !important;
+}
+
+button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.MuiAutocomplete-popupIndicator.css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator {
+  color: #0ea5e9 !important;
+}
+
+button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.MuiAutocomplete-popupIndicator.css-uge3vf {
+  color: #0ea5e9 !important;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiPaper-root.MuiMenu-paper.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-177ic5c {
+  background: var(--body_background) !important;
+  color: var(--body_color) !important;
+}
+
+span.MuiStepLabel-label.Mui-active.css-2fdkz6 {
+  color: var(--body_color) !important;
+}
+
+span.MuiStepLabel-label.Mui-completed.css-2fdkz6 {
+  color: var(--body_color) !important;
+}
+
+span.MuiButtonBase-root.MuiRadio-root.MuiRadio-colorPrimary.PrivateSwitchBase-root.MuiRadio-root.MuiRadio-colorPrimary.MuiRadio-root.MuiRadio-colorPrimary.css-1a5icme {
+  color: #0ea5e9 !important;
+}
+
+.w100 {
+  height: 70vh !important;
+}
+
+span.MuiSkeleton-root.MuiSkeleton-text.MuiSkeleton-pulse.css-1qj23nx {
+  width: 100%;
+}
+
+span.MuiSkeleton-root.MuiSkeleton-rectangular.MuiSkeleton-pulse.css-1xg7cbe {
+  width: 100%;
+}
+
+span.MuiStepLabel-label.Mui-disabled.css-2fdkz6 {
+  color: var(--body_color) !important;
+}
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.Mui-disabled.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.css-ogsmbu {
+  border: 1px solid var(--border_color) !important;
+  color: var(--border_color) !important;
+}
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.Mui-disabled.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.css-1hw9j7s {
+  border: 1px solid var(--border_color) !important;
+  color: var(--border_color) !important;
+}
+
+.MuiButtonBase-root.MuiChip-root.MuiChip-filled.MuiChip-sizeMedium.MuiChip-colorDefault.MuiChip-deletable.MuiChip-deletableColorDefault.MuiChip-filledDefault.MuiAutocomplete-tag.MuiAutocomplete-tagSizeMedium.css-la0a2z {
+  border: 1px solid var(--border_color) !important;
+  color: var(--border_color) !important;
+}
+svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiChip-deleteIcon.MuiChip-deleteIconMedium.MuiChip-deleteIconColorDefault.MuiChip-deleteIconFilledColorDefault.css-vubbuv {
+  color: var(--border_color) !important;
+}
+
+svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeSmall.css-1k33q06 {
+  color: var(--border_color) !important;
+}
+
+span.MuiSkeleton-root.MuiSkeleton-rectangular.MuiSkeleton-pulse.css-1xjtozi-MuiSkeleton-root {
+  width: 100%;
+}
+
+span.MuiSkeleton-root.MuiSkeleton-text.MuiSkeleton-pulse.css-1vlqgvf-MuiSkeleton-root {
+  width: 100%;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-multiline.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  border: 1px solid var(--border_color) !important;
+}
+
+textarea#outlined-multiline-static {
+  color: var(--body_color) !important;
+}
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-multiline.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  color: var(--body_color) !important;
+}
+
+main.MuiBox-root.css-1e4w6be {
+  padding-top: 20px !important;
+}
+
+@media only screen and (max-width: 650px) {
+  .css-sonuja {
+    min-width: 80% !important;
+  }
+  button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.w-100.button-login.d-flex.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+    min-width: 45px !important;
+  }
+  .MuiBox-root.css-19n2k3a {
+    min-width: 85% !important;
+  }
+
+  .MuiBox-root.css-1pvli9r {
+    width: 90% !important;
+  }
+  .d-flex.w-100.MuiBox-root.css-1xl5pv3 {
+    min-width: 35px !important;
+  }
+}

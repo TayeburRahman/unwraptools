@@ -64,12 +64,9 @@ export default function UsersTable() {
 
     axios.get(`https://server.unwraptools.io/api/v1/user/getByAllUsers`)
     .then(res => {
-      if (res.status === 200) {
-        console.log(res?.data )
+       
         setUsers(res?.data)
-      }else{
-        console.log(res)
-      }
+      
     })
 
   },[])

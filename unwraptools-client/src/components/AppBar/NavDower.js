@@ -38,58 +38,61 @@ export default function NavDower() {
       className="background backgroundDower "
     >
       <List>
-        
-          <ListItem disablePadding>
-         
-               <Container className="d-flex pt-2 pb-2" sx={{justifyContent: "space-between"}}>  <Link to="/" style={{textDecoration:"none"}}>
-               <Typography className='text25 textBeg revert'>unwraptools</Typography></Link> <Button className='buttonClose'><CloseIcon className="ms-3"/></Button></Container> 
-          </ListItem>
-        
+
+        <ListItem disablePadding>
+
+          <Container className="d-flex pt-2 pb-2" sx={{ justifyContent: "space-between" }}> 
+           <Link to="/" style={{ textDecoration: "none" }}>
+            <Typography className='text25 textBeg revert'>unwraptools</Typography></Link> 
+            <Button className='buttonClose'><CloseIcon className="ms-3" /></Button>
+            </Container>
+        </ListItem>
+
       </List>
       <Divider />
-      <List className='mt-3'> 
-            <ListItem className=''  disablePadding>
-                <Link to="/categories" className='link-route-dower'>Categories</Link>
-            </ListItem> 
-             <ListItem className=''  disablePadding>
-                <Link to="/user/favourites" className='link-route-dower'>My Favourites</Link>
-            </ListItem> 
-            <ListItem className=''  disablePadding>
-                <Link to="/tool/explore" className='link-route-dower'>  Explore & Tool</Link>
-            </ListItem> 
-            <ListItem className='mb-1' disablePadding>
-            <Typography className='SubmitTextDower'> Submit:</Typography>
-            </ListItem> 
-            <ListItem className='' disablePadding>
-                <Link to="/submit-tool" className='link-route-dower'>Submit Tool</Link>
-            </ListItem> 
-            <ListItem className='' disablePadding>
-                <Link to="/submit-news" className='link-route-dower'>Submit News</Link>
-            </ListItem> 
-            <ListItem className='mb-1' disablePadding>
-            <Typography className='SubmitTextDower'> Community:</Typography>
-            </ListItem>  
-            <ListItem  className='' disablePadding>
-                <Link to="/news" className='link-route-dower'>Latest AI News</Link>
-            </ListItem> 
-            <ListItem  disablePadding>
-                <Link to="" className='link-route-dower'>Join Discord</Link>
-            </ListItem>  
+      <List className='mt-3'>
+        <ListItem className='' disablePadding>
+          <Link to="/categories" className='link-route-dower'>Categories</Link>
+        </ListItem>
+        <ListItem className='' disablePadding>
+          <Link to="/user/favourites" className='link-route-dower'>My Favourites</Link>
+        </ListItem>
+        <ListItem className='' disablePadding>
+          <Link to="/tool/explore" className='link-route-dower'>  Explore & Tool</Link>
+        </ListItem>
+        <ListItem className='mb-1' disablePadding>
+          <Typography className='SubmitTextDower'> Submit:</Typography>
+        </ListItem>
+        <ListItem className='' disablePadding>
+          <Link to="/submit-tool" className='link-route-dower'>Submit Tool</Link>
+        </ListItem>
+        <ListItem className='' disablePadding>
+          <Link to="/submit-news" className='link-route-dower'>Submit News</Link>
+        </ListItem>
+        <ListItem className='mb-1' disablePadding>
+          <Typography className='SubmitTextDower'> Community:</Typography>
+        </ListItem>
+        <ListItem className='' disablePadding>
+          <Link to="/news" className='link-route-dower'>Latest AI News</Link>
+        </ListItem>
+        <ListItem disablePadding>
+          <Link to="" className='link-route-dower'>Join Discord</Link>
+        </ListItem>
       </List>
       <Box className='box-bottom '>
-      <Container>
-      <Box className='d-flex ps-3 pt-2 '>
-                       <Link to="" className="d-flex icon-box icon-box-custom">
-                                 <LinkedInIcon className='linkedIn icon-site' sx={{color: "rgb(0, 119, 181)"}} />
-                                </Link>
-                                <Link to="" className="d-flex icon-box icon-box-custom">
-                                    <TwitterIcon className='Twitter icon-site' sx={{color: "rgb(0, 119, 181)"}} />
-                                </Link>
-                                <Link to="" className="d-flex icon-box icon-box-custom">
-                                    <YouTubeIcon className='YouTub icon-site' sx={{color: "rgb(255, 0, 0)"}} />
-                                </Link>
-              </Box>
-      </Container>
+        <Container>
+          <Box className='d-flex ps-3 pt-2 '>
+            <Link to="" className="d-flex icon-box icon-box-custom">
+              <LinkedInIcon className='linkedIn icon-site' sx={{ color: "rgb(0, 119, 181)" }} />
+            </Link>
+            <Link to="" className="d-flex icon-box icon-box-custom">
+              <TwitterIcon className='Twitter icon-site' sx={{ color: "rgb(0, 119, 181)" }} />
+            </Link>
+            <Link to="" className="d-flex icon-box icon-box-custom">
+              <YouTubeIcon className='YouTub icon-site' sx={{ color: "rgb(255, 0, 0)" }} />
+            </Link>
+          </Box>
+        </Container>
       </Box>
     </Box>
   );
@@ -102,11 +105,11 @@ export default function NavDower() {
           <Drawer
             anchor={anchor}
             open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)} 
+            onClose={toggleDrawer(anchor, false)}
           >
             {list(anchor)}
 
-            
+
           </Drawer>
         </React.Fragment>
       ))}

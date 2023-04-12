@@ -8,6 +8,11 @@
   color: var(--body_color) !important;
 }
 
+.didnotfind {
+  height: 50vh;
+  margin-top: 100px;
+}
+
 /* CSS */
 .button-6_1custom {
   align-items: center;
