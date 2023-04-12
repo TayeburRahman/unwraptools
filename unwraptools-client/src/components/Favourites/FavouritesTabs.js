@@ -146,22 +146,26 @@ export default function FavoritesTabs() {
                                                         tools?.map((tool, idx) => (
                                                             <Grid item xs={12} md={6} lg={4}>
                                                                 <Card className='card mb-3' sx={{ maxWidth: 345 }}>
+                                                                   <Link to={`/tool/${tool?._id}`} className='CardLink'>
                                                                     <CardMedia
                                                                         className=' positionab'
                                                                         sx={{ height: 140 }}
                                                                         image={tool?.imageURL}
                                                                         title="green iguana"
                                                                     />
+                                                                    </Link>
                                                                     <Box className='positionrs'>
                                                                         <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
                                                                     </Box>
                                                                     <CardContent sx={{ paddingBottom: '0' }}>
-                                                                        <Link to={`/tool/${tool?._id}`} className='CardLink'>
+                                                                      
                                                                             <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
                                                                                 <Box>
+                                                                                <Link to={`/tool/${tool?._id}`} className='CardLink'>
                                                                                     <Typography className='revert' gutterBottom variant="h5" component="div">
                                                                                         {tool?.tool_name}
                                                                                     </Typography>
+                                                                                    </Link>
                                                                                 </Box>
                                                                                 <Box>
                                                                                     <TurnedInNotIcon />
@@ -176,6 +180,7 @@ export default function FavoritesTabs() {
                                                                                     {
                                                                                         tool?.price?.map((data, idx) => (
                                                                                             <Grid item className='m-2'>
+                                                                                                 <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'> 
                                                                                                 <Typography className="tagCard1">
                                                                                                     {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
                                                                                                     {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
@@ -185,16 +190,16 @@ export default function FavoritesTabs() {
                                                                                                     {data === "Deals" && <SellIcon className='cardTagIcon' />}
                                                                                                     {data}
                                                                                                 </Typography>
+                                                                                                </Link>
                                                                                             </Grid>
                                                                                         ))
                                                                                     }
                                                                                 </Grid>
-                                                                            </Box>
-                                                                        </Link>
+                                                                            </Box> 
                                                                     </CardContent>
 
                                                                     <CardActions sx={{ justifyContent: "space-between" }}>
-                                                                        <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
+                                                                    <a href={tool?.websiteURL} target='_blank' size="small" className='OpenInNewIcon' ><OpenInNewIcon /></a>
                                                                         <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
                                                                     </CardActions>
                                                                 </Card>
@@ -204,7 +209,7 @@ export default function FavoritesTabs() {
                                                 </Grid>
                                             ) : (
                                                 <Box>
-                                                    <Typography className='textDesLarger' >  No News Favourited Yet</Typography>
+                                                    <Typography className='textDesLarger' >  No Tools Or News Favourited Yet</Typography>
                                                     <img src={notFound} />
                                                 </Box>
                                             )

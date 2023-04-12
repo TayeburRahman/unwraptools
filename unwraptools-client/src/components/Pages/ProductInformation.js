@@ -90,7 +90,7 @@ function ProductInformation() {
                                 <Box className='textTagNav padding5' mt="40px" >
                                     <Link className='routeLink'>Home</Link>
                                     <span>  <EastIcon className='RouteLinkIcon' /> </span>
-                                    <Link className='routeLink'> Category</Link>
+                                    <Link className='routeLink' to="/categories"> Category</Link>
                                     <span> <EastIcon className='RouteLinkIcon' /> </span>
                                     <text className='textDeg'> {tools?.tool_name}</text>
                                 </Box>
@@ -246,7 +246,7 @@ function ProductInformation() {
                                                             </CardContent>
                                                         </Link>
                                                         <CardActions sx={{ justifyContent: "space-between" }}>
-                                                            <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
+                                                            <a href={tool?.websiteURL} target='_blank' size="small" className='OpenInNewIcon' ><OpenInNewIcon /></a>
                                                             <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
                                                         </CardActions>
                                                     </Card>

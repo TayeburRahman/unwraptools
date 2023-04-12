@@ -11,7 +11,7 @@ function Categories() {
         <div className='background'> 
             <Container>
                 <Box className='textTagNav padding5' mt="40px" >
-                    <Link className='routeLink'>Home</Link>
+                    <Link className='routeLink' to="/">Home</Link>
                     <span> <EastIcon className='RouteLinkIcon' /> </span>
                     <text className='textDeg'>Categories</text>
                 </Box>

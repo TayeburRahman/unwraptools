@@ -25,7 +25,7 @@ router.route('/get/search').put(searchTools);
 router.route('/suggestedit').post(SuggestEdit);
 router.route('/get/suggestedit/:email').get(getSuggestEdit);
 router.route('/get/filter/:id').get(ToolsSearchFilter);
-router.route('/get/filter').get(ToolsSearchFilter); 
+router.route('/get/filter').get(ToolsSearchFilter);  
 router.route('/user/active/:email').get(getUserActiveTools);
 router.route('/user/inactive/:email').get(getUserInactiveTools);
 router.route('/user/tool/:email').get(getUserTools); 

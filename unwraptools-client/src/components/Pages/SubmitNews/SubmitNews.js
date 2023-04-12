@@ -174,7 +174,7 @@ function SubmitNews() {
                         </Grid>
                     </Grid>
                     <Grid className='mt-3'>
-                        <Button variant="contained" className='pt-2' onClick={HandleOnClick}>Submit Tool<SendIcon className=' ps-2' sx={{ marginTop: "-2px !important", fontSize: "25px" }} /></Button>
+                        <Button variant="contained" className='pt-2' onClick={HandleOnClick}>Submit News<SendIcon className=' ps-2' sx={{ marginTop: "-2px !important", fontSize: "25px" }} /></Button>
                     </Grid>
                 </Box>
 

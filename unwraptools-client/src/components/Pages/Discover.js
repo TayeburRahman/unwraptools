@@ -83,9 +83,9 @@ function ProductInformation() {
                         tools?.map((data, idx) => (
                             <Box className='' key={idx}>
                                 <Box className='textTagNav padding5' mt="40px" >
-                                    <Link className='routeLink'>Home</Link>
+                                    <Link className='routeLink' to="/">Home</Link>
                                     <span>  <EastIcon className='RouteLinkIcon' /> </span>
-                                    <Link className='routeLink'> Category</Link>
+                                    <Link className='routeLink' to="/categories"> Category</Link>
                                     <span> <EastIcon className='RouteLinkIcon' /> </span>
                                     <text className='textDeg'> {data?.tool_name}</text>
                                 </Box>
@@ -211,6 +211,7 @@ function ProductInformation() {
                                                     image={tool?.imageURL}
                                                     title="green iguana"
                                                 />
+                                                </Link>
                                                 <Box className='positionrs'>
                                                     <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
                                                 </Box>
@@ -218,9 +219,11 @@ function ProductInformation() {
                                                    
                                                         <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
                                                             <Box className="d-flex">
+                                                            <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
                                                                 <Typography className='revert' gutterBottom variant="h5" component="div">
                                                                     {tool?.tool_name}
                                                                 </Typography>
+                                                                </Link>
                                                                 {
                                                                     tool?.favourite?.length > 10 && (
                                                                         <VerifiedIcon className='icon-co buttonIcon mb-1 ms-2' sx={{ marginRight: "10px", fontSize: "20px" }} />
@@ -241,6 +244,7 @@ function ProductInformation() {
                                                                 {
                                                                     tool?.price?.map((data, idx) => (
                                                                         <Grid item className='m-2' key={idx}>
+                                                                             <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'> 
                                                                             <Typography className="tagCard1">
                                                                                 {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
                                                                                 {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
@@ -250,17 +254,17 @@ function ProductInformation() {
                                                                                 {data === "Deals" && <SellIcon className='cardTagIcon' />}
                                                                                 {data}
                                                                             </Typography>
+                                                                            </Link>
                                                                         </Grid>
                                                                     ))
                                                                 }
                                                             </Grid>
                                                         </Box>
                                                    
-                                                </CardContent>
-                                                </Link>
+                                                </CardContent> 
 
                                                 <CardActions sx={{ justifyContent: "space-between" }}>
-                                                    <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
+                                                <a href={tool?.websiteURL} target='_blank' size="small" className='OpenInNewIcon'><OpenInNewIcon /></a>
                                                     <BookmarkButton setStatus={setStatus} status={status} tools={tool} email={email} />
                                                 </CardActions>
                                             </Card>

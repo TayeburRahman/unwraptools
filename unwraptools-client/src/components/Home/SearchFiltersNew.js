@@ -10,7 +10,7 @@ import Select from '@mui/material/Select';
 import React, { useState } from 'react';
 import FilterModal from './FilterModal';
 
-function SearchFilters({ setSortBy, setPricing, pricing ,setFeatures ,features, sort }) {
+function SearchFiltersNew({ setSortBy, setPricing, pricing ,setFeatures ,features, sort }) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true); 
     const handleChange = (event) => {
@@ -62,5 +62,5 @@ function SearchFilters({ setSortBy, setPricing, pricing ,setFeatures ,features, 
     )
 }
 
-export default SearchFilters
+export default SearchFiltersNew
 

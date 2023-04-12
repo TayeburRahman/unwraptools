@@ -114,10 +114,13 @@ function SearchCategory() {
     const { user } = useAuth()
     const email = user?.email
 
+    console.log(location)
+
 
 
     useEffect(() => {
         setSearch('');
+        // if()
     }, [location])
 
     useEffect(() => {
@@ -141,6 +144,8 @@ function SearchCategory() {
 
     // filter items 
     let url = `https://server.unwraptools.io/api/v1/tool/get/filter`;
+    
+
 
     useEffect(() => {
         url = `${url}${pricing
@@ -169,9 +174,7 @@ function SearchCategory() {
 
     }, [status, features, pricing, sort]);
 
-
-    // search system 
-    const [option2, setOption] = useState()
+ 
 
     const HandelOnChangeSearch = (search) => {
         setSearch(search);
@@ -179,9 +182,7 @@ function SearchCategory() {
             .then(res => {
                 setResponses(response === true && false)
                 setTools(res?.data?.tools)
-            })
-
-
+            }) 
     };
 
 
@@ -211,10 +212,10 @@ function SearchCategory() {
 
                     <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
                         <Grid item className='mt-rev' sx={6}>
-                            <Link to="/submit-tool" className='textDecoration'><button className="button-6_1custom" ><AddIcon />Tools Added Today</button></Link>
+                            <Link to="/tool-today" className='textDecoration'><button className="button-6_1custom" ><AddIcon />Tools Added Today</button></Link>
                         </Grid>
                         <Grid item className='mt-rev' sx={6}>
-                            <Link to="/submit-news" className='textDecoration'> <button className="button-6"  ><PostAddIcon /> News Added Today</button></Link>
+                            <Link to="/news-today" className='textDecoration'> <button className="button-6"  ><PostAddIcon /> News Added Today</button></Link>
                         </Grid>
                     </Grid>
 
@@ -401,17 +402,20 @@ function SearchCategory() {
                                                                     image={tool?.imageURL}
                                                                     title="green iguana"
                                                                 />
+                                                                </Link>
                                                                 <Box className='positionrs'>
-                                                                    <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>
+                                                               <Typography className='price'>$ {tool?.startingPrice}/mo</Typography>  
+                                                             
                                                                 </Box>
-                                                                {/* </Box> */}
                                                                 <CardContent sx={{ paddingBottom: '0' }}>
 
                                                                     <Box className="d-flex" sx={{ justifyContent: "space-between" }}>
                                                                         <Box className="d-flex">
+                                                                        <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>     
                                                                             <Typography className='revert' gutterBottom variant="h5" component="div">
                                                                                 {tool?.tool_name}
                                                                             </Typography>
+                                                                            </Link>
                                                                             {
                                                                                 tool?.favourite?.length > 10 && (
                                                                                     <VerifiedIcon className='icon-co buttonIcon mb-1 ms-2' sx={{ marginRight: "10px", fontSize: "20px" }} />
@@ -432,7 +436,8 @@ function SearchCategory() {
                                                                             {
                                                                                 tool?.price?.map((data, idx) => (
                                                                                     <Grid item className='m-2'>
-                                                                                        <Typography className="tagCard1">
+                                                                                          <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'> 
+                                                                                         <Typography className="tagCard1">
                                                                                             {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
                                                                                             {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
                                                                                             {data === "Free" && <TaskAltIcon className='cardTagIcon' />}
@@ -440,18 +445,18 @@ function SearchCategory() {
                                                                                             {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}
                                                                                             {data === "Deals" && <SellIcon className='cardTagIcon' />}
                                                                                             {data}
-                                                                                        </Typography>
+                                                                                         </Typography>
+                                                                                        </Link>
                                                                                     </Grid>
                                                                                 ))
                                                                             }
                                                                         </Grid>
                                                                     </Box>
 
-                                                                </CardContent>
-                                                            </Link>
+                                                                </CardContent> 
 
                                                             <CardActions sx={{ justifyContent: "space-between" }}>
-                                                                <Link to={`/${tool?.websiteURL}`} size="small" className='OpenInNewIcon' href="#hh"><OpenInNewIcon /></Link>
+                                                            <a href={tool?.websiteURL} target='_blank' size="small" className='OpenInNewIcon'  ><OpenInNewIcon /></a>
                                                                 <BookmarkButton setStatus={setStatus} status={status} tool={tool} email={email} />
                                                             </CardActions>
                                                         </Card>

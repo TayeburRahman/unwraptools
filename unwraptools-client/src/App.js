@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
@@ -12,10 +11,12 @@ import Discover from './components/Pages/Discover';
 import Favorites from './components/Pages/Favourites';
 import Homes from './components/Pages/Home';
 import LatestNews from './components/Pages/LatestNews';
+import LatestNewsToday from './components/Pages/LatestNewsToday';
 import ProductInformation from './components/Pages/ProductInformation';
 import SearchCategory from './components/Pages/SearchCetagory';
 import SubmitNews from './components/Pages/SubmitNews/SubmitNews';
 import SubmitTool from './components/Pages/SubmitTool';
+import Tools from './components/Pages/Tools';
 import UpdateNews from './components/Pages/UserNews/UpdateNews';
 import UpdateTools from './components/UserTools/UpdateTools';
 import SignIn from './components/authentication/SingIn';
@@ -40,14 +41,7 @@ function App() {
   
   const { pathname } = useLocation(); 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
-    let url = `https://server.unwraptools.io/api/v1/tool/get/filter`;
-
-    axios.get(url).then((res) => { 
-      // setResponse()
-      // setTools(res?.data?.tools); 
-  });
+    window.scrollTo(0, 0); 
   }, [pathname]);
 
 
@@ -72,7 +66,9 @@ function App() {
              <Route path="/tool/:Id" element={  <ProductInformation/> }/>  
              <Route path="/categories" element={ <Categories/>}/>  
              <Route path="/categories/:Id" element={<SearchCategory/>}/>  
+             <Route path="/tool-today" element={<Tools/>}/>  
              <Route path="/news" element={ <LatestNews/>}/>  
+             <Route path="/news-today" element={ <LatestNewsToday/>}/>  
              <Route path="/tool/explore" element={<Discover/>}/>  
              <Route path="/submit-tool" element={<PrivateRoute> <SubmitTool/> </PrivateRoute>}/>  
              <Route path="/submit-news" element={<PrivateRoute> <SubmitNews/> </PrivateRoute>}/>  

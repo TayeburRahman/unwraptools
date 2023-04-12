@@ -1,14 +1,10 @@
 import AddIcon from '@mui/icons-material/Add';
-import BeenhereIcon from '@mui/icons-material/Beenhere';
-import GroupIcon from '@mui/icons-material/Group';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import SearchIcon from '@mui/icons-material/Search';
 import SellIcon from '@mui/icons-material/Sell';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import VerifiedIcon from '@mui/icons-material/Verified';
@@ -25,14 +21,11 @@ import { Box, Container } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import Footer from '../AppBar/Footer/Footer';
 
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
 import useAuth from '../../Firebase/Hooks/useAuth';
-import SearchSystem from '../Home/SearchSystem';
-import TagHome from '../Home/TagHome';
+import SearchFiltersNew from '../Home/SearchFiltersNew';
+import Subscribe from '../Subscribe/Subscribe';
 import BookmarkButton from './BookmarkButton';
 import './Home.css';
 
@@ -103,7 +96,7 @@ const top100Films = [
 
 
 
-function Homes() {
+function Tools() {
 
     const [tools, setTools] = useState([])
     const [status, setStatus] = useState(0)
@@ -114,18 +107,17 @@ function Homes() {
     const [search, setSearch] = useState("");
     const [response, setResponse] = useState(true);
 
-    const { pathname } = useLocation();
+    const { pathname } = useLocation(); 
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [pathname]);
-
+    
+     console.log('features', features)
 
     const { user } = useAuth()
     const email = user?.email
 
     // filter items 
     let url = `https://server.unwraptools.io/api/v1/tool/get/filter`;
+    let urls = `https://server.unwraptools.io/api/v1/tool/get/filter?sort=new`;
 
     useEffect(() => {
         url = `${url}${pricing
@@ -145,7 +137,7 @@ function Homes() {
                 }sort=${sort}`}`;
 
 
-        axios.get(url).then((res) => {
+        axios.get(!features.length && !pricing.length  && sort === null ? urls: url).then((res) => {
             setResponse()
             setTools(res?.data?.tools);
         });
@@ -154,8 +146,7 @@ function Homes() {
     }, [status, features, pricing, sort, pathname]);
 
 
-    // search system 
-    const [option2, setOption] = useState()
+    // search system  
 
     const HandelOnChangeSearch = (search) => {
         setSearch(search);
@@ -168,41 +159,22 @@ function Homes() {
 
     return (
         <Box className='theme' >
-            <Box>
-                <Container sx={{ marginTop: "50px" }}>
-                    <Grid container >
-                        <Grid item xs={12} md={8} lg={8}>
-                            <Grid container spacing={2} className="icon_box_left">
-                                <Box sx={{ marginRight: "15px" }} >
-                                    <Box className="box-mobile"><GroupIcon className='icon-co custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} />50,000+</Box>
-                                </Box>
-                                <Box sx={{ marginRight: "15px" }} >
-                                    <Box className="box-mobile"> <BeenhereIcon className='custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} />130,000+</Box>
-                                </Box>
-                                <Box sx={{ marginRight: "15px" }} >
-                                    <Box className="box-mobile"><LocalOfferIcon className='custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} />Exclusive Deals</Box>
-                                </Box>
-                                <Box sx={{ marginRight: "15px" }} >
-                                    <Box className="box-mobile"><SupportAgentIcon className='custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} />Sponsor Us</Box>
-                                </Box>
-                                <Box sx={{ marginRight: "15px" }} >
-                                    <Box> </Box>
-                                </Box>
+           <Box>
+                <Container sx={{ marginTop: "40px" }}>
+                    <Grid container sx={{ alignItems: "center" }}>
+                        <Grid item xs={12} md={6} lg={6} className='pe-4'>
+                            <Grid>
+                                <Typography className='revert text-left pt-0' gutterBottom variant="h3" component="div">
+                                Tools Added Today
+                                </Typography>
+                                <Typography className='textDes text-left'>Find the AI Tool or AI Product you're looking for among <span className='resultFountSpan'>{tools?.length}</span> results from the category - Fitness AI Tools.</Typography>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} md={4} lg={4}>
-                            <Grid container spacing={2} className="icon_box_home">
-                                <Link className="d-flex icon-box">
-                                    <LinkedInIcon className='linkedIn icon-site' sx={{ color: "rgb(0, 119, 181)" }} />
-                                </Link>
-                                <Link className="d-flex icon-box">
-                                    <TwitterIcon className='Twitter icon-site' sx={{ color: "rgb(0, 119, 181)" }} />
-                                </Link>
-                                <Link className="d-flex icon-box">
-                                    <YouTubeIcon className='YouTub icon-site' sx={{ color: "rgb(255, 0, 0)" }} />
-                                </Link>
-                            </Grid>
+
+                        <Grid item xs={12} md={6} lg={6}>
+                            <Subscribe />
                         </Grid>
+
                     </Grid>
                 </Container>
             </Box>
@@ -225,7 +197,7 @@ function Homes() {
                         </Typography>
                     </Grid>
                     <Grid>
-                        <TagHome />
+                        {/* <TagHome /> */}
                         <Typography className='textDes2 text-left mb-1 mt-2'  >RESULTS FOUND:  <span className='resultFountSpan'>{tools?.length}</span></Typography>
                         <Grid container>
                             <Grid item xs={3} md={1} lg={1}>
@@ -258,7 +230,9 @@ function Homes() {
                                 </Stack>
                             </Grid>
                         </Grid>
-                        <SearchSystem pricing={pricing} setPricing={setPricing} features={features} setFeatures={setFeatures} setSortBy={setSortBy} sort={sort} />
+                        <SearchFiltersNew pricing={pricing} setPricing={setPricing} features={features} setFeatures={setFeatures} 
+                        setSortBy={setSortBy}
+                         sort={sort} />
                     </Grid>
 
                     {
@@ -417,19 +391,6 @@ function Homes() {
     )
 }
 
-export default Homes
+export default Tools
 
-
-
-
-{/* <Grid container>
-    <Grid item xs={12} md={6} lg={4} className='mt-4'>
-    <Box>
-<Skeleton variant="rectangular" sx={{ maxWidth: "345px" }} height={150} />
-<Box sx={{ pt: 0.5 }}>
-    <Skeleton sx={{ maxWidth: "345px" }} height={50} />
-    <Skeleton sx={{ maxWidth: "345px" }} height={50} />
-</Box>
-</Box>
-    </Grid>
-</Grid> */}
+ 
