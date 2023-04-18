@@ -193,7 +193,7 @@ function SearchCategory() {
                     <Grid container sx={{ alignItems: "center" }}>
                         <Grid item xs={12} md={6} lg={6} className='pe-4'>
                             <Grid>
-                                <Typography className='revert text-left pt-0' gutterBottom variant="h3" component="div">
+                                <Typography className='revert text-left pt-0' gutterBottom variant="h4" component="div">
                                     {isCname}
                                 </Typography>
                                 <Typography className='textDes text-left'>Find the AI Tool or AI Product you're looking for among <span className='resultFountSpan'>{tools?.length}</span> results from the category - Fitness AI Tools.</Typography>
@@ -393,7 +393,7 @@ function SearchCategory() {
                                             {
                                                 tools?.map((tool, idx) => (
                                                     <Grid item xs={12} md={6} lg={4} className='mt-4'>
-                                                        <Card className='card mb-3' sx={{ maxWidth: 345 }}>
+                                                        <Card className='card mb-3 w-100' sx={{ maxWidth: 345 }}>
                                                             {/* <Box className=' positionab' > */}
                                                             <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
                                                                 <CardMedia
@@ -428,15 +428,17 @@ function SearchCategory() {
                                                                             {tool?.favourite?.length}
                                                                         </Box>
                                                                     </Box>
+                                                                    <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
                                                                     <Typography className='text-left' variant="body2"  >
                                                                         {tool?.short_description?.slice(0, 100)}.
                                                                     </Typography>
+                                                                    </Link>
                                                                     <Box>
                                                                         <Grid container className='mt-2'>
                                                                             {
                                                                                 tool?.price?.map((data, idx) => (
                                                                                     <Grid item className='m-2'>
-                                                                                          <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'> 
+                                                                                         
                                                                                          <Typography className="tagCard1">
                                                                                             {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
                                                                                             {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
@@ -446,7 +448,7 @@ function SearchCategory() {
                                                                                             {data === "Deals" && <SellIcon className='cardTagIcon' />}
                                                                                             {data}
                                                                                          </Typography>
-                                                                                        </Link>
+                                                                                        
                                                                                     </Grid>
                                                                                 ))
                                                                             }

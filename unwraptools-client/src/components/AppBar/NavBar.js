@@ -76,6 +76,9 @@ function NavBar() {
 
  
 
+  const HandleReload = () =>{
+    window.location.reload(false);
+  }
 
   return (
     <AppBar position="static" className="navbar">
@@ -122,9 +125,9 @@ function NavBar() {
             </Box>
             <Box>
               {" "}
-              <Link to="/tool/explore" className="link-route">
+              <button onClick={HandleReload} className="buttonExp" > <Link to="/tool/explore" className="link-route">
                 Explore
-              </Link>
+              </Link></button>
             </Box>
             <Box className="navHoverBox">
               <Link className="link-route hoverSubmit ">Submit</Link>
@@ -149,19 +152,19 @@ function NavBar() {
                 <Link to="/news" className="link-hover hoverBg">
                   Latest AI News
                 </Link>
-                <Link to="/" className="link-hover hoverBg">
+                <a href="https://discord.gg/k2e4KGXe23" target="_blank" className="link-hover hoverBg">
                   Join Discord
-                </Link>
+                </a> 
                 <Box className="d-flex ps-3 pt-2">
-                  <Link className="d-flex icon-box-custom link-nav-icon">
+                  <a href="https://www.linkedin.com/company/unwraptools/" target="_blank"  className="d-flex icon-box-custom link-nav-icon">
                     <LinkedInIcon className="linkedIn icon-site" sx={{ color: "rgb(0, 119, 181)" }} />
-                  </Link>
-                  <Link className="d-flex icon-box-custom link-nav-icon">
+                  </a>
+                  <a href="https://twitter.com/UnwrapTools/" target="_blank"  className="d-flex icon-box-custom link-nav-icon">
                     <TwitterIcon className="Twitter icon-site" sx={{ color: "rgb(0, 119, 181)" }} />
-                  </Link>
-                  <Link className="d-flex icon-box-custom link-nav-icon">
+                  </a>
+                  <a href="https://www.youtube.com/@UnwrapTools/" target="_blank" className="d-flex icon-box-custom link-nav-icon">
                     <YouTubeIcon className="YouTub icon-site" sx={{ color: "rgb(255, 0, 0)" }} />
-                  </Link>
+                  </a>
                 </Box>
               </Box>
             </Box>

@@ -15,21 +15,21 @@ function Footer() {
              <Divider/>
              <Grid container mt="25px">
                 <Grid item xs={12} md={6} lg={6} className="link-footer-box" sx={{display:"flex"}}>
-                    <Link to="/" className="link-footer">Privacy Policy</Link>  <span className='ps-2 pe-2'>|</span>
-                    <Link to="/" className="link-footer" sx={{paddingRight:"10px"}}>Terms of Services</Link> <span className='ps-2 pe-2'>|</span>
-                    <Link to="" className='link-footer' >
+                    <Link to="/privacy-policy" className="link-footer">Privacy Policy</Link>  <span className='ps-2 pe-2'>|</span>
+                    <Link to="/terms_of_services" className="link-footer" sx={{paddingRight:"10px"}}>Terms of Services</Link> <span className='ps-2 pe-2'>|</span>
+                    <Link to="/sponsor" className='link-footer' >
                         Sponsor Us</Link>
                 </Grid> 
                 <Grid item xs={12} md={6} lg={6} className="d-flex text-right ju-co" sx={{justifyContent: "flex-end"}}>
-                    <Link className="d-flex icon-box">
+                    <a href="https://www.linkedin.com/company/unwraptools/" target="_blank" className="d-flex icon-box">
                     <LinkedInIcon className='linkedIn' sx={{color: "rgb(0, 119, 181)"}} />
-                    </Link>
-                    <Link className="d-flex icon-box" >
+                    </a>
+                    <a href="https://twitter.com/UnwrapTools/" target="_blank" className="d-flex icon-box" >
                     <TwitterIcon className='Twitter' sx={{color: "rgb(0, 119, 181)"}} />
-                    </Link>
-                    <Link className="d-flex icon-box">
+                    </a>
+                    <a href="https://www.youtube.com/@UnwrapTools/" target="_blank" className="d-flex icon-box">
                     <YouTubeIcon className='YouTub' sx={{color: "rgb(255, 0, 0)"}} />
-                    </Link>  
+                    </a>  
                 </Grid> 
             </Grid>
              </Container>

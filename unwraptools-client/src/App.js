@@ -12,10 +12,13 @@ import Favorites from './components/Pages/Favourites';
 import Homes from './components/Pages/Home';
 import LatestNews from './components/Pages/LatestNews';
 import LatestNewsToday from './components/Pages/LatestNewsToday';
+import PrivacyPolicy from './components/Pages/PrivacyPolicy';
 import ProductInformation from './components/Pages/ProductInformation';
 import SearchCategory from './components/Pages/SearchCetagory';
+import SponsorUs from './components/Pages/SponsorUs';
 import SubmitNews from './components/Pages/SubmitNews/SubmitNews';
 import SubmitTool from './components/Pages/SubmitTool';
+import TermsOfServices from './components/Pages/TermsOfServices';
 import Tools from './components/Pages/Tools';
 import UpdateNews from './components/Pages/UserNews/UpdateNews';
 import UpdateTools from './components/UserTools/UpdateTools';
@@ -70,6 +73,12 @@ function App() {
              <Route path="/news" element={ <LatestNews/>}/>  
              <Route path="/news-today" element={ <LatestNewsToday/>}/>  
              <Route path="/tool/explore" element={<Discover/>}/>  
+             <Route path="/sponsor" element={<SponsorUs/>}/>  
+             <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>  
+             <Route path="/terms_of_services" element={<TermsOfServices/>}/>  
+
+              
+              
              <Route path="/submit-tool" element={<PrivateRoute> <SubmitTool/> </PrivateRoute>}/>  
              <Route path="/submit-news" element={<PrivateRoute> <SubmitNews/> </PrivateRoute>}/>  
              <Route path="/user/favourites" element={<PrivateRoute> <Favorites/> </PrivateRoute>}/> 
@@ -95,8 +104,7 @@ function App() {
                <Route path='manage_users' element={<AdminRoute><ManageUsers/></AdminRoute>} /> 
                <Route path='manage_email' element={<AdminRoute><ManageEmail/></AdminRoute>} /> 
                <Route path='tool/:toolId' element={<PrivateRoute><ToolInformation/> </PrivateRoute>} /> 
-               <Route path='profile' element={<PrivateRoute><AdminProfile/></PrivateRoute>} /> 
-               {/* <Route path='manage_result' element={<ManageResult/>} />  */}
+               <Route path='profile' element={<PrivateRoute><AdminProfile/></PrivateRoute>} />  
                <Route path='database' element={<Database />} />   
              </Route> 
              <Route path='*' element={<NotFound />} />  

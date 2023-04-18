@@ -135,9 +135,7 @@ function ProductInformation() {
                                             </Box>
 
                                         )
-                                    }
-                                            
-
+                                    } 
                                             <Grid container>
                                                 {
                                                     data?.price?.map((data, idx) => (
@@ -195,15 +193,12 @@ function ProductInformation() {
                                 tools.map((data, idx) => (
                               <Typography key={idx} className='BrowseAITools' mb="25px">Alternative AI Tools for {data?.tool_name} </Typography>
                                 ))
-                            }
-                            
-                            
-
+                            } 
                             <Grid container>
                                 {
                                     categoryTools?.slice(0, 5)?.map((tool, idx) => (
                                         <Grid item xs={12} md={6} lg={4} key={idx}>
-                                            <Card className='card mb-3' sx={{ maxWidth: 345 }}>
+                                            <Card className='card mb-3 w-100' sx={{ maxWidth: 345 }}>
                                             <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
                                                 <CardMedia
                                                     className=' positionab'
@@ -236,15 +231,17 @@ function ProductInformation() {
                                                                 {tool?.favourite?.length}
                                                             </Box>
                                                         </Box>
+                                                        <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
                                                         <Typography className='text-left' variant="body2"  >
                                                             {tool?.short_description?.slice(0, 100)}.
                                                         </Typography>
+                                                        </Link>
                                                         <Box>
                                                             <Grid container className='mt-2'>
                                                                 {
                                                                     tool?.price?.map((data, idx) => (
                                                                         <Grid item className='m-2' key={idx}>
-                                                                             <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'> 
+                                                                           
                                                                             <Typography className="tagCard1">
                                                                                 {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
                                                                                 {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
@@ -254,7 +251,7 @@ function ProductInformation() {
                                                                                 {data === "Deals" && <SellIcon className='cardTagIcon' />}
                                                                                 {data}
                                                                             </Typography>
-                                                                            </Link>
+                                                                          
                                                                         </Grid>
                                                                     ))
                                                                 }
@@ -292,13 +289,4 @@ function ProductInformation() {
 
 export default ProductInformation
 
-
-{/* <Grid container>
-                        <Grid item sx={12} md={12} lg={6}>
-                            <img src='/' />
-                        </Grid>
-                        <Grid item sx={12} md={12} lg={6}>
-
-                        </Grid>
-
-                    </Grid> */}
+ 
