@@ -88,11 +88,15 @@ useEffect(()=>{
               <Box sx={{ mt: 2, mb: 1 }}>
                 <StepOne
                   setToolName={setToolName}
+                  tool_name={tool_name}
                   description={description}
                   setWebsiteURL={setWebsiteURL}
                   setShortDescription={setShortDescription}
                   setDescription={setDescription}
                   setImageURL={setImageURL}
+                  imageURL={imageURL}
+                  websiteURL={websiteURL}
+                  short_description={short_description}
                 />
               </Box>
             )

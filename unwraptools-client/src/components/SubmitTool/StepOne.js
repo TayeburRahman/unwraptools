@@ -10,12 +10,13 @@ function StepOne(props) {
     const [selected, setSelected] = useState([]);
     const [value, setValue] = useState('');
 
+
     const {
         setToolName,  
         description, 
         setWebsiteURL, 
         setShortDescription, 
-        setDescription, setImageURL} = props;
+        setDescription, setImageURL, tool_name, websiteURL, short_description, imageURL} = props;
 
 
 
@@ -27,6 +28,7 @@ function StepOne(props) {
                 <Typography className='text-left  '>Tool Name</Typography>
                     <FormControl sx={{  width:"100%" }} variant="outlined"> 
                         <OutlinedInput 
+                        value={tool_name}
                           onChange={e => setToolName(e.target.value)}
                             id="outlined-adornment-weight"
                             placeholder="ChatGPT"
@@ -42,7 +44,8 @@ function StepOne(props) {
                     <Typography className='text-left'>Website URL</Typography>
                  <FormControl className='width100' xs={{ width:"100%" }} variant="outlined">
                         <OutlinedInput 
-                        onChange={e => setWebsiteURL(e.target.value)}
+                           onChange={e => setWebsiteURL(e.target.value)}
+                           value={websiteURL}
                             id="outlined-adornment-weight"
                             required
                             aria-describedby="outlined-weight-helper-text"
@@ -58,6 +61,7 @@ function StepOne(props) {
                 <FormControl sx={{ width:"100%" }} variant="outlined">
                         <OutlinedInput 
                          onChange={e => setImageURL(e.target.value)}
+                         value={imageURL}
                             id="outlined-adornment-weight"
                             aria-describedby="outlined-weight-helper-text"
                             placeholder="Please provide the Image URL of the Tool"
@@ -71,6 +75,7 @@ function StepOne(props) {
                 <Typography className='text-left'>Tool's short description (Optional)</Typography>
                 <FormControl sx={{ width:"100%" }} variant="outlined">
                         <OutlinedInput 
+                        value={short_description}
                         onChange={e => setShortDescription(e.target.value)}
                             id="outlined-adornment-weight"
                             aria-describedby="outlined-weight-helper-text"

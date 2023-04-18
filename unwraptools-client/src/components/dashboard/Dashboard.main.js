@@ -116,8 +116,8 @@ const DashboardMain = () => {
         <Fragment>
             <div className="main-page">
                 <div className="container-fluid">
-                    <div className="page-title-div">
-                        <h2 className="title text-left">Dashboard</h2>
+                    <div className=" ">
+                        <h2 className=" text-left" style={{color:"#363636"}}>Dashboard</h2>
                     </div>
                 </div>
                 <section className="section">
@@ -168,7 +168,7 @@ const DashboardMain = () => {
                                                 <Box>
                                                     <BatchPredictionIcon className='fontSize-40' style={{ color: "white" }} />
                                                 </Box>
-                                                <Link className='dp-grid text-right'>
+                                                <Link className='dp-grid text-right cw'>
                                                     <span className="number counter">{activeTool?.length}</span>
                                                     <span className="name">All Tools</span>
                                                 </Link>
@@ -314,7 +314,7 @@ const DashboardMain = () => {
                                 {
                                     !userTool?.length && (
                                         <Box className="d-flex notfoundBox w-100 mt-4">
-                                            <WarningAmberIcon className='WarningAmberIcon' />    <Typography className='textDes text_center mt-1'>You No Tools Submit Yet !</Typography>
+                                            <WarningAmberIcon className='WarningAmberIcon' />    <Typography className='text_center mt-1' style={{color:"#363636", fontWeight:"500"}}>You No Tools Submit Yet !</Typography>
                                         </Box>
                                     )
                                 }

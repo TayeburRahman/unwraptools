@@ -12,6 +12,14 @@
   height: 50vh;
   margin-top: 100px;
 }
+.sponsor_link {
+  text-decoration: none;
+  color: var(--body_color) !important;
+}
+
+.sponsor_link:hover {
+  text-decoration: underline;
+}
 
 /* CSS */
 .button-6_1custom {

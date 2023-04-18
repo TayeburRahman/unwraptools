@@ -121,7 +121,12 @@
   margin-right: 5px;
 }
 
-.link-nav-icon {
+.buttonExp {
+  padding: 0px;
+  margin: 0px;
+  border: none !important;
+  background: var(--body_background) !important;
+  color: var(--body_color) !important;
 }
 
 .link-nav-icon:hover {

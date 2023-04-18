@@ -110,7 +110,7 @@ function SubmitNews() {
                         Submit News
                     </Typography>
                     <p className='text-left DesPText'>
-                        Once approved, your submission will be added to the feed.
+                    Once your news is approved, you will see the submission on the news section of the website.
                     </p>
                 </Box>
                 <Box className="Paper pb-5">
@@ -122,7 +122,7 @@ function SubmitNews() {
                                     className=''
                                     onChange={e => setNewsName(e.target.value)}
                                     id="outlined-adornment-weight"
-                                    placeholder="Please describe the content in 1-2 sentences."
+                                    placeholder="Kindly put the title of post here."
                                     required
                                     aria-describedby="outlined-weight-helper-text"
                                     inputProps={{
@@ -139,7 +139,7 @@ function SubmitNews() {
                                     id="outlined-adornment-weight"
                                     required
                                     aria-describedby="outlined-weight-helper-text"
-                                    placeholder="https://www.wired.com/"
+                                    placeholder="https://www.TechCrunch.com/"
                                     inputProps={{
                                         'aria-label': 'weight',
                                     }}

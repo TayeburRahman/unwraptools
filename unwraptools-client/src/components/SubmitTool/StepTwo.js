@@ -178,8 +178,9 @@ function StepTwo(props) {
                     <FormControl sx={{ width: "100%" }} variant="outlined">
                         <OutlinedInput
                             id="outlined-adornment-weight"
-                            placeholder="$5/mo"
-                            defaultValue={startingPrice}
+                            placeholder="$5/mo" 
+                            type='number'
+                            value={startingPrice}
                             onChange={e => { setStartingPrice(e.target.value) }}
                             aria-describedby="outlined-weight-helper-text"
                             inputProps={{

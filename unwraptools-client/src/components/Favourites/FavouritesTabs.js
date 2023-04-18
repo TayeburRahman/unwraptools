@@ -104,8 +104,7 @@ export default function FavoritesTabs() {
 
                     if (!res?.data?.news?.length) {
                         setNotFoundNews(true)
-                    }
-                
+                    } 
             })
     }, [status])
 
@@ -145,7 +144,7 @@ export default function FavoritesTabs() {
                                                     {
                                                         tools?.map((tool, idx) => (
                                                             <Grid item xs={12} md={6} lg={4}>
-                                                                <Card className='card mb-3' sx={{ maxWidth: 345 }}>
+                                                                <Card className='card mb-3 w-100' sx={{ maxWidth: 345 }}>
                                                                    <Link to={`/tool/${tool?._id}`} className='CardLink'>
                                                                     <CardMedia
                                                                         className=' positionab'
@@ -172,15 +171,16 @@ export default function FavoritesTabs() {
                                                                                     {tool?.favourite?.length}
                                                                                 </Box>
                                                                             </Box>
+                                                                            <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
                                                                             <Typography className='text-left' variant="body2"  >
                                                                                 {tool?.short_description?.slice(0, 100)}
                                                                             </Typography>
+                                                                            </Link>
                                                                             <Box>
                                                                                 <Grid container className='mt-2'>
                                                                                     {
                                                                                         tool?.price?.map((data, idx) => (
-                                                                                            <Grid item className='m-2'>
-                                                                                                 <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'> 
+                                                                                            <Grid item className='m-2'> 
                                                                                                 <Typography className="tagCard1">
                                                                                                     {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
                                                                                                     {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
@@ -189,8 +189,7 @@ export default function FavoritesTabs() {
                                                                                                     {data === "Contact for Pricing" && <MonetizationOnIcon className='cardTagIcon' />}
                                                                                                     {data === "Deals" && <SellIcon className='cardTagIcon' />}
                                                                                                     {data}
-                                                                                                </Typography>
-                                                                                                </Link>
+                                                                                                </Typography> 
                                                                                             </Grid>
                                                                                         ))
                                                                                     }
@@ -209,7 +208,7 @@ export default function FavoritesTabs() {
                                                 </Grid>
                                             ) : (
                                                 <Box>
-                                                    <Typography className='textDesLarger' >  No Tools Or News Favourited Yet</Typography>
+                                                    <Typography className='textDesLarger' >  No Tools Favourited Yet</Typography>
                                                     <img src={notFound} />
                                                 </Box>
                                             )

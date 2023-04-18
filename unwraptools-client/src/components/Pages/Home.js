@@ -174,16 +174,16 @@ function Homes() {
                         <Grid item xs={12} md={8} lg={8}>
                             <Grid container spacing={2} className="icon_box_left">
                                 <Box sx={{ marginRight: "15px" }} >
-                                    <Box className="box-mobile"><GroupIcon className='icon-co custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} />50,000+</Box>
+                                    <Box className="box-mobile"><GroupIcon className='icon-co custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} />100,000+</Box>
                                 </Box>
                                 <Box sx={{ marginRight: "15px" }} >
-                                    <Box className="box-mobile"> <BeenhereIcon className='custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} />130,000+</Box>
+                                    <Box className="box-mobile"> <BeenhereIcon className='custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} />210,000+</Box>
                                 </Box>
                                 <Box sx={{ marginRight: "15px" }} >
                                     <Box className="box-mobile"><LocalOfferIcon className='custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} />Exclusive Deals</Box>
                                 </Box>
                                 <Box sx={{ marginRight: "15px" }} >
-                                    <Box className="box-mobile"><SupportAgentIcon className='custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} />Sponsor Us</Box>
+                                    <Box className="box-mobile"><SupportAgentIcon className='custom-icon-size' sx={{ marginRight: "10px", fontSize: "20px" }} /><Link to='/sponsor' className='sponsor_link'>Sponsor Us</Link></Box>
                                 </Box>
                                 <Box sx={{ marginRight: "15px" }} >
                                     <Box> </Box>
@@ -192,15 +192,15 @@ function Homes() {
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
                             <Grid container spacing={2} className="icon_box_home">
-                                <Link className="d-flex icon-box">
+                                <a href="https://www.linkedin.com/company/unwraptools/" target="_blank" className="d-flex icon-box">
                                     <LinkedInIcon className='linkedIn icon-site' sx={{ color: "rgb(0, 119, 181)" }} />
-                                </Link>
-                                <Link className="d-flex icon-box">
+                                </a>
+                                <a href="https://twitter.com/UnwrapTools/" target="_blank" className="d-flex icon-box">
                                     <TwitterIcon className='Twitter icon-site' sx={{ color: "rgb(0, 119, 181)" }} />
-                                </Link>
-                                <Link className="d-flex icon-box">
+                                </a>
+                                <a href="https://www.youtube.com/@UnwrapTools/" target="_blank"  className="d-flex icon-box">
                                     <YouTubeIcon className='YouTub icon-site' sx={{ color: "rgb(255, 0, 0)" }} />
-                                </Link>
+                                </a>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -329,8 +329,8 @@ function Homes() {
                                         <Grid container mt={5}>
                                             {
                                                 tools?.map((tool, idx) => (
-                                                    <Grid item xs={12} md={6} lg={4} className='mt-4'>
-                                                        <Card className='card mb-3' sx={{ maxWidth: 345 }}>
+                                                    <Grid item xs={12} md={6} lg={4} className='mt-4 '>
+                                                        <Card className='card mb-3 w-100' sx={{ maxWidth: 345 }}>
                                                             {/* <Box className=' positionab' > */}
                                                             <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
                                                                 <CardMedia
@@ -365,15 +365,17 @@ function Homes() {
                                                                             {tool?.favourite?.length}
                                                                         </Box>
                                                                     </Box>
+                                                                    <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'>
                                                                     <Typography className='text-left' variant="body2"  >
                                                                         {tool?.short_description?.slice(0, 100)}.
                                                                     </Typography>
+                                                                    </Link>
                                                                     <Box>
                                                                         <Grid container className='mt-2'>
                                                                             {
                                                                                 tool?.price?.map((data, idx) => (
                                                                                     <Grid item className='m-2'>
-                                                                                          <Link to={`/tool/${tool?._id}`} className='CardLink' target='_blank'> 
+                                                                                         
                                                                                         <Typography className="tagCard1">
                                                                                             {data === "Free Trial" && <LockOpenIcon className='cardTagIcon' />}
                                                                                             {data === "Freemium" && <LockOpenIcon className='cardTagIcon' />}
@@ -383,7 +385,7 @@ function Homes() {
                                                                                             {data === "Deals" && <SellIcon className='cardTagIcon' />}
                                                                                             {data}
                                                                                         </Typography>
-                                                                                        </Link>
+                                                                                       
                                                                                     </Grid>
                                                                                 ))
                                                                             }

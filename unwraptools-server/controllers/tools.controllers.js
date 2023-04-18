@@ -338,7 +338,7 @@ const searchTools = async (req, res) => {
       })
     }else{ 
       const tools = await toolsModels.find({
-        tool_name: { $regex: search, $options: "i" },
+        tool_name: { $regex: search, $options: "i" }, status:"active"
       }); // search for documents that match the query
       //   res.json(results);
 

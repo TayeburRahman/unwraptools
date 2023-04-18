@@ -92,10 +92,9 @@ export default function ManageUserNewsTable({ slice }) {
                 <span className='d-flex-jc-ac'>{news?.status}</span>
               </TableCell>
               <TableCell align="right">
-                <span className='d-flex-jc-ac'> <Link to={`/dashboard/user/update_news/${news?._id}`}> <Button
+                <span className='d-flex-jc-ac'> <Link to={`/dashboard/user/update_news/${news?._id}`} style={{textDecoration:"none"}}> <Button
                   // onClick={e => handleApprove(news?._id)} 
-                  color="success" variant="outlined">Edit</Button></Link></span>
-
+                  color="success" variant="outlined" >Edit</Button></Link></span> 
               </TableCell>
 
               <TableCell align="right">
